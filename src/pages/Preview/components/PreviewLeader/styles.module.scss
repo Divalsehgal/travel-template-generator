@@ -1,0 +1,45 @@
+@use '@shiv-bhoomi/design-tokens/scss' as *;
+
+.leader {
+  padding: $spacing-6;
+  // background set via inline styles from theme
+
+  &__content {
+    display: flex;
+    gap: $spacing-4;
+    align-items: center;
+  }
+
+  &__image {
+    width: 80px;
+    height: 80px;
+    border-radius: $border-radius-full;
+    object-fit: cover;
+  }
+
+  &__name {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    // color inherited from parent
+    margin: 0 0 $spacing-1 0;
+  }
+
+  &__role {
+    font-size: $font-size-base;
+    opacity: 0.8;
+    // color inherited from parent
+    margin: 0;
+  }
+}
+
+.section__title {
+  font-family: $font-family-display;
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-bold;
+  // color inherited from parent via theme
+  margin: 0 0 $spacing-4 0;
+  padding-bottom: $spacing-3;
+  border-bottom: 2px solid currentColor;
+  opacity: 0.3;
+  border-bottom-opacity: 0.3;
+}

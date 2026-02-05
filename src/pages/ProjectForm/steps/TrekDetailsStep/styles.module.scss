@@ -1,0 +1,18 @@
+@use '@shiv-bhoomi/design-tokens/scss' as *;
+
+.step {
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $color-forest-green;
+    margin-bottom: $spacing-6;
+
+    .material-symbols-outlined {
+      font-size: $font-size-2xl;
+      color: $color-primary;
+    }
+  }
+}

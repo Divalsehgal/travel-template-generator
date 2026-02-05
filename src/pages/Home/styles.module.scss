@@ -1,0 +1,134 @@
+@use '@shiv-bhoomi/design-tokens/scss' as *;
+
+.home {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $color-white;
+  padding: $spacing-8 0;
+  font-family: $font-family-body;
+
+  &__container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 $spacing-4;
+    text-align: center;
+
+    @media (min-width: 768px) {
+      padding: 0 $spacing-8;
+    }
+  }
+
+  &__title {
+    font-family: $font-family-display;
+    font-size: $font-size-3xl;
+    font-weight: $font-weight-black;
+    color: $color-forest-green;
+    margin-bottom: $spacing-6;
+
+    @media (min-width: 768px) {
+      font-size: $font-size-5xl;
+    }
+  }
+
+  &__description {
+    font-size: $font-size-base;
+    line-height: $font-line-height-relaxed;
+    color: $color-stone-gray;
+    margin-bottom: $spacing-16;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+
+    @media (min-width: 768px) {
+      font-size: $font-size-lg;
+    }
+  }
+
+  &__steps {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-6;
+    margin-bottom: $spacing-16;
+
+    @media (min-width: 640px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    &-item {
+      padding: $spacing-6;
+      background: $color-bg-off-white;
+      border-radius: $border-radius-lg;
+      transition: all $transition-base ease;
+
+      &:hover {
+        background: $color-white;
+        box-shadow: $shadow-md;
+        transform: translateY(-2px);
+      }
+    }
+
+    &-number {
+      width: 40px;
+      height: 40px;
+      margin: 0 auto $spacing-4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: $color-primary;
+      color: $color-white;
+      border-radius: $border-radius-full;
+      font-size: $font-size-lg;
+      font-weight: $font-weight-bold;
+    }
+
+    &-title {
+      font-size: $font-size-base;
+      font-weight: $font-weight-semibold;
+      color: $color-forest-green;
+      margin-bottom: $spacing-2;
+
+      @media (min-width: 768px) {
+        font-size: $font-size-lg;
+      }
+    }
+
+    &-text {
+      font-size: $font-size-sm;
+      color: $color-stone-gray;
+      line-height: $font-line-height-normal;
+
+      @media (min-width: 768px) {
+        font-size: $font-size-base;
+      }
+    }
+  }
+
+  &__cta {
+    display: inline-block;
+    padding: $spacing-4 $spacing-12;
+    background: $color-primary;
+    color: $color-white;
+    border-radius: $border-radius-lg;
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    text-decoration: none;
+    transition: all $transition-base ease;
+
+    &:hover {
+      background: $color-primary-dark;
+      transform: translateY(-2px);
+      box-shadow: $shadow-lg;
+    }
+
+    @media (min-width: 768px) {
+      padding: $spacing-5 $spacing-16;
+      font-size: $font-size-lg;
+    }
+  }
+}

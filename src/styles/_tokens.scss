@@ -1,0 +1,7 @@
+// Re-export tokens from the design-tokens package
+// This file serves as a single source of truth for all SCSS files
+@forward '@shiv-bhoomi/design-tokens/scss';
+
+*{
+    box-sizing: border-box;
+}

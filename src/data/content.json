@@ -1,96 +1,111 @@
 {
   "header": {
-    "phone": "+91 98765 43210",
-    "email": "trek@shivbhoomi.com",
-    "website": "www.shivbhoomi.com"
+    "phone": "+91 86280 49917",
+    "email": "sehgaldival@gmail.com",
+    "website": "www.sehgaldival.com"
   },
   "brand": {
-    "title": "Shiv Bhoomi",
-    "subtitle": "Tour & Travels"
+    "title": "Shiv Bhoomi Tour & Travels",
+    "subtitle": "Powered by the Spirit of the Himalayas",
+    "logo": "https://picsum.photos/200/200?random=0"
   },
   "hero": {
-    "badge": "Remote Himalayan Expedition",
-    "title": "Churah Lakes Circuit",
-    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuCAUkxSNXeU8zaC1uUyEylM_ULDYyZJVvnftI5Q1tdrSxk2ZgH8vk5mpEE04wFAO7CnGKQVRFD6iEkTV5Ye_0BY-OBF0WZlpMs5vCLlAHpgFfkzTk7PL3Ou_Z1z1Y6_q5ZFeNspo6NLO48v9WAL-XTfDQ60h9xKLMHsLBb29f2rEVo3l-N2bI7MygCABE6sjuHWQ1ltxrd3eRTrX8g1eqAV52aNlfbRmwMRLhNzwfEbCmWnofU7xMLVjNEsIXmT9scRb71f9exalGU",
+    "badge": "Offbeat Himalayan Trek",
+    "title": "Gadasaru Mahadev Trek",
+    "location": "Churah Valley, Chamba District, Himachal Pradesh",
+    "image": "https://picsum.photos/1200/700?random=1",
     "stats": {
-      "duration": "6 Days / 5 Nights",
-      "altitude": "4,200 Meters",
+      "duration": "5 Days / 4 Nights",
+      "altitude": "4,000 meters",
       "difficulty": "Moderate to Difficult"
     }
   },
   "overview": {
-    "text": "The Churah Lakes Circuit is a rare high-altitude Himalayan expedition that takes you far beyond commercial trekking routes. Hidden deep within the Churah Valley, this trail reveals sacred sapphire-blue lakes, vast alpine meadows, glacial streams, and dramatic mountain panoramas. Designed for seasoned trekkers, this journey blends physical challenge, cultural immersion, and raw wilderness—offering an authentic Himalayan experience untouched by mass tourism."
+    "text": "The Gadasaru Mahadev Trek is a sacred and offbeat Himalayan journey hidden deep within the Churah Valley of Himachal Pradesh. This trail takes you through dense deodar forests, remote mountain villages, cascading streams, and untouched alpine landscapes before reaching the revered Gadasaru Mahadev Temple. Known for its spiritual energy and raw natural beauty, this trek is ideal for trekkers seeking solitude, cultural depth, and a strong connection with nature."
   },
   "leader": {
-    "name": "Sunil Kumar",
-    "role": "Founder & Lead Expedition Guide",
-    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuCCK-QDS1aSyYpmuTm_ILdkGtbJY2jgm7TKJdkqlDsjPf-qqHVFw05NbCGVA75L7fHVIGZkstgLeuym-27oaHSwwBnm2nWxtrBZz-_j8tkMugO0BWRQ4VjAu-s93xHh6XjWSN_N3ca9_h2-UC9gq7wgQ8zbGfshIMN6oAMrvLgDcdzVtd8Sl_BxU98l67jHsXgU2WKPfOVwgcJEvPHiP-A6moXqGH4GDy9GTvSIvI0rNp9IWhhm1X0a0w6nA6i9QwOlFqCe0ZjBxK4"
+    "name": "Dival Sehgal",
+    "role": "Trek Leader & Local Guide",
+    "image": "https://picsum.photos/400/400?random=2"
   },
   "itinerary": [
     {
       "day": "01",
-      "badge": "Basecamp",
-      "title": "Arrival & Acclimatization",
-      "description": "Arrive at Chamba and settle into the Himalayan rhythm. A detailed expedition briefing follows, including safety protocols and gear checks. Enjoy a short acclimatization walk through nearby villages to help your body adapt to altitude.",
-      "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuCAUkxSNXeU8zaC1uUyEylM_ULDYyZJVvnftI5Q1tdrSxk2ZgH8vk5mpEE04wFAO7CnGKQVRFD6iEkTV5Ye_0BY-OBF0WZlpMs5vCLlAHpgFfkzTk7PL3Ou_Z1z1Y6_q5ZFeNspo6NLO48v9WAL-XTfDQ60h9xKLMHsLBb29f2rEVo3l-N2bI7MygCABE6sjuHWQ1ltxrd3eRTrX8g1eqAV52aNlfbRmwMRLhNzwfEbCmWnofU7xMLVjNEsIXmT9scRb71f9exalGU"
+      "badge": "Arrival",
+      "title": "Arrival at Chamba & Drive to Churah Valley",
+      "description": "Arrive at Chamba and begin a scenic drive towards the remote Churah Valley. Meet the trek team, attend a briefing, and prepare for the journey.",
+      "image": "https://picsum.photos/800/500?random=3"
     },
     {
       "day": "02",
       "badge": "Trek Start",
-      "title": "Into the Deodar Forests",
-      "description": "Drive from Chamba to Tissa, the gateway to the Churah Valley. Begin trekking through dense deodar forests with gradual ascents, ending the day at Bhanodi. Overnight stay in high-quality alpine tents under starlit skies.",
-      "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuCAUkxSNXeU8zaC1uUyEylM_ULDYyZJVvnftI5Q1tdrSxk2ZgH8vk5mpEE04wFAO7CnGKQVRFD6iEkTV5Ye_0BY-OBF0WZlpMs5vCLlAHpgFfkzTk7PL3Ou_Z1z1Y6_q5ZFeNspo6NLO48v9WAL-XTfDQ60h9xKLMHsLBb29f2rEVo3l-N2bI7MygCABE6sjuHWQ1ltxrd3eRTrX8g1eqAV52aNlfbRmwMRLhNzwfEbCmWnofU7xMLVjNEsIXmT9scRb71f9exalGU"
+      "title": "Forest Trail to Base Camp",
+      "description": "Trek through pine and deodar forests, crossing streams and small villages before reaching base camp.",
+      "image": "https://picsum.photos/800/500?random=4"
     },
     {
       "day": "03",
       "badge": "High Camp",
-      "title": "Alpine Meadows & Glacial Streams",
-      "description": "Ascend beyond the tree line into sweeping alpine meadows surrounded by towering peaks. Cross icy glacial streams and witness dramatic Himalayan landscapes before setting up camp in a pristine high-altitude basin.",
-      "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuCAUkxSNXeU8zaC1uUyEylM_ULDYyZJVvnftI5Q1tdrSxk2ZgH8vk5mpEE04wFAO7CnGKQVRFD6iEkTV5Ye_0BY-OBF0WZlpMs5vCLlAHpgFfkzTk7PL3Ou_Z1z1Y6_q5ZFeNspo6NLO48v9WAL-XTfDQ60h9xKLMHsLBb29f2rEVo3l-N2bI7MygCABE6sjuHWQ1ltxrd3eRTrX8g1eqAV52aNlfbRmwMRLhNzwfEbCmWnofU7xMLVjNEsIXmT9scRb71f9exalGU"
+      "title": "Ascent Above the Tree Line",
+      "description": "Climb steadily into alpine terrain with panoramic valley views. Overnight stay at high camp.",
+      "image": "https://picsum.photos/800/500?random=5"
     },
     {
       "day": "04",
       "badge": "Summit Day",
-      "title": "Sacred Lakes & Panoramic Views",
-      "description": "A challenging yet rewarding day as you climb to the highest point of the expedition at 4,200 meters. Explore the three sacred Churah Lakes, revered by locals, and soak in panoramic views of the Pir Panjal and Zanskar ranges before descending to High Camp.",
-      "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuCAUkxSNXeU8zaC1uUyEylM_ULDYyZJVvnftI5Q1tdrSxk2ZgH8vk5mpEE04wFAO7CnGKQVRFD6iEkTV5Ye_0BY-OBF0WZlpMs5vCLlAHpgFfkzTk7PL3Ou_Z1z1Y6_q5ZFeNspo6NLO48v9WAL-XTfDQ60h9xKLMHsLBb29f2rEVo3l-N2bI7MygCABE6sjuHWQ1ltxrd3eRTrX8g1eqAV52aNlfbRmwMRLhNzwfEbCmWnofU7xMLVjNEsIXmT9scRb71f9exalGU"
+      "title": "Gadasaru Mahadev Temple Visit",
+      "description": "Early start for the sacred temple visit. Spend time at the shrine and descend to base camp.",
+      "image": "https://picsum.photos/800/500?random=6"
     },
     {
       "day": "05",
-      "badge": "Farewell",
-      "title": "Descent & Celebration",
-      "description": "Descend through scenic valleys and retrace the trail back to civilization. Share stories, laughter, and a final celebratory dinner in Chamba before departing with unforgettable memories of the Himalayas.",
-      "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuCAUkxSNXeU8zaC1uUyEylM_ULDYyZJVvnftI5Q1tdrSxk2ZgH8vk5mpEE04wFAO7CnGKQVRFD6iEkTV5Ye_0BY-OBF0WZlpMs5vCLlAHpgFfkzTk7PL3Ou_Z1z1Y6_q5ZFeNspo6NLO48v9WAL-XTfDQ60h9xKLMHsLBb29f2rEVo3l-N2bI7MygCABE6sjuHWQ1ltxrd3eRTrX8g1eqAV52aNlfbRmwMRLhNzwfEbCmWnofU7xMLVjNEsIXmT9scRb71f9exalGU"
+      "badge": "Return",
+      "title": "Descent & Departure",
+      "description": "Descend through scenic trails and return to Chamba. Trip concludes.",
+      "image": "https://picsum.photos/800/500?random=7"
     }
   ],
   "inclusions": [
     {
-      "icon": "restaurant",
-      "title": "Nutritious Mountain Meals",
-      "description": "All freshly prepared vegetarian meals from basecamp to basecamp."
+      "icon": "hotel",
+      "title": "Accommodation",
+      "description": "Guesthouse and campsite stays on a sharing basis."
     },
     {
-      "icon": "camping",
-      "title": "Premium Camping Equipment",
-      "description": "Four-season tents, insulated sleeping bags, and comfortable sleeping mats."
+      "icon": "restaurant",
+      "title": "Meals",
+      "description": "Nutritious vegetarian meals during the trek."
+    },
+    {
+      "icon": "hiking",
+      "title": "Trek Support",
+      "description": "Experienced trek leader and local support staff."
     },
     {
       "icon": "medical_services",
-      "title": "High-Altitude Safety",
-      "description": "Oxygen cylinders, first-aid kits, and trained support staff."
+      "title": "Safety & First Aid",
+      "description": "Basic medical kit and safety support."
     }
   ],
   "thingsToCarry": [
-    { "icon": "hiking", "label": "High-Ankle Trekking Boots" },
-    { "icon": "ac_unit", "label": "Insulated Down Jacket" },
-    { "icon": "light", "label": "Headlamp with Spare Batteries" },
-    { "icon": "water_bottle", "label": "Minimum 2L Water Capacity" },
-    { "icon": "pill", "label": "Personal Medication & First Aid" },
-    { "icon": "dry_cleaning", "label": "Sunscreen & Lip Balm" }
+    { "icon": "hiking", "label": "High-ankle trekking shoes" },
+    { "icon": "ac_unit", "label": "Warm jacket & thermals" },
+    { "icon": "light", "label": "Headlamp or torch" },
+    { "icon": "water_bottle", "label": "Reusable water bottles (2L)" },
+    { "icon": "pill", "label": "Personal medication" }
+  ],
+  "faqs": [
+    {
+      "question": "Is this trek suitable for beginners?",
+      "answer": "Fit beginners with prior hiking experience can attempt this trek."
+    }
   ],
   "footer": {
-    "title": "Begin Your Himalayan Journey",
-    "description": "Scan the QR code to connect with our adventure experts on WhatsApp or visit our website to secure your spot on this exclusive expedition.",
-    "copyright": "© 2024 Shiv Bhoomi Tour & Travels"
-  }
+    "title": "Shiv Bhoomi Tour & Travels",
+    "description": "Contact us to begin your journey into the untouched Himalayas.",
+    "copyright": "© 2026 Shiv Bhoomi Tour & Travels"
+  },
+  "id": "1769868305358",
+  "createdAt": "2026-01-31T14:05:05.358Z",
+  "updatedAt": "2026-01-31T15:50:27.588Z"
 }

@@ -1,0 +1,59 @@
+@use '@shiv-bhoomi/design-tokens/scss' as *;
+
+.header {
+  padding: $spacing-8 $spacing-6;
+  // background and color set via inline styles from theme
+
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: $spacing-6;
+    flex-wrap: wrap;
+  }
+
+  &__brand {
+    display: flex;
+    align-items: center;
+    gap: $spacing-4;
+
+    &-logo {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      background: $color-white;
+      border-radius: $border-radius-lg;
+      box-shadow: $shadow-md;
+    }
+
+    &-title {
+      font-family: $font-family-display;
+      font-size: $font-size-3xl;
+      font-weight: $font-weight-black;
+      margin: 0 0 $spacing-2 0;
+    }
+
+    &-subtitle {
+      font-size: $font-size-lg;
+      opacity: 0.9;
+      margin: 0;
+    }
+  }
+
+  &__contact {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+
+    &-item {
+      display: flex;
+      align-items: center;
+      gap: $spacing-2;
+      font-size: $font-size-sm;
+
+      .material-symbols-outlined {
+        font-size: $font-size-base;
+      }
+    }
+  }
+}

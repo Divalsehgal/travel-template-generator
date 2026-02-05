@@ -1,0 +1,89 @@
+@use '@shiv-bhoomi/design-tokens/scss' as *;
+
+.step {
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $color-forest-green;
+    margin-bottom: $spacing-6;
+
+    .material-symbols-outlined {
+      font-size: $font-size-2xl;
+      color: $color-primary;
+    }
+  }
+
+  &__subtitle {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $color-stone-gray;
+    margin: $spacing-8 0 $spacing-4;
+
+    .material-symbols-outlined {
+      font-size: $font-size-xl;
+      color: $color-primary;
+    }
+  }
+}
+
+.color-field {
+  &__label {
+    display: block;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: $color-forest-green;
+    margin-bottom: $spacing-2;
+  }
+
+  &__input {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    background: $color-white;
+    border: $border-width-thin solid $color-gray-300;
+    border-radius: $border-radius-default;
+    padding: $spacing-2;
+    transition: all $transition-base ease;
+
+    &:focus-within {
+      border-color: $color-primary;
+      box-shadow: 0 0 0 3px rgba($color-primary, 0.1);
+    }
+  }
+
+  &__picker {
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: $border-radius-sm;
+    cursor: pointer;
+    padding: 0;
+    background: none;
+
+    &::-webkit-color-swatch-wrapper {
+      padding: 0;
+    }
+
+    &::-webkit-color-swatch {
+      border: $border-width-thin solid $color-gray-300;
+      border-radius: $border-radius-sm;
+    }
+  }
+
+  &__text {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: $font-size-sm;
+    font-family: monospace;
+    color: $color-stone-gray;
+    background: transparent;
+    text-transform: uppercase;
+  }
+}

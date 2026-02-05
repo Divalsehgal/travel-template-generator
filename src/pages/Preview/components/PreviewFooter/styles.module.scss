@@ -1,0 +1,26 @@
+@use '@shiv-bhoomi/design-tokens/scss' as *;
+
+.footer {
+  padding: $spacing-8 $spacing-6;
+  // background and color set via inline styles from theme
+  text-align: center;
+
+  &__title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    margin: 0 0 $spacing-3 0;
+  }
+
+  &__description {
+    font-size: $font-size-base;
+    line-height: 1.6;
+    margin: 0 0 $spacing-4 0;
+    opacity: 0.9;
+  }
+
+  &__copyright {
+    font-size: $font-size-sm;
+    opacity: 0.7;
+    margin: 0;
+  }
+}
