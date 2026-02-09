@@ -22,6 +22,18 @@ const HeaderStep = ({ register, errors }) => {
           error={errors.header?.email}
         />
       </FormRow>
+      <FormRow>
+        <FormInput
+          label="Instagram"
+          register={register("header.instagram")}
+          placeholder="e.g. instagram.com/..."
+        />
+        <FormInput
+          label="Facebook"
+          register={register("header.facebook")}
+          placeholder="e.g. facebook.com/..."
+        />
+      </FormRow>
       <FormInput
         label="Website"
         register={register("header.website")}

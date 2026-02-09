@@ -15,13 +15,24 @@ const PreviewHero = ({ hero, sectionStyle }: PreviewHeroProps): JSX.Element => {
 
   return (
     <section className={styles["hero"]} style={heroStyle}>
-      {hero.image && (
+      {hero.images && hero.images.length >= 3 ? (
+        <div className={styles["hero__grid"]}>
+          <div className={styles["hero__grid-main"]}>
+            <img src={hero.images[0]} alt={hero.title} className={styles["hero__image"]} />
+            {hero.badge && (
+              <span className={styles["hero__badge"]} style={heroStyle}>{hero.badge}</span>
+            )}
+          </div>
+          <div className={styles["hero__grid-side"]}>
+            <img src={hero.images[1]} alt={`${hero.title} 2`} className={styles["hero__image-side"]} />
+            <img src={hero.images[2]} alt={`${hero.title} 3`} className={styles["hero__image-side"]} />
+          </div>
+        </div>
+      ) : hero.image && (
         <div className={styles["hero__image-wrapper"]}>
           <img src={hero.image} alt={hero.title} className={styles["hero__image"]} />
           {hero.badge && (
-            <span className={styles["hero__badge"]} style={
-              heroStyle
-            }>{hero.badge}</span>
+            <span className={styles["hero__badge"]} style={heroStyle}>{hero.badge}</span>
           )}
         </div>
       )}

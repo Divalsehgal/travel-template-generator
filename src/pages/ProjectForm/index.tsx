@@ -41,6 +41,7 @@ const ProjectForm = () => {
         title: "",
         location: "",
         image: "",
+        images: [],
         stats: { duration: "", altitude: "", difficulty: "" }
       },
       overview: { text: "" },
@@ -94,13 +95,24 @@ const ProjectForm = () => {
         try {
           // First try local state
           let project = getProject(id);
-          
+
           // If not found locally, fetch from Firestore
           if (!project && fetchProject) {
             project = await fetchProject(id);
           }
-          
+
           if (project) {
+            // Normalize hero images
+            if (!project.hero.images) project.hero.images = [];
+            if (project.hero.image && !project.hero.images[0]) project.hero.images[0] = project.hero.image;
+
+            // Normalize itinerary images
+            if (project.itinerary) {
+              project.itinerary.forEach((day: any) => {
+                if (!day.images) day.images = [];
+                if (day.image && !day.images[0]) day.images[0] = day.image;
+              });
+            }
             reset(project);
           }
         } catch (error) {
@@ -110,7 +122,7 @@ const ProjectForm = () => {
         }
       }
     };
-    
+
     loadProject();
   }, [id, getProject, fetchProject, reset]);
 
@@ -179,9 +191,8 @@ const ProjectForm = () => {
         {STEPS.map((step, index) => (
           <div
             key={step.id}
-            className={`${styles["form__progress-step"]} ${
-              index === currentStep ? styles["form__progress-step--active"] : ""
-            } ${index < currentStep ? styles["form__progress-step--completed"] : ""}`}
+            className={`${styles["form__progress-step"]} ${index === currentStep ? styles["form__progress-step--active"] : ""
+              } ${index < currentStep ? styles["form__progress-step--completed"] : ""}`}
             onClick={() => setCurrentStep(index)}
           >
             <span className="material-symbols-outlined">{step.icon}</span>

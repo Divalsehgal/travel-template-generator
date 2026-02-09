@@ -49,12 +49,15 @@ export type ProjectCreate = Omit<Project, 'id' | 'createdAt' | 'updatedAt'>;
 /**
  * Header contact information
  */
-export interface HeaderData extends ContactInfo {}
+export interface HeaderData extends ContactInfo {
+  instagram?: string;
+  facebook?: string;
+}
 
 /**
  * Brand information
  */
-export interface BrandData extends BrandIdentity {}
+export interface BrandData extends BrandIdentity { }
 
 // ============================================================================
 // Hero Section Types
@@ -67,6 +70,7 @@ export interface HeroData extends MediaItem {
   title: string;
   location?: string;
   stats: ActivityStats;
+  images?: string[];
 }
 
 // ============================================================================
@@ -87,6 +91,7 @@ export interface LeaderData {
   name: string;
   role: string;
   image?: string;
+  visible?: boolean;
 }
 
 // ============================================================================
@@ -98,6 +103,7 @@ export interface LeaderData {
  */
 export interface ItineraryDay extends MediaItem, TitledContent {
   day: string;
+  images?: string[];
 }
 
 // ============================================================================
@@ -107,12 +113,12 @@ export interface ItineraryDay extends MediaItem, TitledContent {
 /**
  * Included service/feature
  */
-export interface Inclusion extends TitledIconItem {}
+export interface Inclusion extends TitledIconItem { }
 
 /**
  * Item to carry on trek
  */
-export interface CarryItem extends LabeledIconItem {}
+export interface CarryItem extends LabeledIconItem { }
 
 // ============================================================================
 // FAQ Types
@@ -121,7 +127,7 @@ export interface CarryItem extends LabeledIconItem {}
 /**
  * Frequently asked question
  */
-export interface FAQ extends QuestionAnswer {}
+export interface FAQ extends QuestionAnswer { }
 
 // ============================================================================
 // Footer Types
@@ -143,7 +149,7 @@ export interface FooterData extends TitledContent {
  */
 export function isProject(obj: unknown): obj is Project {
   if (!obj || typeof obj !== 'object') return false;
-  
+
   const project = obj as Project;
   return (
     typeof project.id === 'string' &&
@@ -160,7 +166,7 @@ export function isProject(obj: unknown): obj is Project {
  */
 export function isItineraryDay(obj: unknown): obj is ItineraryDay {
   if (!obj || typeof obj !== 'object') return false;
-  
+
   const day = obj as ItineraryDay;
   return (
     typeof day.day === 'string' &&

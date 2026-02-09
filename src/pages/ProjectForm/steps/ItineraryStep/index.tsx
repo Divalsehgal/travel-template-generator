@@ -44,17 +44,21 @@ const ItineraryStep = ({ register, control, itineraryFields, appendItinerary, re
             register={register(`itinerary.${index}.description`)}
             rows={3}
           />
-          <Controller
-            name={`itinerary.${index}.image`}
-            control={control}
-            render={({ field }) => (
-              <ImageUpload
-                value={field.value}
-                onChange={field.onChange}
-                label="Upload Day Image"
-              />
-            )}
-          />
+          <div style={{ marginTop: '1rem' }}>
+            <Controller
+              name={`itinerary.${index}.images.0`}
+              control={control}
+              render={({ field }) => (
+                <ImageUpload
+                  value={field.value || control._formValues.itinerary[index]?.image}
+                  onChange={(val) => {
+                    field.onChange(val);
+                  }}
+                  label="Main Image"
+                />
+              )}
+            />
+          </div>
         </div>
       ))}
       <button

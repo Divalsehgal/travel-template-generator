@@ -2,7 +2,9 @@
   "header": {
     "phone": "+91 86280 49917",
     "email": "sehgaldival@gmail.com",
-    "website": "www.sehgaldival.com"
+    "website": "www.sehgaldival.com",
+    "instagram": "https://instagram.com/shivbhoomi",
+    "facebook": "https://facebook.com/shivbhoomi"
   },
   "brand": {
     "title": "Shiv Bhoomi Tour & Travels",
@@ -14,6 +16,11 @@
     "title": "Gadasaru Mahadev Trek",
     "location": "Churah Valley, Chamba District, Himachal Pradesh",
     "image": "https://picsum.photos/1200/700?random=1",
+    "images": [
+      "https://picsum.photos/1200/800?random=10",
+      "https://picsum.photos/600/800?random=11",
+      "https://picsum.photos/600/800?random=12"
+    ],
     "stats": {
       "duration": "5 Days / 4 Nights",
       "altitude": "4,000 meters",
@@ -26,7 +33,8 @@
   "leader": {
     "name": "Dival Sehgal",
     "role": "Trek Leader & Local Guide",
-    "image": "https://picsum.photos/400/400?random=2"
+    "image": "https://picsum.photos/400/400?random=2",
+    "visible": false
   },
   "itinerary": [
     {
@@ -88,11 +96,26 @@
     }
   ],
   "thingsToCarry": [
-    { "icon": "hiking", "label": "High-ankle trekking shoes" },
-    { "icon": "ac_unit", "label": "Warm jacket & thermals" },
-    { "icon": "light", "label": "Headlamp or torch" },
-    { "icon": "water_bottle", "label": "Reusable water bottles (2L)" },
-    { "icon": "pill", "label": "Personal medication" }
+    {
+      "icon": "hiking",
+      "label": "High-ankle trekking shoes"
+    },
+    {
+      "icon": "ac_unit",
+      "label": "Warm jacket & thermals"
+    },
+    {
+      "icon": "light",
+      "label": "Headlamp or torch"
+    },
+    {
+      "icon": "water_bottle",
+      "label": "Reusable water bottles (2L)"
+    },
+    {
+      "icon": "pill",
+      "label": "Personal medication"
+    }
   ],
   "faqs": [
     {

@@ -1,36 +1,35 @@
 import { useState, useRef } from 'react';
+import ImageCropper from '../ImageCropper';
 import styles from './styles.module.scss';
 
-export default function ImageUpload({ value, onChange, label = "Upload Image" }) {
+export default function ImageUpload({ value, onChange, label = "Upload Image", aspect = 4 / 3 }) {
   const [preview, setPreview] = useState(value || null);
   const [loading, setLoading] = useState(false);
+  const [showCropper, setShowCropper] = useState(false);
+  const [imageSrc, setImageSrc] = useState(null);
   const fileInputRef = useRef(null);
 
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
-    // Validate file type
     if (!file.type.startsWith('image/')) {
       alert('Please select an image file');
       return;
     }
 
-    // Validate file size (max 2MB)
-    if (file.size > 2 * 1024 * 1024) {
-      alert('Image size should be less than 2MB');
+    if (file.size > 5 * 1024 * 1024) { // Increased limit for raw image before crop
+      alert('Image size should be less than 5MB');
       return;
     }
 
     setLoading(true);
 
     try {
-      // Convert to base64
       const reader = new FileReader();
       reader.onloadend = () => {
-        const base64String = reader.result;
-        setPreview(base64String);
-        onChange(base64String);
+        setImageSrc(reader.result);
+        setShowCropper(true);
         setLoading(false);
       };
       reader.onerror = () => {
@@ -39,15 +38,41 @@ export default function ImageUpload({ value, onChange, label = "Upload Image" })
       };
       reader.readAsDataURL(file);
     } catch (error) {
-      console.error('Error uploading image:', error);
-      alert('Error uploading image');
+      console.error('Error reading image:', error);
+      alert('Error reading image');
       setLoading(false);
     }
+  };
+
+  const handleCropComplete = (croppedImage) => {
+    setPreview(croppedImage);
+    onChange(croppedImage);
+    setShowCropper(false);
+    // Do NOT clear imageSrc so we can re-crop the original
+  };
+
+  const handleCropCancel = () => {
+    setShowCropper(false);
+    // Do NOT clear imageSrc in case they just wanted to close the modal without saving
+    // Unless they haven't cropped at all yet?
+    // If they cancel on the FIRST upload, we should probably keep the file selected but maybe not preview?
+    // Actually, if they cancel, we probably shouldn't do anything destructive.
+  };
+
+  const handleReCrop = () => {
+    // If we have an original imageSrc (from recent upload), use it.
+    // If not (existing saved image), use the current preview/value as the source
+    // (though re-cropping a cropped image isn't ideal, it's better than nothing).
+    if (!imageSrc && preview) {
+      setImageSrc(preview);
+    }
+    setShowCropper(true);
   };
 
   const handleRemove = () => {
     setPreview(null);
     onChange('');
+    setImageSrc(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
@@ -59,6 +84,15 @@ export default function ImageUpload({ value, onChange, label = "Upload Image" })
 
   return (
     <div className={styles.upload}>
+      {showCropper && (imageSrc || preview) && (
+        <ImageCropper
+          imageSrc={imageSrc || preview}
+          onCropComplete={handleCropComplete}
+          onCancel={handleCropCancel}
+          aspect={aspect}
+        />
+      )}
+
       <input
         ref={fileInputRef}
         type="file"
@@ -71,6 +105,14 @@ export default function ImageUpload({ value, onChange, label = "Upload Image" })
         <div className={styles.upload__preview}>
           <img src={preview} alt="Preview" className={styles['upload__preview-img']} />
           <div className={styles['upload__preview-overlay']}>
+            <button
+              type="button"
+              className={styles['upload__preview-btn']}
+              onClick={handleReCrop}
+            >
+              <span className="material-symbols-outlined">crop</span>
+              Crop
+            </button>
             <button
               type="button"
               className={styles['upload__preview-btn']}
@@ -99,7 +141,7 @@ export default function ImageUpload({ value, onChange, label = "Upload Image" })
           {loading ? (
             <>
               <span className="material-symbols-outlined">hourglass_empty</span>
-              Uploading...
+              Loading...
             </>
           ) : (
             <>

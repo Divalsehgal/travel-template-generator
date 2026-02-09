@@ -1,0 +1,87 @@
+.cropper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.85);
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+
+    &__container {
+        position: relative;
+        flex: 1;
+        background: #333;
+        border-radius: 8px;
+        overflow: hidden;
+        margin-bottom: 1.5rem;
+    }
+
+    &__controls {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        background: white;
+        padding: 1.5rem;
+        border-radius: 8px;
+        max-width: 600px;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    &__slider-container {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        label {
+            min-width: 60px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        input {
+            flex: 1;
+            accent-color: #1997f0;
+        }
+    }
+
+    &__actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 1rem;
+        margin-top: 0.5rem;
+    }
+
+    &__button {
+        padding: 0.75rem 1.5rem;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        &--secondary {
+            background: #f3f4f6;
+            color: #4b5563;
+
+            &:hover {
+                background: #e5e7eb;
+            }
+        }
+
+        &--primary {
+            background: #1997f0;
+            color: white;
+
+            &:hover {
+                background: #0077cc;
+            }
+        }
+    }
+}
