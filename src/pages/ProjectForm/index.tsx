@@ -9,7 +9,6 @@ import ItineraryStep from "./steps/ItineraryStep";
 import InclusionsStep from "./steps/InclusionsStep";
 import FAQsStep from "./steps/FAQsStep";
 import FooterStep from "./steps/FooterStep";
-import StylesStep from "./steps/StylesStep";
 import styles from "./styles.module.scss";
 
 const STEPS = [
@@ -19,8 +18,7 @@ const STEPS = [
   { id: 3, title: "Itinerary", icon: "map" },
   { id: 4, title: "Inclusions", icon: "checklist" },
   { id: 5, title: "FAQs", icon: "help" },
-  { id: 6, title: "Footer", icon: "description" },
-  { id: 7, title: "Styles", icon: "palette" }
+  { id: 6, title: "Footer", icon: "description" }
 ];
 
 const ProjectForm = () => {
@@ -34,7 +32,7 @@ const ProjectForm = () => {
 
   const { register, control, handleSubmit, watch, reset, formState: { errors } } = useForm({
     defaultValues: {
-      header: { phone: "", email: "", website: "" },
+      header: { phone: "", email: "", website: "", links: [] },
       brand: { title: "", subtitle: "", logo: "" },
       hero: {
         badge: "",
@@ -50,19 +48,13 @@ const ProjectForm = () => {
       inclusions: [],
       thingsToCarry: [],
       faqs: [],
-      footer: { title: "", description: "", copyright: "" },
-      styles: {
-        header: { textColor: "#ffffff", backgroundColor: "#1b3022" },
-        hero: { textColor: "#1b3022", backgroundColor: "#ffffff" },
-        overview: { textColor: "#1b3022", backgroundColor: "#ffffff" },
-        leader: { textColor: "#ffffff", backgroundColor: "#1b3022" },
-        itinerary: { textColor: "#1b3022", backgroundColor: "#ffffff" },
-        inclusions: { textColor: "#1b3022", backgroundColor: "#f5f9f6" },
-        thingsToCarry: { textColor: "#1b3022", backgroundColor: "#ffffff" },
-        faqs: { textColor: "#1b3022", backgroundColor: "#f5f9f6" },
-        footer: { textColor: "#ffffff", backgroundColor: "#1b3022" }
-      }
+      footer: { title: "", description: "", copyright: "" }
     }
+  });
+
+  const { fields: headerLinksFields, append: appendHeaderLink, remove: removeHeaderLink } = useFieldArray({
+    control,
+    name: "header.links"
   });
 
   const { fields: itineraryFields, append: appendItinerary, remove: removeItinerary } = useFieldArray({
@@ -105,6 +97,25 @@ const ProjectForm = () => {
             // Normalize hero images
             if (!project.hero.images) project.hero.images = [];
             if (project.hero.image && !project.hero.images[0]) project.hero.images[0] = project.hero.image;
+
+            // Migrate legacy social links
+            if (!project.header.links) {
+              project.header.links = [];
+              if (project.header.instagram) {
+                project.header.links.push({
+                  platform: 'instagram',
+                  url: project.header.instagram,
+                  alias: project.header.instagram.replace(/^https?:\/\/(www\.)?instagram\.com\//, '@')
+                });
+              }
+              if (project.header.facebook) {
+                project.header.links.push({
+                  platform: 'facebook',
+                  url: project.header.facebook,
+                  alias: 'Facebook'
+                });
+              }
+            }
 
             // Normalize itinerary images
             if (project.itinerary) {
@@ -204,7 +215,14 @@ const ProjectForm = () => {
       <form onSubmit={handleSubmit(onSubmit)} className={styles["form__content"]}>
         <div className={styles["form__steps"]}>
           {currentStep === 0 && (
-            <HeaderStep register={register} errors={errors} />
+            <HeaderStep
+              register={register}
+              control={control}
+              errors={errors}
+              headerLinksFields={headerLinksFields}
+              appendHeaderLink={appendHeaderLink}
+              removeHeaderLink={removeHeaderLink}
+            />
           )}
 
           {currentStep === 1 && (
@@ -248,10 +266,6 @@ const ProjectForm = () => {
 
           {currentStep === 6 && (
             <FooterStep register={register} />
-          )}
-
-          {currentStep === 7 && (
-            <StylesStep control={control} />
           )}
         </div>
 

@@ -49,9 +49,21 @@ export type ProjectCreate = Omit<Project, 'id' | 'createdAt' | 'updatedAt'>;
 /**
  * Header contact information
  */
+export type SocialPlatform = 'instagram' | 'facebook' | 'linkedin' | 'twitter' | 'youtube' | 'website' | 'other';
+
+export interface HeaderLink {
+  platform: SocialPlatform;
+  url: string;
+  alias?: string;
+}
+
+/**
+ * Header contact information
+ */
 export interface HeaderData extends ContactInfo {
-  instagram?: string;
-  facebook?: string;
+  links?: HeaderLink[];
+  instagram?: string; // @deprecated - migrate to links
+  facebook?: string; // @deprecated - migrate to links
 }
 
 /**

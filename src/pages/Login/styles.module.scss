@@ -5,7 +5,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(180deg, $color-glacier-blue-light 0%, $color-gray-100 10%);
+  background: linear-gradient(180deg, $color-forest-green-light 0%, $color-gray-100 10%);
   padding: $spacing-4;
 
   &__container {
@@ -18,7 +18,7 @@
   }
 
   &__header {
-    background: linear-gradient(135deg, $color-primary 0%, $color-glacier-blue 100%);
+    background: linear-gradient(135deg, $color-primary 0%, $color-forest-green 100%);
     padding: $spacing-8 $spacing-6;
     text-align: center;
     color: $color-white;
@@ -155,6 +155,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }

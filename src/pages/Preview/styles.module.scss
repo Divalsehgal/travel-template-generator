@@ -174,7 +174,7 @@
     display: flex;
     flex-direction: column;
     gap: $spacing-2;
-  flex-wrap: wrap;
+    flex-wrap: wrap;
 
     &-item {
       display: flex;
@@ -252,19 +252,21 @@
 
 // Section
 .section {
-  padding: $spacing-6;
+  padding: 0 $spacing-6;
   overflow-wrap: break-word;
   word-wrap: break-word;
   word-break: break-word;
 
   &__title {
     font-family: $font-family-display;
-    font-size: $font-size-2xl;
+    font-size: $font-size-4xl;
     font-weight: $font-weight-bold;
     color: $color-forest-green;
-    margin: 0 0 $spacing-4 0;
+    margin: 0 0 $spacing-2 0;
     padding-bottom: $spacing-3;
     border-bottom: 2px solid $color-primary;
+    break-after: avoid;
+    page-break-after: avoid;
   }
 
   &__text {
@@ -378,7 +380,7 @@
 
 // Inclusions
 .inclusions {
-  padding: $spacing-6;
+  padding: 0 $spacing-6;
   background: $color-bg-off-white;
 
   &__grid {
@@ -508,8 +510,11 @@
     .itinerary,
     .inclusions,
     .carry,
-    .faqs {
+    .faqs,
+    .leader {
+      break-inside: avoid;
       page-break-inside: avoid;
+      margin-bottom: $spacing-8;
     }
   }
 }

@@ -16,3 +16,108 @@
     }
   }
 }
+
+.social-links {
+  margin-top: $spacing-10;
+  padding-top: $spacing-8;
+  border-top: 1px solid $color-gray-100;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-8;
+  }
+
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $color-forest-green;
+    margin: 0;
+
+    .material-symbols-outlined {
+      font-size: $font-size-2xl;
+      color: $color-primary;
+    }
+  }
+
+  &__add {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    padding: $spacing-3 $spacing-6;
+    background: $color-forest-green;
+    color: $color-white;
+    border: none;
+    border-radius: $border-radius-lg;
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    cursor: pointer;
+    transition: all $transition-base;
+    box-shadow: $shadow-sm;
+
+    &:hover {
+      background: $color-black;
+      transform: translateY(-1px);
+      box-shadow: $shadow-md;
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+
+    .material-symbols-outlined {
+      font-size: $font-size-xl;
+    }
+  }
+
+  &__item {
+    background: $color-white;
+    padding: $spacing-6;
+    border-radius: $border-radius-xl;
+    margin-bottom: $spacing-6;
+    border: 1px solid $color-gray-100;
+    box-shadow: $shadow-sm;
+    transition: all $transition-base;
+
+    &:hover {
+      border-color: $color-primary;
+      box-shadow: $shadow-md;
+    }
+  }
+
+  &__item-row {
+    display: grid;
+    grid-template-columns: 180px 1.2fr 1fr 48px;
+    gap: $spacing-6;
+    align-items: start;
+  }
+
+  &__remove {
+    margin-top: $spacing-8; // Manual alignment with inputs
+    height: 48px;
+    width: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $color-gray-400;
+    background: $color-gray-50;
+    border: 1px solid $color-gray-100;
+    border-radius: $border-radius-lg;
+    cursor: pointer;
+    transition: all $transition-base;
+
+    &:hover {
+      color: $color-error;
+      background: rgba($color-error, 0.05);
+      border-color: rgba($color-error, 0.2);
+    }
+
+    .material-symbols-outlined {
+      font-size: $font-size-xl;
+    }
+  }
+}

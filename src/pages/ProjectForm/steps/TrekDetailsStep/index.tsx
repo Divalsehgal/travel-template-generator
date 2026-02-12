@@ -28,49 +28,17 @@ const TrekDetailsStep = ({ register, control, errors }) => {
           register={register("hero.location")}
           placeholder="e.g., Himachal Pradesh, India"
         />
-      </FormGroup>
-
-      <FormGroup label="Hero Images (Up to 3)">
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
-          <Controller
-            name="hero.images.0"
-            control={control}
-            render={({ field }) => (
-              <ImageUpload
-                value={field.value}
-                onChange={(val) => {
-                  field.onChange(val);
-                  // Sync first image with legacy field
-                  control._formValues.hero.image = val;
-                }}
-                label="Main Image"
-                aspect={16 / 9}
-              />
-            )}
-          />
-          <Controller
-            name="hero.images.1"
-            control={control}
-            render={({ field }) => (
-              <ImageUpload
-                value={field.value}
-                onChange={field.onChange}
-                label="Side Image Top"
-              />
-            )}
-          />
-          <Controller
-            name="hero.images.2"
-            control={control}
-            render={({ field }) => (
-              <ImageUpload
-                value={field.value}
-                onChange={field.onChange}
-                label="Side Image Bottom"
-              />
-            )}
-          />
-        </div>
+        <Controller
+          name="hero.image"
+          control={control}
+          render={({ field }) => (
+            <ImageUpload
+              value={field.value}
+              onChange={field.onChange}
+              label="Upload Hero Image"
+            />
+          )}
+        />
       </FormGroup>
 
       <FormGroup label="Trek Stats">
@@ -102,17 +70,6 @@ const TrekDetailsStep = ({ register, control, errors }) => {
       </FormGroup>
 
       <FormGroup label="Trek Leader">
-        <div className={styles["step__checkbox-wrapper"]} style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <input
-            type="checkbox"
-            id="leader-visible"
-            {...register("leader.visible")}
-            style={{ width: '1.2rem', height: '1.2rem', cursor: 'pointer' }}
-          />
-          <label htmlFor="leader-visible" style={{ cursor: 'pointer', fontWeight: 500 }}>
-            Show Trek Leader Section
-          </label>
-        </div>
         <FormRow>
           <FormInput
             label="Leader Name"
@@ -132,7 +89,6 @@ const TrekDetailsStep = ({ register, control, errors }) => {
               value={field.value}
               onChange={field.onChange}
               label="Upload Leader Image"
-              aspect={1}
             />
           )}
         />

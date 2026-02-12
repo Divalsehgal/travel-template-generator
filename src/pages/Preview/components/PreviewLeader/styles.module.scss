@@ -18,15 +18,16 @@
   }
 
   &__name {
-    font-size: $font-size-xl;
+    font-size: $font-size-2xl;
     font-weight: $font-weight-bold;
     // color inherited from parent
     margin: 0 0 $spacing-1 0;
   }
 
   &__role {
-    font-size: $font-size-base;
-    opacity: 0.8;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-medium;
+    opacity: 0.9;
     // color inherited from parent
     margin: 0;
   }
@@ -34,12 +35,11 @@
 
 .section__title {
   font-family: $font-family-display;
-  font-size: $font-size-2xl;
-  font-weight: $font-weight-bold;
+  font-size: $font-size-3xl;
+  font-weight: $font-weight-black;
   // color inherited from parent via theme
-  margin: 0 0 $spacing-4 0;
+  margin: 0 0 $spacing-6 0;
   padding-bottom: $spacing-3;
-  border-bottom: 2px solid currentColor;
-  opacity: 0.3;
-  border-bottom-opacity: 0.3;
+  border-bottom: $border-width-thick solid $color-sunrise-orange;
+  opacity: 1;
 }
