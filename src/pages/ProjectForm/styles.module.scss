@@ -140,6 +140,7 @@
 
   &__steps {
     min-height: 400px;
+    margin-bottom: $spacing-8;
   }
 
   &__section {
@@ -174,9 +175,31 @@
       flex-direction: column;
       gap: $spacing-3;
     }
+
+    &_right {
+      display: flex;
+      gap: $spacing-4;
+      align-items: center;
+
+      @media (max-width: 640px) {
+        width: 100%;
+        justify-content: center;
+      }
+    }
   }
 
   &__button {
+    &--save {
+      border-color: $color-primary;
+      color: $color-primary;
+
+      &:hover:not(:disabled) {
+        background: rgba($color-primary, 0.05);
+        color: $color-primary-dark;
+        border-color: $color-primary-dark;
+      }
+    }
+
     &--primary {
       display: inline-flex;
       align-items: center;
@@ -335,6 +358,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }

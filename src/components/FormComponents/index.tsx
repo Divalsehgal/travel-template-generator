@@ -1,6 +1,8 @@
+import { TextField, MenuItem } from '@mui/material';
 import styles from './styles.module.scss';
+import * as tokens from '@shiv-bhoomi/design-tokens';
 
-export function FormGroup({ label, error, required, children }:{
+export function FormGroup({ label, error, required, children }: {
   label?: string;
   error?: string;
   required?: boolean;
@@ -31,56 +33,84 @@ export function FormRow({ children, columns = 3 }: { children: React.ReactNode; 
   );
 }
 
-export function FormInput({ label, register, error, placeholder, type = "text", ...rest }: { label?: string; register: any; error?: { message: string }; placeholder?: string; type?: string; [key: string]: any }) {
+export function FormInput({ label, register, error, placeholder, type = "text", ...rest }: { label?: string; register: any; error?: any; placeholder?: string; type?: string;[key: string]: any }) {
   return (
     <div className={styles.group}>
-      {label && <label className={styles.group__label}>{label}</label>}
-      <input
+      <TextField
+        fullWidth
+        size="small"
+        label={label}
         type={type}
-        className={styles.input}
-        {...register}
         placeholder={placeholder}
+        error={!!error}
+        helperText={error?.message}
+        variant="outlined"
+        {...register}
         {...rest}
       />
-      {error && <span className={styles.group__error}>{error.message}</span>}
     </div>
   );
 }
 
-export function FormTextarea({ label, register, error, placeholder, rows = 4, ...rest }: { label?: string; register: any; error?: { message: string }; placeholder?: string; rows?: number; [key: string]: any }) {
+export function FormTextarea({ label, register, error, placeholder, rows = 4, ...rest }: { label?: string; register: any; error?: any; placeholder?: string; rows?: number;[key: string]: any }) {
   return (
     <div className={styles.group}>
-      {label && <label className={styles.group__label}>{label}</label>}
-      <textarea
-        className={styles.textarea}
-        {...register}
+      <TextField
+        fullWidth
+        multiline
+        minRows={rows}
+        label={label}
         placeholder={placeholder}
-        rows={rows}
+        error={!!error}
+        helperText={error?.message}
+        variant="outlined"
+        {...register}
         {...rest}
       />
-      {error && <span className={styles.group__error}>{error.message}</span>}
     </div>
   );
 }
 
-export function FormSelect({ label, register, error, options, placeholder, ...rest }) {
+export function FormSelect({ label, register, error, options, placeholder, ...rest }: { label?: string; register: any; error?: any; options: any[]; placeholder?: string;[key: string]: any }) {
   return (
     <div className={styles.group}>
-      {label && <label className={styles.group__label}>{label}</label>}
-      <select className={styles.select} {...register} {...rest}>
-        {placeholder && <option value="">{placeholder}</option>}
+      <TextField
+        select
+        fullWidth
+        size="small"
+        label={label}
+        error={!!error}
+        helperText={error?.message}
+        variant="outlined"
+        defaultValue={rest.defaultValue || ''}
+        slotProps={{
+          select: {
+            native: true, // Native select ensures best compatibility with default RHF register
+          }
+        }}
+        {...register}
+        {...rest}
+        onChange={(e) => {
+          register.onChange(e);
+          if (rest.onChange) rest.onChange(e);
+        }}
+      >
+        {placeholder && (
+          <option value="" disabled>
+            {placeholder}
+          </option>
+        )}
         {options.map(opt => (
           <option key={opt.value} value={opt.value}>
             {opt.label}
           </option>
         ))}
-      </select>
-      {error && <span className={styles.group__error}>{error.message}</span>}
+      </TextField>
     </div>
   );
 }
 
-export function FormColorPicker({ label, register, error, ...rest }: { label?: string; register: any; error?: { message: string }; [key: string]: any }) {
+export function FormColorPicker({ label, register, error, ...rest }: { label?: string; register: any; error?: any;[key: string]: any }) {
   return (
     <div className={styles.group}>
       {label && <label className={styles.group__label}>{label}</label>}

@@ -1,10 +1,12 @@
 import React from "react";
-import { Controller } from "react-hook-form";
+import { useFormContext, Controller } from "react-hook-form";
 import { FormGroup, FormRow, FormInput, FormTextarea } from "../../../../components/FormComponents";
 import ImageUpload from "../../../../components/ImageUpload";
+import type { Project } from "../../../../types/project";
 import styles from "./styles.module.scss";
 
-const TrekDetailsStep = ({ register, control, errors }) => {
+const TrekDetailsStep = () => {
+  const { register, control, formState: { errors } } = useFormContext<Project>();
   return (
     <div className={styles["step"]}>
       <h2 className={styles["step__title"]}>
@@ -59,6 +61,19 @@ const TrekDetailsStep = ({ register, control, errors }) => {
             placeholder="e.g., Moderate"
           />
         </FormRow>
+      </FormGroup>
+
+      <FormGroup label="High-Impact Template Extras">
+        <FormTextarea
+          label="Expedition Overview (A4 Footer)"
+          register={register("hero.expeditionOverview")}
+          placeholder="e.g. 5 Days | Elite Access | All-Inclusive"
+        />
+        <FormInput
+          label="Booking Text/URL"
+          register={register("hero.bookingText")}
+          placeholder="e.g. Visit ADVENTURE.CH/EXTREME for Full Details & Booking"
+        />
       </FormGroup>
 
       <FormGroup label="Overview">

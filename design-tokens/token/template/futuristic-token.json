@@ -1,0 +1,15 @@
+{
+    "theme": {
+        "futuristic": {
+            "accent": {
+                "value": "#9c27b0"
+            },
+            "bg": {
+                "value": "#1a1a1a"
+            },
+            "radius": {
+                "value": "2px"
+            }
+        }
+    }
+}

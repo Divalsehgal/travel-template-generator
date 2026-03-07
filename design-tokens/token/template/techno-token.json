@@ -1,0 +1,27 @@
+{
+    "theme": {
+        "techno": {
+            "accent": {
+                "value": "#ccff00"
+            },
+            "bg": {
+                "value": "#050505"
+            },
+            "bg-secondary": {
+                "value": "#1a1a1a"
+            },
+            "radius": {
+                "value": "0px"
+            },
+            "font-display": {
+                "value": "'Archivo Black', 'Inter', sans-serif"
+            },
+            "font-mono": {
+                "value": "'Space Mono', monospace"
+            },
+            "shadow": {
+                "value": "6px 6px 0px #ccff00"
+            }
+        }
+    }
+}

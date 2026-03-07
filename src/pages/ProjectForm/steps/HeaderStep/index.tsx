@@ -1,5 +1,8 @@
-import React from "react";
+import { useFormContext, useFieldArray, Controller } from "react-hook-form";
 import { FormRow, FormInput, FormSelect } from "../../../../components/FormComponents";
+import { Select, MenuItem, FormControl, InputLabel, FormHelperText } from '@mui/material';
+import * as tokens from "@shiv-bhoomi/design-tokens";
+import type { Project } from "../../../../types/project";
 import styles from "./styles.module.scss";
 
 const PLATFORM_OPTIONS = [
@@ -12,22 +15,13 @@ const PLATFORM_OPTIONS = [
   { value: "other", label: "Other" },
 ];
 
-interface HeaderStepProps {
-  register: any;
-  errors: any;
-  headerLinksFields: any[];
-  appendHeaderLink: (data: any) => void;
-  removeHeaderLink: (index: number) => void;
-  [key: string]: any;
-}
+const HeaderStep = () => {
+  const { register, control, formState: { errors } } = useFormContext<Project>();
 
-const HeaderStep = ({
-  register,
-  errors,
-  headerLinksFields = [],
-  appendHeaderLink,
-  removeHeaderLink
-}: HeaderStepProps) => {
+  const { fields: headerLinksFields, append: appendHeaderLink, remove: removeHeaderLink } = useFieldArray({
+    control,
+    name: "header.links"
+  });
   return (
     <div className={styles["step"]}>
       <h2 className={styles["step__title"]}>
@@ -52,6 +46,11 @@ const HeaderStep = ({
         register={register("header.website")}
         error={errors.header?.website}
       />
+      <FormInput
+        label="Expedition Badge (e.g. Premium Expedition 2024)"
+        register={register("header.subBadge")}
+        error={errors.header?.subBadge}
+      />
 
       <div className={styles["social-links"]}>
         <div className={styles["social-links__header"]}>
@@ -72,13 +71,33 @@ const HeaderStep = ({
         {headerLinksFields.map((field, index) => (
           <div key={field.id} className={styles["social-links__item"]}>
             <div className={styles["social-links__item-row"]}>
-              <FormSelect
-                label="Platform"
-                options={PLATFORM_OPTIONS}
-                register={register(`header.links.${index}.platform`)}
-                className={styles["social-links__platform"]}
-                error={errors.header?.links?.[index]?.platform}
-                placeholder="Select Platform"
+              <Controller
+                control={control}
+                name={`header.links.${index}.platform`}
+                render={({ field }) => (
+                  <FormControl
+                    className={styles["social-links__platform"]}
+                    size="small"
+                    error={!!errors.header?.links?.[index]?.platform}
+                  >
+                    <InputLabel id={`platform-label-${index}`}>Platform</InputLabel>
+                    <Select
+                      {...field}
+                      labelId={`platform-label-${index}`}
+                      label="Platform"
+                      defaultValue={field.value || ""} // Ensure default value is an empty string if undefined to avoid controlled/uncontrolled warning
+                    >
+                      {PLATFORM_OPTIONS.map(opt => (
+                        <MenuItem key={opt.value} value={opt.value} sx={{ fontFamily: tokens.FontFamilyBody }}>
+                          {opt.label}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                    {errors.header?.links?.[index]?.platform && (
+                      <FormHelperText>{errors.header.links[index].platform.message}</FormHelperText>
+                    )}
+                  </FormControl>
+                )}
               />
               <FormInput
                 label="URL"

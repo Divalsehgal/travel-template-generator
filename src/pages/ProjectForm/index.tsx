@@ -1,7 +1,10 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { useForm, useFieldArray } from "react-hook-form";
+import { useForm, useFieldArray, FormProvider } from "react-hook-form";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { useProjects } from "../../hooks/useFirestoreProjects";
+import { useProjectLoader } from "../../hooks/useProjectLoader";
+import { useProjectAutoSave } from "../../hooks/useProjectAutoSave";
+import type { Project } from "../../types/project";
 import HeaderStep from "./steps/HeaderStep";
 import BrandStep from "./steps/BrandStep";
 import TrekDetailsStep from "./steps/TrekDetailsStep";
@@ -9,30 +12,36 @@ import ItineraryStep from "./steps/ItineraryStep";
 import InclusionsStep from "./steps/InclusionsStep";
 import FAQsStep from "./steps/FAQsStep";
 import FooterStep from "./steps/FooterStep";
+import TypeStep from "./steps/TypeStep";
+import ConfirmModal from "../../components/ConfirmModal";
 import styles from "./styles.module.scss";
 
 const STEPS = [
-  { id: 0, title: "Header", icon: "business" },
-  { id: 1, title: "Brand", icon: "branding_watermark" },
-  { id: 2, title: "Trek Details", icon: "landscape" },
-  { id: 3, title: "Itinerary", icon: "map" },
-  { id: 4, title: "Inclusions", icon: "checklist" },
-  { id: 5, title: "FAQs", icon: "help" },
-  { id: 6, title: "Footer", icon: "description" }
+  { id: 0, title: "Template", icon: "dashboard_customize" },
+  { id: 1, title: "Header", icon: "business" },
+  { id: 2, title: "Brand", icon: "branding_watermark" },
+  { id: 3, title: "Trek Details", icon: "landscape" },
+  { id: 4, title: "Itinerary", icon: "map" },
+  { id: 5, title: "Inclusions", icon: "checklist" },
+  { id: 6, title: "FAQs", icon: "help" },
+  { id: 7, title: "Footer", icon: "description" }
 ];
 
 const ProjectForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { getProject, fetchProject, addProject, updateProject } = useProjects();
+  const { addProject, updateProject } = useProjects();
   const [currentStep, setCurrentStep] = useState(0);
-  const [isSaving, setIsSaving] = useState(false);
-  const [lastSaved, setLastSaved] = useState<Date | null>(null);
-  const [isLoading, setIsLoading] = useState(!!id);
+  const [pendingStep, setPendingStep] = useState<number | null>(null);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [manualSaving, setManualSaving] = useState(false);
 
-  const { register, control, handleSubmit, watch, reset, formState: { errors } } = useForm({
+  const { project, isLoading: isProjectLoading } = useProjectLoader(id);
+
+  const methods = useForm<Project>({
     defaultValues: {
-      header: { phone: "", email: "", website: "", links: [] },
+      projectType: "long",
+      header: { phone: "", email: "", website: "", subBadge: "", links: [] },
       brand: { title: "", subtitle: "", logo: "" },
       hero: {
         badge: "",
@@ -40,7 +49,9 @@ const ProjectForm = () => {
         location: "",
         image: "",
         images: [],
-        stats: { duration: "", altitude: "", difficulty: "" }
+        stats: { duration: "", altitude: "", difficulty: "" },
+        expeditionOverview: "",
+        bookingText: ""
       },
       overview: { text: "" },
       leader: { name: "", role: "", image: "" },
@@ -48,137 +59,101 @@ const ProjectForm = () => {
       inclusions: [],
       thingsToCarry: [],
       faqs: [],
-      footer: { title: "", description: "", copyright: "" }
-    }
+      footer: { title: "", description: "", copyright: "", slotsText: "", spotText: "" }
+    } as any
   });
 
-  const { fields: headerLinksFields, append: appendHeaderLink, remove: removeHeaderLink } = useFieldArray({
-    control,
-    name: "header.links"
-  });
-
-  const { fields: itineraryFields, append: appendItinerary, remove: removeItinerary } = useFieldArray({
-    control,
-    name: "itinerary"
-  });
-
-  const { fields: inclusionsFields, append: appendInclusion, remove: removeInclusion } = useFieldArray({
-    control,
-    name: "inclusions"
-  });
-
-  const { fields: thingsToCarryFields, append: appendThingToCarry, remove: removeThingToCarry } = useFieldArray({
-    control,
-    name: "thingsToCarry"
-  });
-
-  const { fields: faqFields, append: appendFaq, remove: removeFaq } = useFieldArray({
-    control,
-    name: "faqs"
-  });
-
+  const { handleSubmit, watch, reset, formState: { isDirty } } = methods;
   const formData = watch();
 
-  // Load existing project data
+  const { isSaving, lastSaved } = useProjectAutoSave(id, formData, !isProjectLoading);
+
   useEffect(() => {
-    const loadProject = async () => {
-      if (id) {
-        setIsLoading(true);
-        try {
-          // First try local state
-          let project = getProject(id);
+    if (project) {
+      reset(project);
+    }
+  }, [project, reset]);
 
-          // If not found locally, fetch from Firestore
-          if (!project && fetchProject) {
-            project = await fetchProject(id);
-          }
-
-          if (project) {
-            // Normalize hero images
-            if (!project.hero.images) project.hero.images = [];
-            if (project.hero.image && !project.hero.images[0]) project.hero.images[0] = project.hero.image;
-
-            // Migrate legacy social links
-            if (!project.header.links) {
-              project.header.links = [];
-              if (project.header.instagram) {
-                project.header.links.push({
-                  platform: 'instagram',
-                  url: project.header.instagram,
-                  alias: project.header.instagram.replace(/^https?:\/\/(www\.)?instagram\.com\//, '@')
-                });
-              }
-              if (project.header.facebook) {
-                project.header.links.push({
-                  platform: 'facebook',
-                  url: project.header.facebook,
-                  alias: 'Facebook'
-                });
-              }
-            }
-
-            // Normalize itinerary images
-            if (project.itinerary) {
-              project.itinerary.forEach((day: any) => {
-                if (!day.images) day.images = [];
-                if (day.image && !day.images[0]) day.images[0] = day.image;
-              });
-            }
-            reset(project);
-          }
-        } catch (error) {
-          console.error('Error loading project:', error);
-        } finally {
-          setIsLoading(false);
-        }
-      }
-    };
-
-    loadProject();
-  }, [id, getProject, fetchProject, reset]);
-
-  // Auto-save with debounce
-  useEffect(() => {
-    if (!id || isLoading) return;
-
-    const timer = setTimeout(async () => {
-      try {
-        setIsSaving(true);
-        await updateProject(id, formData);
-        setLastSaved(new Date());
-      } catch (error) {
-        console.error('Auto-save error:', error);
-      } finally {
-        setIsSaving(false);
-      }
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }, [formData, id, updateProject, isLoading]);
-
-  const onSubmit = async (data) => {
+  const performSave = async (data: Project): Promise<Project | null> => {
     try {
+      setManualSaving(true);
       if (id) {
         await updateProject(id, data);
+        reset(data);
+        return { ...data, id };
       } else {
-        await addProject(data);
+        const newProject = await addProject(data);
+        // Change URL to edit mode so further saves work correctly
+        navigate(`/projects/${newProject.id}/edit`, { replace: true });
+        reset(newProject);
+        return newProject;
       }
-      navigate("/projects");
     } catch (error) {
       console.error('Error saving project:', error);
+      return null;
+    } finally {
+      setManualSaving(false);
+    }
+  };
+
+  const onSubmit = async (data: Project) => {
+    const saved = await performSave(data);
+    if (saved) {
+      navigate("/projects");
+    }
+  };
+
+  const handleManualSave = async () => {
+    const data = watch();
+    await performSave(data);
+  };
+
+  const guardNavigation = (targetStep: number) => {
+    if (isDirty) {
+      setPendingStep(targetStep);
+      setShowConfirmModal(true);
+    } else {
+      setCurrentStep(targetStep);
     }
   };
 
   const nextStep = () => {
     if (currentStep < STEPS.length - 1) {
-      setCurrentStep(currentStep + 1);
+      guardNavigation(currentStep + 1);
     }
   };
 
   const prevStep = () => {
     if (currentStep > 0) {
-      setCurrentStep(currentStep - 1);
+      guardNavigation(currentStep - 1);
     }
+  };
+
+  const handleConfirmSave = async () => {
+    const data = watch();
+    await performSave(data);
+
+    if (pendingStep !== null) {
+      setCurrentStep(pendingStep);
+    }
+    setShowConfirmModal(false);
+    setPendingStep(null);
+  };
+
+  const handleDiscardChanges = () => {
+    if (project) {
+      reset(project);
+    }
+    if (pendingStep !== null) {
+      setCurrentStep(pendingStep);
+    }
+    setShowConfirmModal(false);
+    setPendingStep(null);
+  };
+
+  const handleCancelNavigation = () => {
+    setShowConfirmModal(false);
+    setPendingStep(null);
   };
 
   return (
@@ -204,7 +179,7 @@ const ProjectForm = () => {
             key={step.id}
             className={`${styles["form__progress-step"]} ${index === currentStep ? styles["form__progress-step--active"] : ""
               } ${index < currentStep ? styles["form__progress-step--completed"] : ""}`}
-            onClick={() => setCurrentStep(index)}
+            onClick={() => guardNavigation(index)}
           >
             <span className="material-symbols-outlined">{step.icon}</span>
             <span className={styles["form__progress-label"]}>{step.title}</span>
@@ -212,90 +187,67 @@ const ProjectForm = () => {
         ))}
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className={styles["form__content"]}>
-        <div className={styles["form__steps"]}>
-          {currentStep === 0 && (
-            <HeaderStep
-              register={register}
-              control={control}
-              errors={errors}
-              headerLinksFields={headerLinksFields}
-              appendHeaderLink={appendHeaderLink}
-              removeHeaderLink={removeHeaderLink}
-            />
-          )}
+      <FormProvider {...methods}>
+        <form onSubmit={handleSubmit(onSubmit)} className={styles["form__content"]}>
+          <div className={styles["form__steps"]}>
+            {currentStep === 0 && <TypeStep />}
+            {currentStep === 1 && <HeaderStep />}
+            {currentStep === 2 && <BrandStep />}
+            {currentStep === 3 && <TrekDetailsStep />}
+            {currentStep === 4 && <ItineraryStep />}
+            {currentStep === 5 && <InclusionsStep />}
+            {currentStep === 6 && <FAQsStep />}
+            {currentStep === 7 && <FooterStep />}
+          </div>
 
-          {currentStep === 1 && (
-            <BrandStep register={register} control={control} errors={errors} />
-          )}
-
-          {currentStep === 2 && (
-            <TrekDetailsStep register={register} control={control} errors={errors} />
-          )}
-
-          {currentStep === 3 && (
-            <ItineraryStep
-              register={register}
-              control={control}
-              itineraryFields={itineraryFields}
-              appendItinerary={appendItinerary}
-              removeItinerary={removeItinerary}
-            />
-          )}
-
-          {currentStep === 4 && (
-            <InclusionsStep
-              register={register}
-              inclusionsFields={inclusionsFields}
-              appendInclusion={appendInclusion}
-              removeInclusion={removeInclusion}
-              thingsToCarryFields={thingsToCarryFields}
-              appendThingToCarry={appendThingToCarry}
-              removeThingToCarry={removeThingToCarry}
-            />
-          )}
-
-          {currentStep === 5 && (
-            <FAQsStep
-              register={register}
-              faqFields={faqFields}
-              appendFaq={appendFaq}
-              removeFaq={removeFaq}
-            />
-          )}
-
-          {currentStep === 6 && (
-            <FooterStep register={register} />
-          )}
-        </div>
-
-        <div className={styles["form__actions"]}>
-          <button
-            type="button"
-            onClick={prevStep}
-            disabled={currentStep === 0}
-            className={styles["form__button--secondary"]}
-          >
-            <span className="material-symbols-outlined">arrow_back</span>
-            Previous
-          </button>
-          {currentStep < STEPS.length - 1 ? (
+          <div className={styles["form__actions"]}>
             <button
               type="button"
-              onClick={nextStep}
-              className={styles["form__button--primary"]}
+              onClick={prevStep}
+              disabled={currentStep === 0}
+              className={styles["form__button--secondary"]}
             >
-              Next
-              <span className="material-symbols-outlined">arrow_forward</span>
+              <span className="material-symbols-outlined">arrow_back</span>
+              Previous
             </button>
-          ) : (
-            <button type="submit" className={styles["form__button--primary"]}>
-              <span className="material-symbols-outlined">save</span>
-              {id ? "Update Project" : "Create Project"}
-            </button>
-          )}
-        </div>
-      </form>
+            {currentStep < STEPS.length - 1 ? (
+              <div className={styles["form__actions_right"]}>
+                <button
+                  type="button"
+                  onClick={handleManualSave}
+                  className={`${styles["form__button--secondary"]} ${styles["form__button--save"]}`}
+                  disabled={!isDirty || manualSaving || isSaving}
+                >
+                  <span className="material-symbols-outlined">{manualSaving ? 'sync' : 'save'}</span>
+                  {manualSaving ? "Saving..." : "Save Changes"}
+                </button>
+                <button
+                  type="button"
+                  onClick={nextStep}
+                  className={styles["form__button--primary"]}
+                >
+                  Next
+                  <span className="material-symbols-outlined">arrow_forward</span>
+                </button>
+              </div>
+            ) : (
+              <button type="submit" className={styles["form__button--primary"]}>
+                <span className="material-symbols-outlined">save</span>
+                {id ? "Update Project" : "Create Project"}
+              </button>
+            )}
+          </div>
+        </form>
+      </FormProvider>
+
+      <ConfirmModal
+        isOpen={showConfirmModal}
+        title="Unsaved Changes"
+        message="You have unsaved changes. Would you like to save them before moving to the next step?"
+        onConfirm={handleConfirmSave}
+        onDiscard={handleDiscardChanges}
+        onCancel={handleCancelNavigation}
+      />
     </div>
   );
 };

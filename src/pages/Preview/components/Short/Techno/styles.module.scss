@@ -1,0 +1,366 @@
+/**
+ * PreviewTechno — styles.module.scss
+ *
+ * Brutalist / Neobrutalist dark template.
+ * Completely self-contained — no shared theme classes with Modern or Wavy.
+ *
+ * Design tokens used:
+ *   $theme-techno-accent      → #ccff00 (neon lime)
+ *   $theme-techno-bg          → #050505 (brutal black)
+ *   $theme-techno-bg-secondary → #1a1a1a (brutal gray)
+ *   $theme-techno-font-display → 'Archivo Black', 'Inter', sans-serif
+ *   $theme-techno-font-mono   → 'Space Mono', monospace
+ *   $theme-techno-shadow      → 6px 6px 0px #ccff00
+ *   $theme-techno-radius      → 0px
+ */
+
+@use '@shiv-bhoomi/design-tokens/scss' as *;
+
+// Local aliases for readability
+$neon: #{$theme-techno-accent};
+$black: #{$theme-techno-bg};
+$gray: #{$theme-techno-bg-secondary};
+$shadow: #{$theme-techno-shadow};
+$font-display: #{$theme-techno-font-display};
+$font-mono: #{$theme-techno-font-mono};
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Page wrapper
+// ─────────────────────────────────────────────────────────────────────────────
+
+.template {
+    width: 210mm;
+    height: 297mm;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    isolation: isolate;
+
+    background: $black;
+
+    color: #ffffff;
+    font-family: $font-mono;
+    box-sizing: border-box;
+
+    // Low-opacity background image (only visible when --bg-image is set)
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: var(--bg-image, none);
+        background-size: cover;
+        background-position: center;
+        opacity: 0.7;
+        z-index: 0;
+        pointer-events: none;
+    }
+
+    @media print {
+        width: 210mm;
+        min-height: 297mm;
+        margin: 0;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}
+
+// Dark translucent overlay
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.25);
+    z-index: 1;
+}
+
+// Radial vignette for depth
+.vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, transparent 40%, rgba(0, 0, 0, 0.8) 100%);
+    z-index: 2;
+}
+
+// All real content sits above overlays
+.content {
+    position: relative;
+    padding: 32px 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Header
+// ─────────────────────────────────────────────────────────────────────────────
+
+.header {
+    margin-bottom: 32px;
+}
+
+// White badge strip above title
+.rawLabel {
+    display: inline-block;
+    background: #ffffff;
+    color: #000000;
+    padding: 4px 12px;
+    font-weight: 700;
+    font-style: italic;
+    font-size: 12px;
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+}
+
+.title {
+    font-family: $font-display;
+    font-size: 60px;
+    font-style: italic;
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+    color: #ffffff;
+    margin: 0;
+    word-break: break-word;
+}
+
+.titleAccent {
+    color: $neon;
+}
+
+.titleSuffix {
+    color: #ffffff;
+}
+
+// Neon horizontal rule
+.neonDivider {
+    height: 4px;
+    background-color: $neon;
+    width: 100%;
+    margin: 16px 0;
+    transform: skewX(-15deg);
+}
+
+// Coordinates line
+.coords {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-style: italic;
+    opacity: 0.9;
+    margin: 0;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Stats grid (3-col border box)
+// ─────────────────────────────────────────────────────────────────────────────
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 2px solid #ffffff;
+    background: #111111;
+    margin-bottom: 32px;
+}
+
+.statItem {
+    padding: 16px;
+    border-right: 2px solid #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    &:last-child {
+        border-right: none;
+    }
+}
+
+.statLabel {
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-style: italic;
+    color: $neon;
+    margin-bottom: 4px;
+    display: block;
+}
+
+.statValue {
+    font-family: $font-display;
+    font-size: 18px;
+    font-weight: 900;
+    font-style: italic;
+    margin: 0;
+    color: #ffffff;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Main 2-column itinerary + specs grid
+// ─────────────────────────────────────────────────────────────────────────────
+
+.mainGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    flex-grow: 1;
+    margin-bottom: 48px;
+    align-content: start;
+}
+
+// ── Day Card ──
+
+.dayCard {
+    background: #161616;
+    border: 2px solid #ffffff;
+    padding: 16px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: $shadow;
+}
+
+// Neon label "STEP 01"
+.brutalLabel {
+    display: inline-block;
+    background: $neon;
+    color: #000000;
+    padding: 2px 8px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+// Day heading inside card
+.dayTitle {
+    font-family: $font-display;
+    font-size: 20px;
+    font-style: italic;
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 1.1;
+    margin: 8px 0 0 0;
+    color: #ffffff;
+}
+
+// Material symbol in bottom-right of card
+.dayIcon {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    font-size: 30px;
+    color: $neon;
+    opacity: 0.5;
+}
+
+// ── Specs Card (inclusions, neon background) ──
+
+.dayCardSpecs {
+    background: $neon !important;
+    border-color: #000000 !important;
+    box-shadow: none !important;
+}
+
+.specsLabel {
+    display: inline-block;
+    background: #000000;
+    color: #ffffff;
+    padding: 2px 8px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.specsList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 11px;
+    font-weight: 900;
+    font-style: italic;
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+    color: #000000;
+
+    li {
+        line-height: 1.6;
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Footer
+// ─────────────────────────────────────────────────────────────────────────────
+
+.footer {
+    margin-top: auto;
+    padding-top: 24px;
+    border-top: 4px solid #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footerLeft {
+    display: flex;
+    flex-direction: column;
+}
+
+.footerRight {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.footerSite {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+}
+
+.footerLabel {
+    font-size: 10px;
+    font-weight: 900;
+    font-style: italic;
+    text-transform: uppercase;
+    color: $neon;
+    margin-bottom: 2px;
+}
+
+.footerValue {
+    font-size: 14px;
+    font-weight: 700;
+    font-style: italic;
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+    color: #ffffff;
+}
+
+// Diamond-shaped logo mark
+.logoShape {
+    width: 48px;
+    height: 48px;
+    background-color: $neon;
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.logoLetter {
+    position: relative;
+    z-index: 1;
+    color: #000000;
+    font-family: $font-display;
+    font-weight: 900;
+    font-style: italic;
+    font-size: 20px;
+    line-height: 1;
+}

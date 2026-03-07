@@ -1,7 +1,7 @@
 import StyleDictionary from 'style-dictionary';
 
 const styleDictionary = new StyleDictionary({
-  source: ['tokens.json'],
+  source: ['token/tokens.json', 'token/template/*.json'],
   platforms: {
     scss: {
       transformGroup: 'scss',

@@ -1,8 +1,10 @@
-import React from "react";
-import { FormInput, FormTextarea } from "../../../../components/FormComponents";
+import { useFormContext } from "react-hook-form";
+import { FormGroup, FormInput, FormTextarea } from "../../../../components/FormComponents";
+import type { Project } from "../../../../types/project";
 import styles from "./styles.module.scss";
 
-const FooterStep = ({ register }) => {
+const FooterStep = () => {
+  const { register } = useFormContext<Project>();
   return (
     <div className={styles["step"]}>
       <h2 className={styles["step__title"]}>
@@ -23,6 +25,19 @@ const FooterStep = ({ register }) => {
         register={register("footer.copyright")}
         placeholder="e.g., © 2024 Company Name"
       />
+
+      <FormGroup label="High-Impact Template Footer Extras">
+        <FormInput
+          label="Limited Slots Text"
+          register={register("footer.slotsText")}
+          placeholder="e.g. LIMITED SLOTS"
+        />
+        <FormInput
+          label="Secure Spot Text"
+          register={register("footer.spotText")}
+          placeholder="e.g. Secure Your Spot Now"
+        />
+      </FormGroup>
     </div>
   );
 };

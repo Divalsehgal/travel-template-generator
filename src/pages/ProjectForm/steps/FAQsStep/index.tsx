@@ -1,8 +1,14 @@
-import React from "react";
+import { useFormContext, useFieldArray } from "react-hook-form";
 import { FormInput, FormTextarea } from "../../../../components/FormComponents";
+import type { Project } from "../../../../types/project";
 import styles from "./styles.module.scss";
 
-const FAQsStep = ({ register, faqFields, appendFaq, removeFaq }) => {
+const FAQsStep = () => {
+  const { register, control } = useFormContext<Project>();
+  const { fields: faqFields, append: appendFaq, remove: removeFaq } = useFieldArray({
+    control,
+    name: "faqs"
+  });
   return (
     <div className={styles["step"]}>
       <h2 className={styles["step__title"]}>

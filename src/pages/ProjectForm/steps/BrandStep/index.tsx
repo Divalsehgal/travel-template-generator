@@ -1,16 +1,18 @@
-import { Controller } from "react-hook-form";
+import { useFormContext, Controller } from "react-hook-form";
 import { FormInput } from "../../../../components/FormComponents";
 import ImageUpload from "../../../../components/ImageUpload";
+import type { Project } from "../../../../types/project";
 import styles from "./styles.module.scss";
 
-const BrandStep = ({ register, errors, control }) => {
+const BrandStep = () => {
+  const { register, control, formState: { errors } } = useFormContext<Project>();
   return (
     <div className={styles["step"]}>
       <h2 className={styles["step__title"]}>
         <span className="material-symbols-outlined">branding_watermark</span>
         Brand Information
       </h2>
-      
+
       <Controller
         name="brand.logo"
         control={control}
@@ -22,7 +24,7 @@ const BrandStep = ({ register, errors, control }) => {
           />
         )}
       />
-      
+
       <FormInput
         label="Brand Title *"
         register={register("brand.title", { required: "Brand title is required" })}

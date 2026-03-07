@@ -4,7 +4,8 @@
     "email": "sehgaldival@gmail.com",
     "website": "www.sehgaldival.com",
     "instagram": "https://instagram.com/shivbhoomi",
-    "facebook": "https://facebook.com/shivbhoomi"
+    "facebook": "https://facebook.com/shivbhoomi",
+    "subBadge": "Premium Expedition 2024"
   },
   "brand": {
     "title": "Shiv Bhoomi Tour & Travels",
@@ -24,7 +25,9 @@
     "stats": {
       "duration": "5 Days / 4 Nights",
       "altitude": "4,000 meters",
-      "difficulty": "Moderate to Difficult"
+      "difficulty": "Moderate to Difficult",
+      "expeditionOverview": "5 Days | Elite Access | All-Inclusive",
+      "bookingText": "Visit ADVENTURE.CH/EXTREME for Full Details & Booking"
     }
   },
   "overview": {
@@ -126,7 +129,9 @@
   "footer": {
     "title": "Shiv Bhoomi Tour & Travels",
     "description": "Contact us to begin your journey into the untouched Himalayas.",
-    "copyright": "© 2026 Shiv Bhoomi Tour & Travels"
+    "copyright": "© 2026 Shiv Bhoomi Tour & Travels",
+    "slotsText": "LIMITED SLOTS",
+    "spotText": "Secure Your Spot Now"
   },
   "id": "1769868305358",
   "createdAt": "2026-01-31T14:05:05.358Z",

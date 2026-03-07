@@ -1,0 +1,271 @@
+@use '@shiv-bhoomi/design-tokens/scss' as *;
+
+.wavy-template {
+    width: 210mm;
+    height: 297mm;
+    background-color: var(--theme-bg, #{$theme-wavy-bg});
+    color: $color-white;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    font-family: $font-family-body;
+    box-sizing: border-box;
+    isolation: isolate;
+
+    @media print {
+        width: 210mm;
+        min-height: 297mm;
+        margin: 0;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    // Background image layer (only applied when --bg-image is set via shortBgImage)
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: var(--bg-image, none);
+        background-size: cover;
+        background-position: center;
+        z-index: 0;
+        pointer-events: none;
+    }
+}
+
+// Gradient overlay — rendered as a div only when bgImage is set (see index.tsx)
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom,
+            rgba(1, 28, 58, 0.7) 0%,
+            rgba(1, 28, 58, 0.2) 30%,
+            rgba(0, 0, 0, 0.2) 60%,
+            rgba(0, 0, 0, 0.7) 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.header {
+    position: relative;
+    z-index: 10;
+    padding: $spacing-6 $spacing-8 $spacing-6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    &__badge {
+        color: $theme-wavy-secondary;
+        font-weight: $font-weight-black;
+        letter-spacing: 0.4em;
+        font-size: $font-size-xs;
+        text-transform: uppercase;
+        margin-bottom: $spacing-2;
+    }
+
+    &__title {
+        font-family: $font-family-display;
+        font-size: $font-size-6xl;
+        font-weight: $font-weight-black;
+        letter-spacing: -0.05em;
+        line-height: 0.85;
+        text-transform: uppercase;
+        font-style: italic;
+        text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+        text-align: center;
+        margin: $spacing-2;
+
+        &--accent {
+            color: $theme-wavy-accent;
+        }
+    }
+
+    &__socials {
+        display: flex;
+        gap: $spacing-6;
+        margin-top: $spacing-6;
+        padding: $spacing-2 $spacing-6;
+        border-radius: $border-radius-full;
+        border: 1px solid rgba($color-white, 0.2);
+        background: rgba($color-black, 0.4);
+        backdrop-filter: blur(10px);
+    }
+}
+
+.social-icon {
+    opacity: 0.8;
+    color: inherit;
+    transition: opacity 0.2s;
+
+    &:hover {
+        opacity: 1;
+    }
+
+    .material-symbols-outlined {
+        font-size: $font-size-xl;
+    }
+}
+
+.main {
+    position: relative;
+    padding: $spacing-4 $spacing-8;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-4;
+}
+
+.itinerary {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-4;
+}
+
+.itinerary-item {
+    background: #0d1b2e;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: $spacing-2 $spacing-5;
+    border-radius: $theme-wavy-radius;
+    border-left: 4px solid $theme-wavy-secondary;
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: $spacing-1;
+
+        .material-symbols-outlined {
+            color: $theme-wavy-secondary;
+            font-size: $font-size-lg;
+        }
+    }
+
+    &__day {
+        color: $theme-wavy-secondary;
+        font-weight: $font-weight-black;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+    }
+
+    &__title {
+        font-size: $font-size-xl;
+        font-weight: $font-weight-black;
+        text-transform: uppercase;
+        font-style: italic;
+        letter-spacing: -0.02em;
+        margin-bottom: $spacing-2;
+    }
+
+    &__desc {
+        font-size: $font-size-xs;
+        font-weight: $font-weight-semibold;
+        line-height: $font-line-height-tight;
+        color: rgba($color-white, 0.8);
+        font-style: italic;
+    }
+}
+
+.overview {
+    background: rgba($theme-wavy-accent, 0.9);
+    padding: $spacing-6;
+    border-radius: $theme-wavy-radius;
+    margin-top: $spacing-4;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $spacing-4;
+
+    &__content {
+        flex-grow: 1;
+    }
+
+    &__title {
+        font-size: $font-size-2xl;
+        font-weight: $font-weight-black;
+        font-style: italic;
+        text-transform: uppercase;
+        line-height: 1;
+        margin-bottom: $spacing-1;
+    }
+
+    &__subtitle {
+        font-size: 10px;
+        font-weight: $font-weight-bold;
+        text-transform: uppercase;
+        letter-spacing: -0.01em;
+        color: rgba($color-white, 0.9);
+        margin-bottom: $spacing-3;
+    }
+
+    &__booking {
+        font-size: 11px;
+        font-weight: $font-weight-black;
+        text-transform: uppercase;
+        background: $color-black;
+        padding: $spacing-2 $spacing-3;
+        display: inline-block;
+        border-radius: $border-radius-sm;
+    }
+
+    &__qr {
+        background: $color-white;
+        padding: $spacing-2;
+        border-radius: $border-radius-md;
+        flex-shrink: 0;
+    }
+}
+
+.qr-box {
+    width: 64px;
+    height: 64px;
+    background: $color-black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .material-symbols-outlined {
+        color: $color-white;
+        font-size: 48px;
+    }
+}
+
+.footer {
+    position: relative;
+    z-index: 10;
+    padding: $spacing-8 $spacing-8;
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    &__copyright {
+        font-size: 9px;
+        font-weight: $font-weight-bold;
+        text-transform: uppercase;
+        letter-spacing: 0.3em;
+        color: rgba($color-white, 0.4);
+    }
+
+    &__status {
+        text-align: right;
+    }
+
+    &__slots {
+        color: $theme-wavy-accent;
+        font-weight: $font-weight-black;
+        font-style: italic;
+        font-size: $font-size-lg;
+        line-height: 1;
+    }
+
+    &__secure {
+        color: $theme-wavy-secondary;
+        font-weight: $font-weight-black;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+    }
+}

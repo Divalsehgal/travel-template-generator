@@ -19,6 +19,17 @@ import type {
  * Main project structure representing a trek/tour
  */
 export interface Project extends BaseEntity {
+  projectType: 'long' | 'short';
+  /**
+   * Which short-format layout to use.
+   * Each value maps to a self-contained component in Short/<Name>/
+   */
+  shortTemplate?: 'modern' | 'wavy' | 'techno';
+  /**
+   * Optional full-bleed background image for short templates that support it
+   * (e.g. Modern, Techno). Templates that don't use it simply ignore the field.
+   */
+  shortBgImage?: string;
   header: HeaderData;
   brand: BrandData;
   hero: HeroData;
@@ -62,6 +73,9 @@ export interface HeaderLink {
  */
 export interface HeaderData extends ContactInfo {
   links?: HeaderLink[];
+  rawLabel?: string;
+  subBadge?: string;
+  coordinates?: string;
   instagram?: string; // @deprecated - migrate to links
   facebook?: string; // @deprecated - migrate to links
 }
@@ -82,7 +96,10 @@ export interface HeroData extends MediaItem {
   title: string;
   location?: string;
   stats: ActivityStats;
+  teamStat?: string;
   images?: string[];
+  expeditionOverview?: string;
+  bookingText?: string;
 }
 
 // ============================================================================
@@ -150,6 +167,8 @@ export interface FAQ extends QuestionAnswer { }
  */
 export interface FooterData extends TitledContent {
   copyright: string;
+  slotsText?: string;
+  spotText?: string;
 }
 
 // ============================================================================

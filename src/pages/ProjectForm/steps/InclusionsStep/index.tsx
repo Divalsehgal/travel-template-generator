@@ -1,5 +1,6 @@
-import React from "react";
+import { useFormContext, useFieldArray } from "react-hook-form";
 import { FormGroup, FormRow, FormInput, FormTextarea, FormSelect } from "../../../../components/FormComponents";
+import type { Project } from "../../../../types/project";
 import styles from "./styles.module.scss";
 
 // Predefined icon options for inclusions
@@ -48,15 +49,18 @@ const THINGS_TO_CARRY_ICON_OPTIONS = [
   { value: "do_not_touch", label: "🧤 Gloves" }
 ];
 
-const InclusionsStep = ({ 
-  register, 
-  inclusionsFields, 
-  appendInclusion, 
-  removeInclusion,
-  thingsToCarryFields,
-  appendThingToCarry,
-  removeThingToCarry
-}) => {
+const InclusionsStep = () => {
+  const { register, control } = useFormContext<Project>();
+
+  const { fields: inclusionsFields, append: appendInclusion, remove: removeInclusion } = useFieldArray({
+    control,
+    name: "inclusions"
+  });
+
+  const { fields: thingsToCarryFields, append: appendThingToCarry, remove: removeThingToCarry } = useFieldArray({
+    control,
+    name: "thingsToCarry"
+  });
   return (
     <div className={styles["step"]}>
       <h2 className={styles["step__title"]}>

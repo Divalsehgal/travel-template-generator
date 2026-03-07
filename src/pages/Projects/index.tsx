@@ -4,7 +4,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import ProjectCard from '../../components/ProjectCard/index.tsx';
 import styles from './styles.module.scss';
 
-export default function Projects(): JSX.Element {
+export default function Projects() {
   const { projects, loading, deleteProject, createDefaultProject } = useProjects();
   const { user, signOut } = useAuth();
 
@@ -73,9 +73,9 @@ export default function Projects(): JSX.Element {
         <div className={styles.projects__user}>
           <div className={styles['projects__user-info']}>
             {user?.photoURL ? (
-              <img 
-                src={user.photoURL} 
-                alt={user.displayName || 'User'} 
+              <img
+                src={user.photoURL}
+                alt={user.displayName || 'User'}
                 className={styles['projects__user-avatar']}
               />
             ) : (
@@ -88,7 +88,7 @@ export default function Projects(): JSX.Element {
               <span className={styles['projects__user-email']}>{user?.email}</span>
             </div>
           </div>
-          <button 
+          <button
             onClick={handleSignOut}
             className={styles['projects__user-signout']}
           >
@@ -100,7 +100,7 @@ export default function Projects(): JSX.Element {
         <div className={styles.projects__header}>
           <h1 className={styles['projects__header-title']}>Projects</h1>
           <div className={styles['projects__header-actions']}>
-            <Link 
+            <Link
               to="/projects/new"
               className={styles['projects__header-btn']}
             >
@@ -116,13 +116,13 @@ export default function Projects(): JSX.Element {
               <span className="material-symbols-outlined">folder_open</span>
               <p>No projects yet. Create your first trek project!</p>
               <div className={styles['projects__empty-actions']}>
-                <Link 
+                <Link
                   to="/projects/new"
                   className={styles.projects__cta}
                 >
                   Create Project
                 </Link>
-                <button 
+                <button
                   onClick={handleCreateSample}
                   className={styles['projects__cta--secondary']}
                 >

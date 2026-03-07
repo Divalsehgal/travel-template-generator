@@ -1,10 +1,16 @@
 import React from "react";
-import { Controller } from "react-hook-form";
+import { useFormContext, useFieldArray, Controller } from "react-hook-form";
 import { FormRow, FormInput, FormTextarea } from "../../../../components/FormComponents";
 import ImageUpload from "../../../../components/ImageUpload";
+import type { Project } from "../../../../types/project";
 import styles from "./styles.module.scss";
 
-const ItineraryStep = ({ register, control, itineraryFields, appendItinerary, removeItinerary }) => {
+const ItineraryStep = () => {
+  const { register, control } = useFormContext<Project>();
+  const { fields: itineraryFields, append: appendItinerary, remove: removeItinerary } = useFieldArray({
+    control,
+    name: "itinerary"
+  });
   return (
     <div className={styles["step"]}>
       <h2 className={styles["step__title"]}>
@@ -63,7 +69,7 @@ const ItineraryStep = ({ register, control, itineraryFields, appendItinerary, re
       ))}
       <button
         type="button"
-        onClick={() => appendItinerary({ day: itineraryFields.length + 1, badge: "", title: "", description: "", image: "" })}
+        onClick={() => appendItinerary({ day: String(itineraryFields.length + 1), badge: "", title: "", description: "", image: "" })}
         className={styles["step__button--add"]}
       >
         <span className="material-symbols-outlined">add</span>

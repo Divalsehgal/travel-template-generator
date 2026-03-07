@@ -1,0 +1,30 @@
+{
+    "theme": {
+        "modern": {
+            "accent": {
+                "value": "#2D3A2F"
+            },
+            "bg": {
+                "value": "#F9FAFB"
+            },
+            "radius": {
+                "value": "0px"
+            },
+            "secondary": {
+                "value": "#F4D3D3"
+            },
+            "tertiary": {
+                "value": "#A7B8A8"
+            },
+            "muted": {
+                "value": "#E5E7EB"
+            },
+            "font-heading": {
+                "value": "'Space Grotesk', sans-serif"
+            },
+            "font-body": {
+                "value": "'Inter', sans-serif"
+            }
+        }
+    }
+}

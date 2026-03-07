@@ -1,0 +1,21 @@
+{
+    "theme": {
+        "wavy": {
+            "accent": {
+                "value": "#ff6b00"
+            },
+            "secondary": {
+                "value": "#00d2ff"
+            },
+            "bg": {
+                "value": "#000000"
+            },
+            "overlay": {
+                "value": "rgba(1, 28, 58, 0.9)"
+            },
+            "radius": {
+                "value": "1rem"
+            }
+        }
+    }
+}

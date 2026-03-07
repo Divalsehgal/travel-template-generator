@@ -23,28 +23,6 @@ export interface UseProjectsReturn {
 }
 
 // ============================================================================
-// Auto-Save Hook Types
-// ============================================================================
-
-/**
- * Return type for useAutoSave hook
- */
-export interface UseAutoSaveReturn {
-  isSaving: boolean;
-  lastSaved: Date | null;
-  error: Error | null;
-}
-
-/**
- * Options for useAutoSave hook
- */
-export interface UseAutoSaveOptions {
-  delay?: number;
-  onSuccess?: () => void;
-  onError?: (error: Error) => void;
-}
-
-// ============================================================================
 // Local Storage Hook Types
 // ============================================================================
 

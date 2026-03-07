@@ -1,0 +1,194 @@
+@use '@shiv-bhoomi/design-tokens/scss' as *;
+
+.type-step {
+    &__title {
+        display: flex;
+        align-items: center;
+        gap: $spacing-3;
+        font-size: $font-size-2xl;
+        font-weight: $font-weight-bold;
+        color: $color-forest-green;
+        margin: 0 0 $spacing-2 0;
+
+        .material-symbols-outlined {
+            font-size: $font-size-3xl;
+            color: $color-primary;
+        }
+    }
+
+    &__description {
+        font-size: $font-size-base;
+        color: $color-stone-gray;
+        margin-bottom: $spacing-8;
+    }
+
+    &__options {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: $spacing-6;
+    }
+
+    &__option {
+        cursor: pointer;
+
+        &--active {
+            .type-step__card {
+                border-color: $color-primary;
+                background: rgba($color-primary, 0.05);
+                box-shadow: $shadow-md;
+            }
+        }
+    }
+
+    &__radio {
+        display: none;
+    }
+
+    &__card {
+        display: flex;
+        gap: $spacing-4;
+        padding: $spacing-6;
+        background: $color-white;
+        border: 2px solid $color-gray-200;
+        border-radius: $border-radius-xl;
+        transition: all $transition-base ease;
+
+        &:hover {
+            border-color: $color-gray-400;
+            transform: translateY(-2px);
+        }
+    }
+
+    &__icon {
+        font-size: 48px;
+        color: $color-primary;
+    }
+
+    &__info {
+        h3 {
+            font-size: $font-size-lg;
+            font-weight: $font-weight-bold;
+            margin: 0 0 $spacing-1 0;
+            color: $color-stone-gray;
+        }
+
+        p {
+            font-size: $font-size-sm;
+            color: $color-gray-600;
+            line-height: 1.5;
+            margin: 0;
+        }
+    }
+
+    &__sub-section {
+        margin-top: $spacing-10;
+        padding-top: $spacing-8;
+        border-top: 1px solid $color-gray-200;
+        animation: fadeIn 0.3s ease;
+    }
+
+    &__sub-title {
+        font-size: $font-size-xl;
+        font-weight: $font-weight-semibold;
+        color: $color-stone-gray;
+        margin-bottom: $spacing-6;
+    }
+
+    &__templates {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: $spacing-4;
+    }
+
+    &__template {
+        cursor: pointer;
+        position: relative;
+
+        &--active {
+            .type-step__template-card {
+                border-color: $color-primary;
+                background: rgba($color-primary, 0.05);
+            }
+
+            .type-step__template-check {
+                opacity: 1;
+            }
+        }
+    }
+
+    &__template-card {
+        padding: $spacing-4;
+        background: $color-white;
+        border: 2px solid $color-gray-200;
+        border-radius: $border-radius-lg;
+        text-align: center;
+        transition: all $transition-base ease;
+
+        &:hover {
+            border-color: $color-gray-400;
+        }
+
+        h4 {
+            font-size: $font-size-sm;
+            font-weight: $font-weight-bold;
+            color: $color-stone-gray;
+            margin: $spacing-2 0 0 0;
+            text-transform: capitalize;
+        }
+    }
+
+    &__template-preview {
+        width: 100%;
+        aspect-ratio: 210 / 297; // A4 Ratio
+        background: $color-gray-100;
+        border-radius: $border-radius-sm;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: $spacing-2;
+        overflow: hidden;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .material-symbols-outlined {
+            font-size: 32px;
+            color: $color-gray-400;
+        }
+    }
+
+    &__template-check {
+        position: absolute;
+        top: $spacing-2;
+        right: $spacing-2;
+        background: $color-primary;
+        color: $color-white;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity $transition-base ease;
+
+        .material-symbols-outlined {
+            font-size: 16px;
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

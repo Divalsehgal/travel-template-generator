@@ -1,6 +1,8 @@
 @use '@shiv-bhoomi/design-tokens/scss' as *;
 
 .upload {
+  margin-bottom: $spacing-8;
+
   &__input {
     display: none;
   }
