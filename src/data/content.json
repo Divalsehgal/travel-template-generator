@@ -3,19 +3,41 @@
     "phone": "+91 86280 49917",
     "email": "sehgaldival@gmail.com",
     "website": "www.sehgaldival.com",
-    "instagram": "https://instagram.com/shivbhoomi",
-    "facebook": "https://facebook.com/shivbhoomi",
-    "subBadge": "Premium Expedition 2024"
+    "subBadge": "Premium Expedition 2024",
+    "links": [
+      {
+        "platform": "instagram",
+        "url": "https://instagram.com/shivbhoomi",
+        "alias": "Instagram"
+      },
+      {
+        "platform": "facebook",
+        "url": "https://facebook.com/shivbhoomi",
+        "alias": "Facebook"
+      },
+      {
+        "platform": "youtube",
+        "url": "https://youtube.com/shivbhoomi",
+        "alias": "YouTube"
+      },
+      {
+        "platform": "whatsapp",
+        "url": "https://wa.me/918628049917",
+        "alias": "WhatsApp"
+      }
+    ]
   },
   "brand": {
     "title": "Shiv Bhoomi Tour & Travels",
     "subtitle": "Powered by the Spirit of the Himalayas",
     "logo": "https://picsum.photos/200/200?random=0"
   },
+  "shortBgImage": "https://picsum.photos/1200/1600?random=99",
   "hero": {
     "badge": "Offbeat Himalayan Trek",
     "title": "Gadasaru Mahadev Trek",
     "location": "Churah Valley, Chamba District, Himachal Pradesh",
+    "locationUrl": "https://maps.app.goo.gl/",
     "image": "https://picsum.photos/1200/700?random=1",
     "images": [
       "https://picsum.photos/1200/800?random=10",
@@ -45,6 +67,8 @@
       "badge": "Arrival",
       "title": "Arrival at Chamba & Drive to Churah Valley",
       "description": "Arrive at Chamba and begin a scenic drive towards the remote Churah Valley. Meet the trek team, attend a briefing, and prepare for the journey.",
+      "distance": "70 km",
+      "time": "4 Hours",
       "image": "https://picsum.photos/800/500?random=3"
     },
     {
@@ -52,6 +76,8 @@
       "badge": "Trek Start",
       "title": "Forest Trail to Base Camp",
       "description": "Trek through pine and deodar forests, crossing streams and small villages before reaching base camp.",
+      "distance": "8 km",
+      "time": "5 Hours",
       "image": "https://picsum.photos/800/500?random=4"
     },
     {
@@ -120,10 +146,28 @@
       "label": "Personal medication"
     }
   ],
+  "shortTemplateSettings": {
+    "teamLabel": "TEAM",
+    "timeLabel": "TIME",
+    "altitudeLabel": "ALTITUDE",
+    "specsLabel": "SPECIFICATIONS",
+    "bookSlotText": "Book Your Slot",
+    "websiteText": "Web",
+    "faqLabel": "FAQ",
+    "leaderLabel": "LEADER"
+  },
   "faqs": [
     {
       "question": "Is this trek suitable for beginners?",
       "answer": "Fit beginners with prior hiking experience can attempt this trek."
+    },
+    {
+      "question": "What is the best time to visit?",
+      "answer": "The best time to visit is from mid-May to June and September to October."
+    },
+    {
+      "question": "Are meals provided on the trek?",
+      "answer": "Yes, all meals including breakfast, lunch, and dinner are provided during the trek."
     }
   ],
   "footer": {

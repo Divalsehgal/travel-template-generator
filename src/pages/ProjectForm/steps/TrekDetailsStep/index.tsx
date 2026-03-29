@@ -30,6 +30,11 @@ const TrekDetailsStep = () => {
           register={register("hero.location")}
           placeholder="e.g., Himachal Pradesh, India"
         />
+        <FormInput
+          label="Location Map URL (Google Maps)"
+          register={register("hero.locationUrl")}
+          placeholder="e.g., https://maps.app.goo.gl/..."
+        />
         <Controller
           name="hero.image"
           control={control}

@@ -131,36 +131,10 @@
       }
     }
 
-    &--danger {
-      width: 28px;
-      height: 28px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: $color-bg-off-white;
-      color: $color-stone-gray;
-      border: none;
-      border-radius: $border-radius-default;
-      cursor: pointer;
-      transition: all $transition-base ease;
-      flex-shrink: 0;
-
-      @media (min-width: 640px) {
-        width: 32px;
-        height: 32px;
-      }
-
+      &--danger {
       &:hover {
         background: $color-error;
         color: $color-white;
-      }
-
-      .material-symbols-outlined {
-        font-size: $font-size-base;
-
-        @media (min-width: 640px) {
-          font-size: $font-size-lg;
-        }
       }
     }
   }
@@ -173,6 +147,7 @@
     flex: 1;
     display: -webkit-box;
     -webkit-line-clamp: 3;
+    line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
 

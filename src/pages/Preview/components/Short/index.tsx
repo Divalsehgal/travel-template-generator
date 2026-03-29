@@ -22,15 +22,33 @@ interface PreviewShortProps {
  *   4. Add a case below
  */
 const PreviewShort = ({ project }: PreviewShortProps) => {
-    switch (project.shortTemplate) {
-        case "wavy":
-            return <PreviewWavy project={project} />;
-        case "techno":
-            return <PreviewTechno project={project} />;
-        case "modern":
-        default:
-            return <PreviewModern project={project} />;
-    }
+    const renderTemplate = () => {
+        switch (project.shortTemplate) {
+            case "wavy":
+                return <PreviewWavy project={project} />;
+            case "techno":
+                return <PreviewTechno project={project} />;
+            case "modern":
+            default:
+                return <PreviewModern project={project} />;
+        }
+    };
+
+    return (
+        <div 
+            style={{ 
+                backgroundColor: 'transparent',
+                backgroundImage: project.shortBgImage ? `url(${project.shortBgImage})` : undefined,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                minHeight: '100%',
+                width: '100%',
+                position: 'relative'
+            }}
+        >
+            {renderTemplate()}
+        </div>
+    );
 };
 
 export default PreviewShort;

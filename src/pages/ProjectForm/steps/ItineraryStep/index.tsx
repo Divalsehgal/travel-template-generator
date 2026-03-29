@@ -45,6 +45,16 @@ const ItineraryStep = () => {
             label="Title"
             register={register(`itinerary.${index}.title`)}
           />
+          <FormRow>
+            <FormInput
+              label="Distance (e.g. 5km)"
+              register={register(`itinerary.${index}.distance`)}
+            />
+            <FormInput
+              label="Time Taken (e.g. 4 Hours)"
+              register={register(`itinerary.${index}.time`)}
+            />
+          </FormRow>
           <FormTextarea
             label="Description"
             register={register(`itinerary.${index}.description`)}

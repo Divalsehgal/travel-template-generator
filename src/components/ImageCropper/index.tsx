@@ -1,6 +1,6 @@
-import React, { useState, useRef, useCallback } from 'react';
-import ReactCrop, { type Crop, type PixelCrop, centerCrop, makeAspectCrop } from 'react-image-crop';
-import 'react-image-crop/dist/ReactCrop.css';
+import React, { useState, useCallback } from 'react';
+import Cropper, { type Area, type Point } from 'react-easy-crop';
+import getCroppedImg, { padImage } from '../../utils/cropImage';
 import styles from './styles.module.scss';
 
 interface ImageCropperProps {
@@ -9,79 +9,78 @@ interface ImageCropperProps {
     onCancel: () => void;
     /** Aspect ratio: width/height. e.g. 4/3, 1/1, 210/297 (A4). undefined = free crop */
     aspect?: number;
-}
-
-/** Canvas-based crop extraction — no external utility needed */
-async function extractCroppedImage(
-    image: HTMLImageElement,
-    pixelCrop: PixelCrop,
-    quality = 0.92
-): Promise<string> {
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    if (!ctx) throw new Error('2D canvas not supported');
-
-    canvas.width = pixelCrop.width;
-    canvas.height = pixelCrop.height;
-
-    ctx.drawImage(
-        image,
-        pixelCrop.x,
-        pixelCrop.y,
-        pixelCrop.width,
-        pixelCrop.height,
-        0,
-        0,
-        pixelCrop.width,
-        pixelCrop.height
-    );
-
-    return canvas.toDataURL('image/jpeg', quality);
-}
-
-/** Helper: start with a centred crop that fills ~90% of the image */
-function initCrop(naturalWidth: number, naturalHeight: number, aspect?: number): Crop {
-    if (aspect) {
-        return centerCrop(
-            makeAspectCrop({ unit: '%', width: 90 }, aspect, naturalWidth, naturalHeight),
-            naturalWidth,
-            naturalHeight
-        );
-    }
-    // Free crop — start with full image selected
-    return { unit: '%', x: 5, y: 5, width: 90, height: 90 };
+    format?: string;
+    maxWidth?: number;
+    padding?: number;
 }
 
 const ImageCropper: React.FC<ImageCropperProps> = ({
     imageSrc,
     onCropComplete,
     onCancel,
-    aspect,
+    aspect = 1,
+    format = 'image/png',
+    maxWidth = 1200,
+    padding = 10,
 }) => {
-    const imgRef = useRef<HTMLImageElement>(null);
-    const [crop, setCrop] = useState<Crop>();
-    const [completedCrop, setCompletedCrop] = useState<PixelCrop>();
+    const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
+    const [zoom, setZoom] = useState(1);
+    const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
     const [isSaving, setIsSaving] = useState(false);
+    const [processedImage, setProcessedImage] = useState<string>(imageSrc);
 
-    const onImageLoad = useCallback((e: React.SyntheticEvent<HTMLImageElement>) => {
-        const { naturalWidth, naturalHeight } = e.currentTarget;
-        setCrop(initCrop(naturalWidth, naturalHeight, aspect));
-    }, [aspect]);
+    React.useEffect(() => {
+        const processImage = async () => {
+            if (padding > 0) {
+                try {
+                    const padded = await padImage(imageSrc, padding);
+                    setProcessedImage(padded);
+                } catch (e) {
+                    console.error('Error padding image:', e);
+                    setProcessedImage(imageSrc);
+                }
+            } else {
+                setProcessedImage(imageSrc);
+            }
+        };
+        processImage();
+    }, [imageSrc, padding]);
+
+    const onCropChange = (crop: Point) => {
+        setCrop(crop);
+    };
+
+    const onZoomChange = (zoom: number) => {
+        setZoom(zoom);
+    };
+
+    const onCropCompleteInternal = useCallback((_area: Area, pixelArea: Area) => {
+        setCroppedAreaPixels(pixelArea);
+    }, []);
 
     const handleSave = useCallback(async () => {
-        if (!completedCrop || !imgRef.current) return;
+        if (!croppedAreaPixels) return;
         setIsSaving(true);
         try {
-            const result = await extractCroppedImage(imgRef.current, completedCrop);
-            onCropComplete(result);
-        } catch (err) {
-            console.error('Crop failed:', err);
+            const croppedImage = await getCroppedImg(
+                processedImage,
+                croppedAreaPixels,
+                0,
+                { horizontal: false, vertical: false },
+                format,
+                0.8,
+                maxWidth
+            );
+            if (croppedImage) {
+                onCropComplete(croppedImage);
+            }
+        } catch (e) {
+            console.error(e);
         } finally {
             setIsSaving(false);
         }
-    }, [completedCrop, onCropComplete]);
+    }, [croppedAreaPixels, processedImage, onCropComplete]);
 
-    const canSave = !!completedCrop && completedCrop.width > 0 && completedCrop.height > 0;
 
     return (
         <div className={styles.cropper}>
@@ -91,28 +90,39 @@ const ImageCropper: React.FC<ImageCropperProps> = ({
             </div>
 
             <div className={styles.cropper__container}>
-                <ReactCrop
-                    crop={crop}
-                    onChange={(c) => setCrop(c)}
-                    onComplete={(c) => setCompletedCrop(c)}
-                    aspect={aspect}
-                    keepSelection
-                    minWidth={50}
-                    minHeight={50}
-                >
-                    <img
-                        ref={imgRef}
-                        src={imageSrc}
-                        alt="Crop source"
-                        onLoad={onImageLoad}
-                        className={styles.cropper__image}
+                <div className={styles.cropper__wrapper}>
+                    <Cropper
+                        image={processedImage}
+                        crop={crop}
+                        zoom={zoom}
+                        aspect={aspect}
+                        onCropChange={onCropChange}
+                        onCropComplete={onCropCompleteInternal}
+                        onZoomChange={onZoomChange}
                     />
-                </ReactCrop>
+                </div>
             </div>
 
-            <div className={styles.cropper__hint}>
-                Drag to reposition · Handles to resize
-                {aspect && ` · Locked to ${Math.round(aspect * 100) / 100}:1`}
+            <div className={styles.cropper__controls}>
+                <div className={styles.cropper__slider_container}>
+                    <span className="material-symbols-outlined">zoom_out</span>
+                    <input
+                        type="range"
+                        value={zoom}
+                        min={1}
+                        max={3}
+                        step={0.1}
+                        aria-labelledby="Zoom"
+                        onChange={(e) => {
+                            setZoom(Number(e.target.value));
+                        }}
+                        className={styles.cropper__slider}
+                    />
+                    <span className="material-symbols-outlined">zoom_in</span>
+                </div>
+                <div className={styles.cropper__hint}>
+                    Drag to reposition · Scroll or use slider to zoom
+                </div>
             </div>
 
             <div className={styles.cropper__actions}>
@@ -128,7 +138,7 @@ const ImageCropper: React.FC<ImageCropperProps> = ({
                     type="button"
                     onClick={handleSave}
                     className={styles['cropper__button--primary']}
-                    disabled={!canSave || isSaving}
+                    disabled={isSaving}
                 >
                     <span className="material-symbols-outlined">
                         {isSaving ? 'hourglass_empty' : 'check'}
@@ -141,3 +151,4 @@ const ImageCropper: React.FC<ImageCropperProps> = ({
 };
 
 export default ImageCropper;
+

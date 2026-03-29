@@ -14,6 +14,7 @@ import FAQsStep from "./steps/FAQsStep";
 import FooterStep from "./steps/FooterStep";
 import TypeStep from "./steps/TypeStep";
 import ConfirmModal from "../../components/ConfirmModal";
+import PreviewModal from "../../components/PreviewModal";
 import styles from "./styles.module.scss";
 
 const STEPS = [
@@ -34,6 +35,7 @@ const ProjectForm = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [pendingStep, setPendingStep] = useState<number | null>(null);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [showPreviewModal, setShowPreviewModal] = useState(false);
   const [manualSaving, setManualSaving] = useState(false);
 
   const { project, isLoading: isProjectLoading } = useProjectLoader(id);
@@ -59,7 +61,9 @@ const ProjectForm = () => {
       inclusions: [],
       thingsToCarry: [],
       faqs: [],
-      footer: { title: "", description: "", copyright: "", slotsText: "", spotText: "" }
+      footer: { title: "", description: "", copyright: "", slotsText: "", spotText: "" },
+      shortBgImage: "",
+      shortThemeVariables: {}
     } as any
   });
 
@@ -166,11 +170,22 @@ const ProjectForm = () => {
         <h1 className={styles["form__title"]}>
           {id ? "Edit Project" : "Create New Project"}
         </h1>
-        {id && lastSaved && (
-          <p className={styles["form__save-status"]}>
-            {isSaving ? "Saving..." : `Last saved: ${lastSaved.toLocaleTimeString()}`}
-          </p>
-        )}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          {id && lastSaved && (
+            <p className={styles["form__save-status"]}>
+              {isSaving ? "Saving..." : `Last saved: ${lastSaved.toLocaleTimeString()}`}
+            </p>
+          )}
+          <button
+            type="button"
+            onClick={() => setShowPreviewModal(true)}
+            className={styles["form__button--secondary"]}
+            style={{ padding: '0.5rem 1rem', minWidth: 'auto', gap: '0.25rem' }}
+          >
+            <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>visibility</span>
+            Preview
+          </button>
+        </div>
       </div>
 
       <div className={styles["form__progress"]}>
@@ -247,6 +262,12 @@ const ProjectForm = () => {
         onConfirm={handleConfirmSave}
         onDiscard={handleDiscardChanges}
         onCancel={handleCancelNavigation}
+      />
+
+      <PreviewModal
+        isOpen={showPreviewModal}
+        onClose={() => setShowPreviewModal(false)}
+        project={formData as Project}
       />
     </div>
   );

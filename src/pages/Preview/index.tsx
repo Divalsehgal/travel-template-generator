@@ -4,13 +4,26 @@ import { useReactToPrint } from "react-to-print";
 import { useProjectLoader } from "../../hooks/useProjectLoader";
 import PreviewLong from "./components/PreviewLong";
 import PreviewShort from "./components/Short";
+import ThemeEditor from "./components/ThemeEditor";
+import { useProjects } from "../../hooks/useFirestoreProjects";
 import styles from "./styles.module.scss";
 import type { Project } from "../../types/project";
 
 const Preview = (): React.JSX.Element => {
+    const { updateProject } = useProjects();
     const { id } = useParams<{ id: string }>();
-    const { project, isLoading } = useProjectLoader(id);
+    const { project, isLoading, refresh } = useProjectLoader(id);
     const printRef = useRef<HTMLDivElement>(null);
+
+    const handleSaveTheme = async (updates: Partial<Project>) => {
+        if (!id) return;
+        try {
+            await updateProject(id, updates);
+            await refresh();
+        } catch (error) {
+            console.error("Failed to save theme updates:", error);
+        }
+    };
 
     const handlePrint = useReactToPrint({
         contentRef: printRef,
@@ -80,6 +93,10 @@ const Preview = (): React.JSX.Element => {
                     <PreviewLong project={project} />
                 )}
             </div>
+
+            {project.projectType === 'short' && (
+                <ThemeEditor project={project} onSave={handleSaveTheme} />
+            )}
         </div>
     );
 };

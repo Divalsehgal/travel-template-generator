@@ -3,6 +3,7 @@ import { useFormContext, Controller } from "react-hook-form";
 import type { Project } from "../../../../types/project";
 import styles from "./styles.module.scss";
 import ImageUpload from "../../../../components/ImageUpload";
+import { FormInput } from "../../../../components/FormComponents";
 
 const TypeStep = () => {
     const { register, watch, control } = useFormContext<Project>();
@@ -96,6 +97,46 @@ const TypeStep = () => {
                                 />
                             )}
                         />
+                    </div>
+
+                    <div style={{ marginTop: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                        <h3 className={styles["type-step__sub-title"]}>Template Settings (Optional)</h3>
+                        <p style={{ fontSize: '14px', color: '#666', marginTop: '-0.5rem' }}>Customize hardcoded labels for your short templates.</p>
+
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                            <FormInput
+                                label="Time Label (e.g. TIME)"
+                                register={register("shortTemplateSettings.timeLabel")}
+                            />
+                            <FormInput
+                                label="Team Label (e.g. TEAM)"
+                                register={register("shortTemplateSettings.teamLabel")}
+                            />
+                            <FormInput
+                                label="Altitude Level Label (e.g. LVL)"
+                                register={register("shortTemplateSettings.altitudeLabel")}
+                            />
+                            <FormInput
+                                label="Specs Label (e.g. SPECS)"
+                                register={register("shortTemplateSettings.specsLabel")}
+                            />
+                            <FormInput
+                                label="Book Slot Text (e.g. Book Your Slot)"
+                                register={register("shortTemplateSettings.bookSlotText")}
+                            />
+                            <FormInput
+                                label="Website Label (e.g. Web)"
+                                register={register("shortTemplateSettings.websiteText")}
+                            />
+                            <FormInput
+                                label="FAQ Section Label (e.g. FAQ)"
+                                register={register("shortTemplateSettings.faqLabel")}
+                            />
+                            <FormInput
+                                label="Leader Label (e.g. LEADER)"
+                                register={register("shortTemplateSettings.leaderLabel")}
+                            />
+                        </div>
                     </div>
                 </div>
             )}

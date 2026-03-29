@@ -17,21 +17,20 @@ export const ShortHero = ({ project, styles }: { project: Project, styles: Recor
                             </div>
                         </div>
                     )}
-                    {project.hero.teamStat && (
-                        <div className={styles["hero__stat"]} data-label="Status">
-                            <span className={`material-symbols-outlined ${styles["hero__stat-icon"]}`}>groups</span>
-                            <div className={styles["hero__stat-text"]}>
-                                <span className={styles["hero__stat-label"]}>Status</span>
-                                <span className={styles["hero__stat-value"]}>{project.hero.teamStat}</span>
-                            </div>
-                        </div>
-                    )}
                     {project.hero.stats.altitude && (
                         <div className={styles["hero__stat"]} data-label="Difficulty">
                             <span className={`material-symbols-outlined ${styles["hero__stat-icon"]}`}>terrain</span>
                             <div className={styles["hero__stat-text"]}>
                                 <span className={styles["hero__stat-label"]}>Difficulty</span>
                                 <span className={styles["hero__stat-value"]}>{project.hero.stats.altitude}</span>
+                            </div>
+                        </div>
+                    )}
+                    {project.leader.name && (
+                        <div className={styles["hero__stat"]} data-label="Difficulty">
+                            <span className={styles['hero__stat-label']}>{project.shortTemplateSettings?.leaderLabel || "LEADER"}</span>
+                            <div className={styles["hero__stat-text"]}>
+                                <span className={styles["hero__stat-value"]}>{project.leader.name}</span>
                             </div>
                         </div>
                     )}

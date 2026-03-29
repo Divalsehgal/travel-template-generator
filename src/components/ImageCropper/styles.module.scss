@@ -1,107 +1,168 @@
+@use '@shiv-bhoomi/design-tokens/scss' as *;
+
 .cropper {
     position: fixed;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.9);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90vw;
+    max-width: 620px;
+    background: #1a1a1a;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
     z-index: 2000;
     display: flex;
     flex-direction: column;
-    padding: 1.5rem;
-    gap: 1rem;
+    overflow: hidden;
+    color: #ffffff;
 
     &__header {
+        padding: 1rem 1.25rem;
+        background: #242424;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         display: flex;
         align-items: center;
-        gap: 0.5rem;
-        color: #ffffff;
-        font-size: 1rem;
+        gap: 0.75rem;
         font-weight: 600;
+        font-size: 1.1rem;
 
-        .material-symbols-outlined {
+        span {
             font-size: 20px;
         }
     }
 
     &__container {
-        flex: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-        background: #111;
-        border-radius: 8px;
-        min-height: 0;
+        padding: 1rem;
+        background: #111111;
+    }
 
-        // react-image-crop renders a div wrapping the img
-        >div {
-            max-height: 100%;
-            max-width: 100%;
+    &__wrapper {
+        position: relative;
+        width: 100%;
+        height: 400px;
+        background: #000000;
+        border-radius: 8px;
+        overflow: hidden;
+
+        img{
+            max-height: 80%;
         }
     }
 
-    &__image {
-        display: block;
-        max-width: 100%;
-        max-height: 60vh;
-        object-fit: contain;
+    &__controls {
+        padding: 1.25rem;
+        background: #1a1a1a;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    &__slider_container {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        color: rgba(255, 255, 255, 0.7);
+
+        span {
+            font-size: 20px;
+        }
+    }
+
+    &__slider {
+        flex: 1;
+        height: 6px;
+        background: #333333;
+        border-radius: 3px;
+        appearance: none;
+        outline: none;
+        cursor: pointer;
+
+        &::-webkit-slider-thumb {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            background: #1997f0;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(25, 151, 240, 0.3);
+            transition: all 0.2s ease;
+
+            &:hover {
+                transform: scale(1.15);
+                box-shadow: 0 0 15px rgba(25, 151, 240, 0.5);
+            }
+        }
     }
 
     &__hint {
-        text-align: center;
         font-size: 12px;
         color: rgba(255, 255, 255, 0.5);
+        text-align: center;
     }
 
     &__actions {
+        padding: 1rem 1.25rem;
         display: flex;
         justify-content: flex-end;
-        gap: 0.75rem;
+        gap: 1rem;
+        background: #242424;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    &__button--secondary {
-        padding: 0.625rem 1.25rem;
-        border-radius: 6px;
-        font-weight: 600;
-        font-size: 14px;
-        cursor: pointer;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        background: rgba(255, 255, 255, 0.1);
-        color: #ffffff;
-        transition: all 0.15s ease;
-        display: flex;
-        align-items: center;
-        gap: 0.375rem;
+    &__button {
+        &--primary {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.625rem 1.5rem;
+            background: #1997f0;
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
 
-        &:hover:not(:disabled) {
-            background: rgba(255, 255, 255, 0.2);
+            &:hover:not(:disabled) {
+                background: #0d7dd4;
+                transform: translateY(-1px);
+            }
+
+            &:active:not(:disabled) {
+                transform: translateY(0);
+            }
+
+            &:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
+
+            span {
+                font-size: 18px;
+            }
         }
 
-        &:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-    }
+        &--secondary {
+            padding: 0.625rem 1.5rem;
+            background: transparent;
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
 
-    &__button--primary {
-        padding: 0.625rem 1.25rem;
-        border-radius: 6px;
-        font-weight: 600;
-        font-size: 14px;
-        cursor: pointer;
-        border: none;
-        background: #1997f0;
-        color: white;
-        transition: all 0.15s ease;
-        display: flex;
-        align-items: center;
-        gap: 0.375rem;
+            &:hover:not(:disabled) {
+                background: rgba(255, 255, 255, 0.1);
+                border-color: rgba(255, 255, 255, 0.3);
+            }
 
-        &:hover:not(:disabled) {
-            background: #0d7dd4;
-        }
-
-        &:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
+            &:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
         }
     }
 }

@@ -25,6 +25,7 @@ export interface BrandIdentity {
     title: string;
     subtitle: string;
     logo?: string;
+    logoColor?: string;
 }
 
 /**

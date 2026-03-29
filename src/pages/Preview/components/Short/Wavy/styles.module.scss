@@ -1,16 +1,31 @@
 @use '@shiv-bhoomi/design-tokens/scss' as *;
 
+$wavy-bg: var(--theme-wavy-bg, #{$theme-wavy-bg});
+$wavy-secondary: var(--theme-wavy-secondary, #{$theme-wavy-secondary});
+$wavy-accent: var(--theme-wavy-accent, #{$theme-wavy-accent});
+$wavy-radius: var(--theme-wavy-radius, #{$theme-wavy-radius});
+
 .wavy-template {
     width: 210mm;
-    height: 297mm;
-    background-color: var(--theme-bg, #{$theme-wavy-bg});
-    color: $color-white;
-    position: relative;
-    overflow: hidden;
+    max-width: 100%;
+    min-height: 297mm;
+    color: #F8FAFC;
+    color: #F8FAFC;
+    font-family: var(--font-body, 'Inter', sans-serif);
+    padding: 0.5rem;
     display: flex;
     flex-direction: column;
     font-family: $font-family-body;
+    position: relative;
+    overflow: hidden;
     box-sizing: border-box;
+
+    @media screen and (max-width: 210mm) {
+        width: 100%;
+        min-height: auto;
+        padding: 1.5rem;
+    }
+
     isolation: isolate;
 
     @media print {
@@ -20,44 +35,32 @@
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
     }
-
-    // Background image layer (only applied when --bg-image is set via shortBgImage)
-    &::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background-image: var(--bg-image, none);
-        background-size: cover;
-        background-position: center;
-        z-index: 0;
-        pointer-events: none;
-    }
 }
 
 // Gradient overlay — rendered as a div only when bgImage is set (see index.tsx)
 .overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom,
-            rgba(1, 28, 58, 0.7) 0%,
-            rgba(1, 28, 58, 0.2) 30%,
-            rgba(0, 0, 0, 0.2) 60%,
-            rgba(0, 0, 0, 0.7) 100%);
-    z-index: 1;
-    pointer-events: none;
+    display: none;
 }
 
 .header {
     position: relative;
     z-index: 10;
-    padding: $spacing-6 $spacing-8 $spacing-6;
+    padding: $spacing-2 $spacing-2 ;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
 
+    &__logo {
+        max-width: 200px;
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        margin-bottom: 12px;
+    }
+
     &__badge {
-        color: $theme-wavy-secondary;
+        color: $wavy-secondary;
         font-weight: $font-weight-black;
         letter-spacing: 0.4em;
         font-size: $font-size-xs;
@@ -78,7 +81,47 @@
         margin: $spacing-2;
 
         &--accent {
-            color: $theme-wavy-accent;
+            color: var(--theme-secondary, #FDE68A);
+            font-style: italic;
+        }
+    }
+
+    &__brand-name {
+        font-family: $font-family-display;
+        font-size: $font-size-lg;
+        font-weight: $font-weight-black;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: $spacing-2;
+    }
+
+    &__location {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: $spacing-1;
+        font-size: $font-size-sm;
+        font-weight: $font-weight-bold;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        opacity: 0.9;
+        margin-top: $spacing-2;
+
+        .material-symbols-outlined {
+            font-size: $font-size-base;
+            color: $wavy-accent;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: underline;
+            text-decoration-color: $wavy-secondary;
+            text-underline-offset: 4px;
+            transition: color 0.2s;
+
+            &:hover {
+                color: $wavy-accent;
+            }
         }
     }
 
@@ -91,6 +134,10 @@
         border: 1px solid rgba($color-white, 0.2);
         background: rgba($color-black, 0.4);
         backdrop-filter: blur(10px);
+
+        @media print {
+            display: none !important;
+        }
     }
 }
 
@@ -127,8 +174,8 @@
     background: #0d1b2e;
     border: 1px solid rgba(255, 255, 255, 0.15);
     padding: $spacing-2 $spacing-5;
-    border-radius: $theme-wavy-radius;
-    border-left: 4px solid $theme-wavy-secondary;
+    border-radius: $wavy-radius;
+    border-left: 4px solid $wavy-secondary;
 
     &__header {
         display: flex;
@@ -137,13 +184,13 @@
         margin-bottom: $spacing-1;
 
         .material-symbols-outlined {
-            color: $theme-wavy-secondary;
+            color: $wavy-secondary;
             font-size: $font-size-lg;
         }
     }
 
     &__day {
-        color: $theme-wavy-secondary;
+        color: $wavy-secondary;
         font-weight: $font-weight-black;
         font-size: 10px;
         text-transform: uppercase;
@@ -168,78 +215,23 @@
     }
 }
 
-.overview {
-    background: rgba($theme-wavy-accent, 0.9);
-    padding: $spacing-6;
-    border-radius: $theme-wavy-radius;
-    margin-top: $spacing-4;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: $spacing-4;
-
-    &__content {
-        flex-grow: 1;
-    }
-
-    &__title {
-        font-size: $font-size-2xl;
-        font-weight: $font-weight-black;
-        font-style: italic;
-        text-transform: uppercase;
-        line-height: 1;
-        margin-bottom: $spacing-1;
-    }
-
-    &__subtitle {
-        font-size: 10px;
-        font-weight: $font-weight-bold;
-        text-transform: uppercase;
-        letter-spacing: -0.01em;
-        color: rgba($color-white, 0.9);
-        margin-bottom: $spacing-3;
-    }
-
-    &__booking {
-        font-size: 11px;
-        font-weight: $font-weight-black;
-        text-transform: uppercase;
-        background: $color-black;
-        padding: $spacing-2 $spacing-3;
-        display: inline-block;
-        border-radius: $border-radius-sm;
-    }
-
-    &__qr {
-        background: $color-white;
-        padding: $spacing-2;
-        border-radius: $border-radius-md;
-        flex-shrink: 0;
-    }
-}
-
-.qr-box {
-    width: 64px;
-    height: 64px;
-    background: $color-black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    .material-symbols-outlined {
-        color: $color-white;
-        font-size: 48px;
-    }
-}
-
 .footer {
-    position: relative;
-    z-index: 10;
-    padding: $spacing-8 $spacing-8;
     margin-top: auto;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    z-index: 2;
+
+    @media screen and (max-width: 600px) {
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        text-align: center;
+        margin-top: 3rem;
+    }
 
     &__copyright {
         font-size: 9px;
@@ -254,7 +246,7 @@
     }
 
     &__slots {
-        color: $theme-wavy-accent;
+        color: $wavy-accent;
         font-weight: $font-weight-black;
         font-style: italic;
         font-size: $font-size-lg;
@@ -262,7 +254,7 @@
     }
 
     &__secure {
-        color: $theme-wavy-secondary;
+        color: $wavy-secondary;
         font-weight: $font-weight-black;
         font-size: 10px;
         text-transform: uppercase;

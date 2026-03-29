@@ -12,14 +12,8 @@ interface PreviewShortProps {
 }
 
 const PreviewShort = ({ project }: PreviewShortProps) => {
-    const bgImage = project.shortBgImage;
-
     return (
-        <div
-            className={styles["short-template"]}
-            style={bgImage ? ({ "--bg-image": `url('${bgImage}')` } as React.CSSProperties) : undefined}
-        >
-            {bgImage && <div className={styles.overlay} aria-hidden="true" />}
+        <div className={styles["short-template"]}>
             <ShortHeader project={project} styles={styles} />
             <ShortHero project={project} styles={styles} />
 

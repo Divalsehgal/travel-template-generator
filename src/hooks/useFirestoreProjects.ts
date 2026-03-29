@@ -1,11 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
-import { 
-  collection, 
-  doc, 
-  getDocs, 
-  getDoc, 
-  addDoc, 
-  updateDoc, 
+import {
+  collection,
+  doc,
+  getDocs,
+  getDoc,
+  addDoc,
+  updateDoc,
   deleteDoc,
   query,
   orderBy,
@@ -17,6 +17,25 @@ import { useAuth } from '../contexts/AuthContext';
 import defaultContent from '../data/content.json';
 import type { Project, ProjectCreate } from '../types/project';
 import type { UseProjectsReturn } from '../types/hooks';
+
+// Helper to remove any undefined keys from an object recursively
+const removeUndefinedValues = (obj: any): any => {
+  if (Array.isArray(obj)) {
+    return obj.map(removeUndefinedValues);
+  } else if (obj !== null && typeof obj === 'object') {
+    if (obj.constructor.name !== 'Object') {
+      return obj; // Leave Timestamp / FieldValue instances alone
+    }
+    const newObj: any = {};
+    for (const key in obj) {
+      if (obj[key] !== undefined) {
+        newObj[key] = removeUndefinedValues(obj[key]);
+      }
+    }
+    return newObj;
+  }
+  return obj;
+};
 
 export const useProjects = (): UseProjectsReturn => {
   const { user } = useAuth();
@@ -46,17 +65,17 @@ export const useProjects = (): UseProjectsReturn => {
 
         const q = query(projectsRef, orderBy('createdAt', 'desc'));
         const snapshot = await getDocs(q);
-        
+
         const loadedProjects: Project[] = snapshot.docs.map(doc => {
           const data = doc.data();
           return {
             ...data,
             id: doc.id,
-            createdAt: data.createdAt instanceof Timestamp 
-              ? data.createdAt.toDate().toISOString() 
+            createdAt: data.createdAt instanceof Timestamp
+              ? data.createdAt.toDate().toISOString()
               : data.createdAt,
-            updatedAt: data.updatedAt instanceof Timestamp 
-              ? data.updatedAt.toDate().toISOString() 
+            updatedAt: data.updatedAt instanceof Timestamp
+              ? data.updatedAt.toDate().toISOString()
               : data.updatedAt
           } as Project;
         });
@@ -83,22 +102,22 @@ export const useProjects = (): UseProjectsReturn => {
   // Fetch single project from Firestore (async version)
   const fetchProject = useCallback(async (id: string): Promise<Project | null> => {
     if (!user) return null;
-    
+
     try {
       const projectRef = doc(db, 'users', user.uid, 'projects', id);
       const projectSnap = await getDoc(projectRef);
-      
+
       if (!projectSnap.exists()) return null;
-      
+
       const data = projectSnap.data();
       return {
         ...data,
         id: projectSnap.id,
-        createdAt: data.createdAt instanceof Timestamp 
-          ? data.createdAt.toDate().toISOString() 
+        createdAt: data.createdAt instanceof Timestamp
+          ? data.createdAt.toDate().toISOString()
           : data.createdAt,
-        updatedAt: data.updatedAt instanceof Timestamp 
-          ? data.updatedAt.toDate().toISOString() 
+        updatedAt: data.updatedAt instanceof Timestamp
+          ? data.updatedAt.toDate().toISOString()
           : data.updatedAt
       } as Project;
     } catch (err) {
@@ -120,12 +139,15 @@ export const useProjects = (): UseProjectsReturn => {
 
     const projectData = {
       ...data,
+      // Default fallback if somehow lost
+      shortBgImage: data.shortBgImage || "https://picsum.photos/1200/1600?random=99",
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp()
     };
 
-    const docRef = await addDoc(projectsRef, projectData);
-    
+    const cleanData = removeUndefinedValues(projectData);
+    const docRef = await addDoc(projectsRef, cleanData);
+
     const newProject: Project = {
       ...data as Project,
       id: docRef.id,
@@ -143,19 +165,20 @@ export const useProjects = (): UseProjectsReturn => {
     }
 
     const projectRef = doc(db, 'users', user.uid, 'projects', id);
-    
+
     const updateData = {
       ...data,
       updatedAt: serverTimestamp()
     };
-    
+
     // Remove id from update data if present
     delete (updateData as any).id;
     delete (updateData as any).createdAt;
 
-    await updateDoc(projectRef, updateData);
-    
-    setProjects(prev => prev.map(p => 
+    const cleanData = removeUndefinedValues(updateData);
+    await updateDoc(projectRef, cleanData);
+
+    setProjects(prev => prev.map(p =>
       p.id === id ? { ...p, ...data, updatedAt: new Date().toISOString() } : p
     ));
   }, [user]);
@@ -168,7 +191,7 @@ export const useProjects = (): UseProjectsReturn => {
 
     const projectRef = doc(db, 'users', user.uid, 'projects', id);
     await deleteDoc(projectRef);
-    
+
     setProjects(prev => prev.filter(p => p.id !== id));
   }, [user]);
 

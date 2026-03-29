@@ -8,6 +8,8 @@ import LanguageIcon from '@mui/icons-material/Language';
 import styles from "./styles.module.scss";
 import type { Project } from "../../../../../types/project";
 
+import BrandLogo from "../../../../../components/common/BrandLogo";
+
 const getSocialIcon = (platform: string) => {
     switch (platform) {
         case 'instagram': return <InstagramIcon fontSize="inherit" />;
@@ -25,25 +27,52 @@ interface PreviewWavyProps {
 }
 
 const PreviewWavy = ({ project }: PreviewWavyProps) => {
-    const bgImage = project.shortBgImage;
-
     return (
-        <div
-            className={styles["wavy-template"]}
-            style={bgImage ? ({ "--bg-image": `url('${bgImage}')` } as React.CSSProperties) : undefined}
-        >
-            {bgImage && <div className={styles.overlay} aria-hidden="true" />}
+        <div className={styles["wavy-template"]}>
 
             <header className={styles["header"]}>
+                {project.brand.logo && (
+                    <BrandLogo
+                        className={styles["header__logo"]}
+                        logoUrl={project.brand.logo}
+                    />
+                )}
+                {project.brand.title && (
+                    <span className={styles["header__brand-name"]}>
+                        {project.brand.title}
+                    </span>
+                )}
                 <span className={styles["header__badge"]}>
                     {project.header.subBadge || "Premium Expedition 2024"}
                 </span>
+
                 <h1 className={styles["header__title"]}>
-                    {project.brand.title.split(' ').slice(0, 2).join(' ')}<br />
-                    <span className={styles["header__title--accent"]}>
-                        {project.brand.title.split(' ').slice(2).join(' ') || "PREMIUM"}
-                    </span>
+                    {project.hero.title ? (
+                        <>
+                            {project.hero.title.split(' ').slice(0, -1).join(' ')}<br />
+                            <span className={styles["header__title--accent"]}>
+                                {project.hero.title.split(' ').slice(-1).join(' ')}
+                            </span>
+                        </>
+                    ) : (
+                        <>
+                            PREMIUM
+                        </>
+                    )}
                 </h1>
+
+                {project.hero.location && (
+                    <div className={styles["header__location"]}>
+                        <span className="material-symbols-outlined">location_on</span>
+                        {project.hero.locationUrl ? (
+                            <a href={project.hero.locationUrl} target="_blank" rel="noreferrer">
+                                {project.hero.location}
+                            </a>
+                        ) : (
+                            <span>{project.hero.location}</span>
+                        )}
+                    </div>
+                )}
 
                 <div className={styles["header__socials"]}>
                     {project.header.links?.map((link, idx) => {
@@ -77,22 +106,6 @@ const PreviewWavy = ({ project }: PreviewWavyProps) => {
                     ))}
                 </div>
 
-                <div className={styles["overview"]}>
-                    <div className={styles["overview__content"]}>
-                        <h2 className={styles["overview__title"]}>EXPEDITION OVERVIEW</h2>
-                        <p className={styles["overview__subtitle"]}>
-                            {project.hero.expeditionOverview || "5 Days | Elite Access | All-Inclusive"}
-                        </p>
-                        <div className={styles["overview__booking"]}>
-                            {project.hero.bookingText || "Visit OUR SITE for Full Details & Booking"}
-                        </div>
-                    </div>
-                    <div className={styles["overview__qr"]}>
-                        <div className={styles["qr-box"]}>
-                            <span className="material-symbols-outlined">qr_code_2</span>
-                        </div>
-                    </div>
-                </div>
             </main>
 
             <footer className={styles["footer"]}>

@@ -1,15 +1,29 @@
 import React from "react";
 import type { Project } from "../../../../../types/project";
+import InstagramIcon from '@mui/icons-material/Instagram';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import YouTubeIcon from '@mui/icons-material/YouTube';
+import LanguageIcon from '@mui/icons-material/Language';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import styles from "./styles.module.scss";
+import BrandLogo from "../../../../../components/common/BrandLogo";
 
-/**
- * PreviewTechno - Brutalist / Neobrutalist short template
- *
- * Design language: dark background, neon lime accent (#ccff00),
- * Space Mono + Archivo Black fonts, hard box-shadows, no border-radius.
- *
- * This component is self-contained — it does NOT share styles with any other template.
- */
+
+const getSocialIcon = (platform: string) => {
+    switch (platform) {
+        case 'instagram': return <InstagramIcon fontSize="inherit" />;
+        case 'facebook': return <FacebookIcon fontSize="inherit" />;
+        case 'linkedin': return <LinkedInIcon fontSize="inherit" />;
+        case 'twitter': return <TwitterIcon fontSize="inherit" />;
+        case 'youtube': return <YouTubeIcon fontSize="inherit" />;
+        case 'whatsapp': return <WhatsAppIcon fontSize="inherit" />;
+        case 'website': return <LanguageIcon fontSize="inherit" />;
+        default: return null;
+    }
+};
 
 const STEP_ICONS = [
     "north_east",
@@ -24,84 +38,108 @@ interface PreviewTechnoProps {
     project: Project;
 }
 
-
 const PreviewTechno: React.FC<PreviewTechnoProps> = ({ project }) => {
-    const bgImage = project.shortBgImage;
-
     const itinerary = project.itinerary ?? [];
     const inclusions = project.inclusions ?? [];
 
-    // Split brand title: first words in white, last word in neon
     const titleWords = (project.brand.title ?? "").split(" ");
     const titleMain = titleWords.slice(0, -1).join(" ");
     const titleAccent = titleWords[titleWords.length - 1] ?? "";
 
     return (
-        <div
-            className={styles.template}
-            style={bgImage ? ({ "--bg-image": `url('${bgImage}')` } as React.CSSProperties) : undefined}
-        >
-            {/* Overlays */}
-            <div className={styles.overlay} aria-hidden="true" />
-            <div className={styles.vignette} aria-hidden="true" />
-
-            <div className={styles.content}>
+        <div className={styles.techno}>
+            <div className={styles.techno__content}>
                 {/* ── HEADER ── */}
-                <header className={styles.header}>
+                <header className={styles.techno__header}>
                     {project.header.subBadge && (
-                        <div className={styles.rawLabel}>{project.header.subBadge}</div>
+                        <div className={styles['techno__raw-label']}>{project.header.subBadge}</div>
                     )}
 
-                    <h1 className={styles.title}>
-                        {titleMain && <>{titleMain}<br /></>}
-                        <span className={styles.titleAccent}>{titleAccent}</span>
-                        <br />
-                        <span className={styles.titleSuffix}>Exp.</span>
-                    </h1>
+                    <div className={styles['techno__header-split']}>
+                        <div className={styles['techno__header-text']}>
+                            <h1 className={styles['techno__brand-title']}>
+                                {titleMain && <>{titleMain}<br /></>}
+                                <span className={styles['techno__title-accent']}>{titleAccent}</span>
+                                <br />
+                            </h1>
 
-                    <div className={styles.neonDivider} aria-hidden="true" />
+                            <div className={styles['techno__trek-info']}>
+                                <h2 className={styles['techno__trek-title']}>{project.hero.title}</h2>
+                                {project.hero.location && (
+                                    <div className={styles['techno__trek-location']}>
+                                        {project.hero.locationUrl ? (
+                                            <a href={project.hero.locationUrl} target="_blank" rel="noreferrer" className={styles['techno__location-link']}>
+                                                {project.hero.location}
+                                                <OpenInNewIcon fontSize="inherit" className={styles['techno__location-icon']} />
+                                            </a>
+                                        ) : (
+                                            <span>{project.hero.location}</span>
+                                        )}
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
+                        {project.brand.logo && (
+                            <div className={styles['techno__header-logo-container']}>
+                                <BrandLogo
+                                    className={styles["techno__header-logo"]}
+                                    logoUrl={project.brand.logo}
+                                />
+                            </div>
+                        )}
+                    </div>
+
+                    <div className={styles['techno__neon-divider']} aria-hidden="true" />
 
                     {project.header.coordinates && (
-                        <p className={styles.coords}>[ {project.header.coordinates} ]</p>
+                        <p className={styles.techno__coords}>[ {project.header.coordinates} ]</p>
                     )}
                 </header>
 
-                {/* ── STATS GRID ── */}
-                <section className={styles.statsGrid} aria-label="Expedition stats">
+                <section className={styles['techno__stats-grid']} aria-label="Expedition stats">
                     {project.hero.stats.duration && (
-                        <div className={styles.statItem}>
-                            <span className={styles.statLabel}>TIME</span>
-                            <p className={styles.statValue}>{project.hero.stats.duration}</p>
-                        </div>
-                    )}
-                    {project.hero.teamStat && (
-                        <div className={styles.statItem}>
-                            <span className={styles.statLabel}>TEAM</span>
-                            <p className={styles.statValue}>{project.hero.teamStat}</p>
+                        <div className={styles['techno__stat-item']}>
+                            <span className={styles['techno__stat-label']}>{project.shortTemplateSettings?.timeLabel || "DURATION"}</span>
+                            <p className={styles['techno__stat-value']}>{project.hero.stats.duration}</p>
                         </div>
                     )}
                     {project.hero.stats.altitude && (
-                        <div className={styles.statItem}>
-                            <span className={styles.statLabel}>LVL</span>
-                            <p className={styles.statValue}>{project.hero.stats.altitude}</p>
+                        <div className={styles['techno__stat-item']}>
+                            <span className={styles['techno__stat-label']}>{project.shortTemplateSettings?.altitudeLabel || "LVL"}</span>
+                            <p className={styles['techno__stat-value']}>{project.hero.stats.altitude}</p>
+                        </div>
+                    )}
+                    {project.leader?.name && (
+                        <div className={styles['techno__stat-item']}>
+                            <span className={styles['techno__stat-label']}>{project.shortTemplateSettings?.leaderLabel || "LEADER"}</span>
+                            <p className={styles['techno__stat-value']}>{project.leader.name}</p>
                         </div>
                     )}
                 </section>
 
                 {/* ── ITINERARY GRID ── */}
-                <main className={styles.mainGrid}>
-                    {itinerary.slice(0, 5).map((day, idx) => (
-                        <div key={idx} className={styles.dayCard}>
-                            <span className={styles.brutalLabel}>
-                                STEP {String(day.day ?? idx + 1).padStart(2, "0")}
+                <main className={styles['techno__main-grid']}>
+                    {itinerary.map((day, idx) => (
+                        <div key={idx} className={styles['techno__day-card']}>
+                            <span className={styles['techno__brutal-label']}>
+                                DAY {String(day.day ?? idx + 1).padStart(2, "0")}
                             </span>
-                            <h2 className={styles.dayTitle}>
+                            <h2 className={styles['techno__day-title']}>
                                 {/* Split title across 2 lines for the brutalist look */}
                                 {day.title.split(" ").slice(0, 1)}<br />
                                 {day.title.split(" ").slice(1).join(" ")}
                             </h2>
+
+                            {(day.distance || day.time) && (
+                                <div className={styles['techno__day-metrics']}>
+                                    {day.distance && <span>{day.distance}</span>}
+                                    {(day.distance && day.time) && <span className={styles['techno__metric-divider']}>/</span>}
+                                    {day.time && <span>{day.time}</span>}
+                                </div>
+                            )}
                             <span
-                                className={`material-symbols-outlined ${styles.dayIcon}`}
+                                className={`material-symbols-outlined ${styles['techno__day-icon']}`}
                                 aria-hidden="true"
                             >
                                 {STEP_ICONS[idx % STEP_ICONS.length]}
@@ -110,9 +148,9 @@ const PreviewTechno: React.FC<PreviewTechnoProps> = ({ project }) => {
                     ))}
 
                     {/* Specs card (inclusions) */}
-                    <div className={`${styles.dayCard} ${styles.dayCardSpecs}`}>
-                        <span className={styles.specsLabel}>SPECS</span>
-                        <ul className={styles.specsList}>
+                    <div className={`${styles['techno__day-card']} ${styles['techno__day-card--specs']}`}>
+                        <span className={styles['techno__specs-label']}>{project.shortTemplateSettings?.specsLabel || "SPECS"}</span>
+                        <ul className={styles['techno__specs-list']}>
                             {inclusions.slice(0, 3).map((item, idx) => (
                                 <li key={idx}>// {item.title.toUpperCase()}</li>
                             ))}
@@ -120,26 +158,45 @@ const PreviewTechno: React.FC<PreviewTechnoProps> = ({ project }) => {
                     </div>
                 </main>
 
+                {/* ── FAQ SECTION ── */}
+                {project.faqs && project.faqs.length > 0 && (
+                    <div className={styles['techno__faq-section']}>
+                        <div className={styles['techno__faq-header']}>
+                            <span className={styles['techno__brutal-label']}>{project.shortTemplateSettings?.faqLabel || "FAQ"}</span>
+                        </div>
+                        <div className={styles['techno__faq-list']}>
+                            {project.faqs.slice(0, 3).map((faq, idx) => (
+                                <div key={idx} className={styles['techno__faq-item']}>
+                                    <div className={styles['techno__faq-q']}>Q: {faq.question}</div>
+                                    <div className={styles['techno__faq-a']}>A: {faq.answer}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
                 {/* ── FOOTER ── */}
-                <footer className={styles.footer}>
-                    <div className={styles.footerLeft}>
-                        <span className={styles.footerLabel}>Contact</span>
+                <footer className={styles.techno__footer}>
+                    <div className={styles['techno__footer-left']}>
+                        <span className={styles['techno__footer-label']}>Contact</span>
                         {project.header.phone && (
-                            <span className={styles.footerValue}>PH: {project.header.phone}</span>
+                            <span className={styles['techno__footer-value']}>PH: {project.header.phone}</span>
                         )}
                     </div>
-                    <div className={styles.footerRight}>
-                        <div className={styles.footerSite}>
-                            <span className={styles.footerLabel}>Source</span>
-                            {project.header.email && (
-                                <span className={styles.footerValue}>{project.header.email}</span>
-                            )}
-                        </div>
-                        <div className={styles.logoShape} aria-hidden="true">
-                            <span className={styles.logoLetter}>
-                                {(project.brand.title ?? "A")[0]}
-                            </span>
-                        </div>
+                    <div className={styles['techno__footer-right']}>
+                        {project.header.links && project.header.links.length > 0 && (
+                            <div className={styles['techno__footer-socials']}>
+                                {project.header.links.map((link, idx) => {
+                                    const icon = getSocialIcon(link.platform);
+                                    if (!icon || !link.url) return null;
+                                    return (
+                                        <a key={idx} className={styles['techno__social-icon']} href={link.url} target="_blank" rel="noreferrer">
+                                            {icon}
+                                        </a>
+                                    );
+                                })}
+                            </div>
+                        )}
                     </div>
                 </footer>
             </div>

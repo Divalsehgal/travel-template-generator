@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import ImageCropper from '../ImageCropper';
 import styles from './styles.module.scss';
 
-export default function ImageUpload({ value, onChange, label = "Upload Image", aspect = 4 / 3 }) {
+export default function ImageUpload({ value, onChange, label = "Upload Image", aspect = 4 / 3, format = 'image/png', maxWidth = 1200 }) {
   const [preview, setPreview] = useState(value || null);
   const [loading, setLoading] = useState(false);
   const [showCropper, setShowCropper] = useState(false);
@@ -15,11 +15,6 @@ export default function ImageUpload({ value, onChange, label = "Upload Image", a
 
     if (!file.type.startsWith('image/')) {
       alert('Please select an image file');
-      return;
-    }
-
-    if (file.size > 5 * 1024 * 1024) { // Increased limit for raw image before crop
-      alert('Image size should be less than 5MB');
       return;
     }
 
@@ -90,6 +85,8 @@ export default function ImageUpload({ value, onChange, label = "Upload Image", a
           onCropComplete={handleCropComplete}
           onCancel={handleCropCancel}
           aspect={aspect}
+          format={format}
+          maxWidth={maxWidth}
         />
       )}
 

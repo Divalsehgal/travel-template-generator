@@ -16,45 +16,37 @@
 
 @use '@shiv-bhoomi/design-tokens/scss' as *;
 
-// Local aliases for readability
-$neon: #{$theme-techno-accent};
-$black: #{$theme-techno-bg};
-$gray: #{$theme-techno-bg-secondary};
-$shadow: #{$theme-techno-shadow};
-$font-display: #{$theme-techno-font-display};
-$font-mono: #{$theme-techno-font-mono};
+$black: var(--theme-techno-bg, #050505);
+$text: var(--theme-techno-text, #ffffff);
+$text-dim: var(--theme-techno-text-dim, #888888);
+$neon: var(--theme-techno-accent, #ccff00);
+$gray: var(--theme-techno-bg-secondary, #1a1a1a);
+$bg-dark: var(--theme-techno-bg-dark, #000000);
+$shadow-token: var(--theme-techno-shadow, 6px 6px 0px #ccff00);
+$radius-token: var(--theme-techno-radius, 0px);
+$font-display: var(--theme-techno-font-display, #{$theme-techno-font-display});
+$font-mono: var(--theme-techno-font-mono, #{$theme-techno-font-mono});
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Page wrapper
+// Page wrapper & BEM Block
 // ─────────────────────────────────────────────────────────────────────────────
 
-.template {
+.techno {
     width: 210mm;
-    height: 297mm;
+    min-height: 297mm;
+    max-width: 100%;
+    margin: 0 auto;
     position: relative;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
     isolation: isolate;
-
     background: $black;
-
-    color: #ffffff;
+    color: $text;
+    border-radius: $radius-token;
+    color: $text;
     font-family: $font-mono;
     box-sizing: border-box;
-
-    // Low-opacity background image (only visible when --bg-image is set)
-    &::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background-image: var(--bg-image, none);
-        background-size: cover;
-        background-position: center;
-        opacity: 0.7;
-        z-index: 0;
-        pointer-events: none;
-    }
 
     @media print {
         width: 210mm;
@@ -63,304 +55,435 @@ $font-mono: #{$theme-techno-font-mono};
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
     }
-}
 
-// Dark translucent overlay
-.overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.25);
-    z-index: 1;
-}
-
-// Radial vignette for depth
-.vignette {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle, transparent 40%, rgba(0, 0, 0, 0.8) 100%);
-    z-index: 2;
-}
-
-// All real content sits above overlays
-.content {
-    position: relative;
-    padding: 32px 20px;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    box-sizing: border-box;
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Header
-// ─────────────────────────────────────────────────────────────────────────────
-
-.header {
-    margin-bottom: 32px;
-}
-
-// White badge strip above title
-.rawLabel {
-    display: inline-block;
-    background: #ffffff;
-    color: #000000;
-    padding: 4px 12px;
-    font-weight: 700;
-    font-style: italic;
-    font-size: 12px;
-    letter-spacing: -0.05em;
-    text-transform: uppercase;
-    margin-bottom: 16px;
-}
-
-.title {
-    font-family: $font-display;
-    font-size: 60px;
-    font-style: italic;
-    font-weight: 900;
-    text-transform: uppercase;
-    line-height: 0.85;
-    letter-spacing: -0.04em;
-    color: #ffffff;
-    margin: 0;
-    word-break: break-word;
-}
-
-.titleAccent {
-    color: $neon;
-}
-
-.titleSuffix {
-    color: #ffffff;
-}
-
-// Neon horizontal rule
-.neonDivider {
-    height: 4px;
-    background-color: $neon;
-    width: 100%;
-    margin: 16px 0;
-    transform: skewX(-15deg);
-}
-
-// Coordinates line
-.coords {
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    font-style: italic;
-    opacity: 0.9;
-    margin: 0;
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Stats grid (3-col border box)
-// ─────────────────────────────────────────────────────────────────────────────
-
-.statsGrid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0;
-    border: 2px solid #ffffff;
-    background: #111111;
-    margin-bottom: 32px;
-}
-
-.statItem {
-    padding: 16px;
-    border-right: 2px solid #ffffff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-
-    &:last-child {
-        border-right: none;
+    // Dark translucent overlay
+    &__overlay {
+        display: none;
     }
-}
 
-.statLabel {
-    font-size: 10px;
-    text-transform: uppercase;
-    font-weight: 700;
-    font-style: italic;
-    color: $neon;
-    margin-bottom: 4px;
-    display: block;
-}
-
-.statValue {
-    font-family: $font-display;
-    font-size: 18px;
-    font-weight: 900;
-    font-style: italic;
-    margin: 0;
-    color: #ffffff;
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Main 2-column itinerary + specs grid
-// ─────────────────────────────────────────────────────────────────────────────
-
-.mainGrid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    flex-grow: 1;
-    margin-bottom: 48px;
-    align-content: start;
-}
-
-// ── Day Card ──
-
-.dayCard {
-    background: #161616;
-    border: 2px solid #ffffff;
-    padding: 16px;
-    position: relative;
-    overflow: hidden;
-    box-shadow: $shadow;
-}
-
-// Neon label "STEP 01"
-.brutalLabel {
-    display: inline-block;
-    background: $neon;
-    color: #000000;
-    padding: 2px 8px;
-    font-size: 10px;
-    font-weight: 700;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-}
-
-// Day heading inside card
-.dayTitle {
-    font-family: $font-display;
-    font-size: 20px;
-    font-style: italic;
-    font-weight: 900;
-    text-transform: uppercase;
-    line-height: 1.1;
-    margin: 8px 0 0 0;
-    color: #ffffff;
-}
-
-// Material symbol in bottom-right of card
-.dayIcon {
-    position: absolute;
-    bottom: 8px;
-    right: 8px;
-    font-size: 30px;
-    color: $neon;
-    opacity: 0.5;
-}
-
-// ── Specs Card (inclusions, neon background) ──
-
-.dayCardSpecs {
-    background: $neon !important;
-    border-color: #000000 !important;
-    box-shadow: none !important;
-}
-
-.specsLabel {
-    display: inline-block;
-    background: #000000;
-    color: #ffffff;
-    padding: 2px 8px;
-    font-size: 10px;
-    font-weight: 700;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-}
-
-.specsList {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    font-size: 11px;
-    font-weight: 900;
-    font-style: italic;
-    text-transform: uppercase;
-    letter-spacing: -0.03em;
-    color: #000000;
-
-    li {
-        line-height: 1.6;
+    // Radial vignette for depth
+    &__vignette {
+        display: none;
     }
-}
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Footer
-// ─────────────────────────────────────────────────────────────────────────────
+    // All real content sits above overlays
+    &__content {
+        position: relative;
+        padding: 32px 20px;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        box-sizing: border-box;
+    }
 
-.footer {
-    margin-top: auto;
-    padding-top: 24px;
-    border-top: 4px solid #ffffff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+    // ─────────────────────────────────────────────────────────────────────────────
+    // Header Elements
+    // ─────────────────────────────────────────────────────────────────────────────
 
-.footerLeft {
-    display: flex;
-    flex-direction: column;
-}
+    &__header {
+        z-index: 2;
+    }
 
-.footerRight {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
+    &__raw-label {
+        display: inline-block;
+        background: $text;
+        color: $bg-dark;
+        padding: 4px 12px;
+        font-weight: $font-weight-bold;
+        font-style: italic;
+        font-size: 12px;
+        letter-spacing: -0.05em;
+        text-transform: uppercase;
+        margin-bottom: 16px;
+        box-shadow: $shadow-token;
+        border-radius: $radius-token;
+        border: 2px solid $text;
+    }
 
-.footerSite {
-    text-align: right;
-    display: flex;
-    flex-direction: column;
-}
+    &__brand-title {
+        font-family: $font-display;
+        font-size: 40px;
+        font-style: italic;
+        font-weight: $font-weight-black;
+        text-transform: uppercase;
+        line-height: 0.85;
+        letter-spacing: -0.04em;
+        color: $text;
+        margin: 0;
+        word-break: break-word;
+    }
 
-.footerLabel {
-    font-size: 10px;
-    font-weight: 900;
-    font-style: italic;
-    text-transform: uppercase;
-    color: $neon;
-    margin-bottom: 2px;
-}
+    &__trek-info {
+        margin-top: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        z-index: 2;
+    }
 
-.footerValue {
-    font-size: 14px;
-    font-weight: 700;
-    font-style: italic;
-    letter-spacing: -0.05em;
-    text-transform: uppercase;
-    color: #ffffff;
-}
+    &__trek-title {
+        font-family: $font-display;
+        font-size: 24px;
+        font-style: italic;
+        font-weight: $font-weight-bold;
+        text-transform: uppercase;
+        line-height: 1.1;
+        color: $text;
+        margin: 0;
+    }
 
-// Diamond-shaped logo mark
-.logoShape {
-    width: 48px;
-    height: 48px;
-    background-color: $neon;
-    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    flex-shrink: 0;
-}
+    &__trek-location {
+        font-size: 14px;
+        font-style: italic;
+        color: $text;
+        opacity: 0.8;
+    }
 
-.logoLetter {
-    position: relative;
-    z-index: 1;
-    color: #000000;
-    font-family: $font-display;
-    font-weight: 900;
-    font-style: italic;
-    font-size: 20px;
-    line-height: 1;
+    &__location-link {
+        color: $neon;
+        text-decoration: underline;
+        text-underline-offset: 4px;
+        transition: opacity 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+
+    &__location-icon {
+        font-size: 14px !important; // override mui default inheritance to match text exactly
+    }
+
+    &__title-accent {
+        color: $neon;
+    }
+
+    &__title-suffix {
+        color: $text;
+    }
+
+    &__header-split {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        width: 100%;
+    }
+
+    &__header-text {
+        flex: 0 0 70%;
+        max-width: 70%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__header-logo-container {
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-start;
+    }
+
+    &__header-logo {
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+    }
+
+    &__neon-divider {
+        height: 4px;
+        background-color: $neon;
+        width: 100%;
+        margin: 16px 0;
+        transform: skewX(-15deg);
+    }
+
+    &__coords {
+        font-size: 12px;
+        font-weight: $font-weight-bold;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-style: italic;
+        opacity: 0.9;
+        margin: 0;
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────────
+    // Stats grid
+    // ─────────────────────────────────────────────────────────────────────────────
+
+    &__stats-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0;
+        border: 2px solid $text;
+        background: $gray;
+        margin-bottom: 8px;
+    }
+
+    &__stat-item {
+        padding: 16px;
+        border-right: 2px solid $text;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        z-index: 2;
+
+        &:last-child {
+            border-right: none;
+        }
+    }
+
+    &__stat-label {
+        font-size: 10px;
+        text-transform: uppercase;
+        font-weight: $font-weight-bold;
+        font-style: italic;
+        color: $neon;
+        margin-bottom: 4px;
+        display: block;
+    }
+
+    &__stat-value {
+        font-family: $font-display;
+        font-size: 18px;
+        font-weight: $font-weight-black;
+        font-style: italic;
+        margin: 0;
+        color: $text;
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────────
+    // Main 2-column itinerary + specs grid
+    // ─────────────────────────────────────────────────────────────────────────────
+
+    &__main-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 30px;
+        width: 100%;
+        margin-top: 20px;
+        padding: 10px;
+        // Allow the grid to grow and take as much space as needed
+        flex: 1 0 auto;
+        align-content: start;
+        z-index: 1;
+    }
+
+    &__day-card {
+        background: $gray;
+        border: 2px solid $text;
+        padding: 16px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: $shadow-token;
+        border-radius: $radius-token;
+
+        &--specs {
+            background: $neon !important;
+            border-color: $bg-dark !important;
+            box-shadow: none !important;
+        }
+    }
+
+    &__brutal-label {
+        display: inline-block;
+        background: $neon;
+        color: $bg-dark;
+        padding: 2px 8px;
+        font-size: 10px;
+        font-weight: $font-weight-bold;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+    }
+
+    &__day-title {
+        font-family: $font-display;
+        font-size: 20px;
+        font-style: italic;
+        font-weight: $font-weight-black;
+        text-transform: uppercase;
+        line-height: 1.1;
+        margin: 8px 0 0 0;
+        color: $text;
+        word-break: break-word;
+    }
+
+    &__day-metrics {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        margin-top: 8px;
+        font-size: 11px;
+        font-family: $font-mono;
+        font-weight: $font-weight-bold;
+        color: $neon;
+        opacity: 0.9;
+        text-transform: uppercase;
+        flex-wrap: wrap;
+    }
+
+    &__metric-divider {
+        color: rgba($text, 0.4);
+    }
+
+    &__day-icon {
+        position: absolute;
+        bottom: 8px;
+        right: 8px;
+        font-size: 30px;
+        color: $neon;
+        opacity: 0.5;
+    }
+
+    &__specs-label {
+        display: inline-block;
+        background: $bg-dark;
+        color: $text;
+        padding: 2px 8px;
+        font-size: 10px;
+        font-weight: $font-weight-bold;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+    }
+
+    &__specs-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        font-size: 11px;
+        font-weight: $font-weight-black;
+        font-style: italic;
+        text-transform: uppercase;
+        letter-spacing: -0.03em;
+        color: $bg-dark;
+
+        li {
+            line-height: 1.6;
+        }
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────────
+    // FAQ SECTION
+    // ─────────────────────────────────────────────────────────────────────────────
+
+    &__faq-section {
+        margin-bottom: 16px;
+        z-index: 1;
+        position: relative;
+        border: 2px solid $text;
+        background: $gray;
+        padding: 16px;
+        box-shadow: $shadow-token;
+        border-radius: $radius-token;
+    }
+
+    &__faq-header {
+        margin-bottom: 12px;
+    }
+
+    &__faq-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+
+    &__faq-item {
+        border: 1px dashed rgba($text, 0.2);
+        padding: 12px;
+    }
+
+    &__faq-q {
+        font-family: $font-display;
+        font-size: 14px;
+        font-style: italic;
+        color: $neon;
+        margin-bottom: 4px;
+    }
+
+    &__faq-a {
+        font-size: 12px;
+        line-height: 1.4;
+        color: rgba($text, 0.8);
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────────
+    // Footer
+    // ─────────────────────────────────────────────────────────────────────────────
+
+    &__footer {
+        margin-top: auto;
+        padding-top: 24px;
+        border-top: 4px solid $text;
+        display: flex;
+        z-index: 2;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__footer-left {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__footer-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    &__footer-site {
+        text-align: right;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__footer-label {
+        font-size: 10px;
+        font-weight: $font-weight-black;
+        font-style: italic;
+        text-transform: uppercase;
+        color: $neon;
+        margin-bottom: 2px;
+    }
+
+    &__footer-value {
+        font-size: 14px;
+        font-weight: $font-weight-bold;
+        font-style: italic;
+        letter-spacing: -0.05em;
+        text-transform: uppercase;
+        color: $text;
+    }
+
+    &__footer-socials {
+        display: flex;
+        gap: 12px;
+        margin-right: 16px;
+
+        @media print {
+            display: none !important;
+        }
+    }
+
+    &__social-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        font-size: 32px;
+        color: $neon;
+        text-decoration: none;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+
+        &:hover {
+            transform: scale(1.1);
+            opacity: 0.8;
+        }
+    }
 }

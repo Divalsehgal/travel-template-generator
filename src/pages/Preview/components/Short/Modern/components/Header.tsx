@@ -1,5 +1,6 @@
 import React from "react";
 import type { Project } from "../../../../../../types/project";
+import BrandLogo from "../../../../../../components/common/BrandLogo";
 
 export const ShortHeader = ({ project, styles }: { project: Project, styles: Record<string, string> }) => {
     const words = project.brand.title ? project.brand.title.split(' ') : [];
@@ -24,7 +25,10 @@ export const ShortHeader = ({ project, styles }: { project: Project, styles: Rec
                 <div className={styles["header__brand"]}>
                     <div className={styles["header__logo-mark"]}>
                         {project.brand.logo ? (
-                            <img src={project.brand.logo} alt="Logo" className={styles["header__logo-img"]} />
+                            <BrandLogo
+                                className={styles["header__logo"]}
+                                logoUrl={project.brand.logo}
+                            />
                         ) : (
                             <span className={`material-symbols-outlined ${styles["header__logo-icon"]}`}>landscape</span>
                         )}

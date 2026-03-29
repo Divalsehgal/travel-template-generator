@@ -27,9 +27,26 @@ export interface Project extends BaseEntity {
   shortTemplate?: 'modern' | 'wavy' | 'techno';
   /**
    * Optional full-bleed background image for short templates that support it
-   * (e.g. Modern, Techno). Templates that don't use it simply ignore the field.
    */
   shortBgImage?: string;
+  /**
+   * Configurable text labels for short templates (e.g. TIME, TEAM, Book Your Slot)
+   */
+  shortTemplateSettings?: {
+    timeLabel?: string;
+    teamLabel?: string;
+    altitudeLabel?: string;
+    specsLabel?: string;
+    bookSlotText?: string;
+    websiteText?: string;
+    faqLabel?: string;
+    leaderLabel?: string;
+    [key: string]: string | undefined;
+  };
+  /**
+   * Custom theme variables (CSS overrides) for the short template
+   */
+  shortThemeVariables?: Record<string, string>;
   header: HeaderData;
   brand: BrandData;
   hero: HeroData;
@@ -60,7 +77,7 @@ export type ProjectCreate = Omit<Project, 'id' | 'createdAt' | 'updatedAt'>;
 /**
  * Header contact information
  */
-export type SocialPlatform = 'instagram' | 'facebook' | 'linkedin' | 'twitter' | 'youtube' | 'website' | 'other';
+export type SocialPlatform = 'instagram' | 'facebook' | 'linkedin' | 'twitter' | 'youtube' | 'whatsapp' | 'website' | 'other';
 
 export interface HeaderLink {
   platform: SocialPlatform;
@@ -95,6 +112,7 @@ export interface BrandData extends BrandIdentity { }
 export interface HeroData extends MediaItem {
   title: string;
   location?: string;
+  locationUrl?: string;
   stats: ActivityStats;
   teamStat?: string;
   images?: string[];
@@ -133,6 +151,8 @@ export interface LeaderData {
 export interface ItineraryDay extends MediaItem, TitledContent {
   day: string;
   images?: string[];
+  distance?: string;
+  time?: string;
 }
 
 // ============================================================================

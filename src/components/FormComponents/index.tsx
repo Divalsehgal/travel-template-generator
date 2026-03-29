@@ -114,16 +114,16 @@ export function FormColorPicker({ label, register, error, ...rest }: { label?: s
   return (
     <div className={styles.group}>
       {label && <label className={styles.group__label}>{label}</label>}
-      <div className={styles.colorPicker}>
+      <div className={styles['color-picker']}>
         <input
           type="color"
-          className={styles.colorPicker__input}
+          className={styles['color-picker__input']}
           {...register}
           {...rest}
         />
         <input
           type="text"
-          className={styles.colorPicker__text}
+          className={styles['color-picker__text']}
           {...register}
           placeholder="#000000"
           {...rest}
