@@ -41,7 +41,6 @@ $font-mono: var(--theme-techno-font-mono, #{$theme-techno-font-mono});
     display: flex;
     flex-direction: column;
     isolation: isolate;
-    background: $black;
     color: $text;
     border-radius: $radius-token;
     color: $text;
