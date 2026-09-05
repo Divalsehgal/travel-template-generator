@@ -94,9 +94,7 @@ const Preview = (): React.JSX.Element => {
                 )}
             </div>
 
-            {project.projectType === 'short' && (
-                <ThemeEditor project={project} onSave={handleSaveTheme} />
-            )}
+            <ThemeEditor project={project} onSave={handleSaveTheme} />
         </div>
     );
 };

@@ -9,6 +9,7 @@ import styles from "./styles.module.scss";
 import type { Project } from "../../../../../types/project";
 
 import BrandLogo from "../../../../../components/common/BrandLogo";
+import { useNormalizedItinerary } from "../../../../../hooks/useNormalizedItinerary";
 
 const getSocialIcon = (platform: string) => {
     switch (platform) {
@@ -27,6 +28,8 @@ interface PreviewWavyProps {
 }
 
 const PreviewWavy = ({ project }: PreviewWavyProps) => {
+    const days = useNormalizedItinerary(project.itinerary, { limit: 4 });
+
     return (
         <div className={styles["wavy-template"]}>
 
@@ -90,12 +93,12 @@ const PreviewWavy = ({ project }: PreviewWavyProps) => {
 
             <main className={styles["main"]}>
                 <div className={styles["itinerary"]}>
-                    {project.itinerary.slice(0, 4).map((day, idx) => (
-                        <div key={idx} className={styles["itinerary-item"]}>
+                    {days.map((day) => (
+                        <div key={day.index} className={styles["itinerary-item"]}>
                             <div className={styles["itinerary-item__header"]}>
-                                <span className={styles["itinerary-item__day"]}>Day {day.day || `0${idx + 1}`}</span>
+                                <span className={styles["itinerary-item__day"]}>Day {day.dayLabel}</span>
                                 <span className="material-symbols-outlined">
-                                    {idx === 0 ? 'flight_takeoff' : idx === 1 ? 'terrain' : idx === 2 ? 'ac_unit' : 'paragliding'}
+                                    {day.index === 0 ? 'flight_takeoff' : day.index === 1 ? 'terrain' : day.index === 2 ? 'ac_unit' : 'paragliding'}
                                 </span>
                             </div>
                             <h3 className={styles["itinerary-item__title"]}>{day.title}</h3>

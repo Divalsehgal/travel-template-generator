@@ -1,20 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useFormContext, Controller } from "react-hook-form";
 import type { Project } from "../../../../types/project";
 import styles from "./styles.module.scss";
 import ImageUpload from "../../../../components/ImageUpload";
 import { FormInput } from "../../../../components/FormComponents";
 
+const SHORT_TEMPLATES: { value: NonNullable<Project['shortTemplate']>; label: string; icon: string }[] = [
+    { value: "modern", label: "Modern A4 Brochure", icon: "view_quilt" },
+    { value: "wavy", label: "Wavy Adventure", icon: "waves" },
+    { value: "techno", label: "Techno Industrial", icon: "grid_view" },
+];
+
 const TypeStep = () => {
-    const { register, watch, control } = useFormContext<Project>();
+    const { register, watch, control, setValue } = useFormContext<Project>();
     const projectType = watch("projectType");
     const shortTemplate = watch("shortTemplate");
 
-    const templates = [
-        { id: 'modern', name: 'Modern', icon: 'view_quilt' },
-        { id: 'wavy', name: 'Wavy', icon: 'waves' },
-        { id: 'techno', name: 'Techno', icon: 'grid_view' },
-    ];
+    useEffect(() => {
+        if (projectType === "short" && !shortTemplate) {
+            setValue("shortTemplate", "modern", { shouldDirty: false });
+        }
+    }, [projectType, shortTemplate, setValue]);
 
     return (
         <div className={styles["type-step"]}>
@@ -62,26 +68,28 @@ const TypeStep = () => {
 
             {projectType === 'short' && (
                 <div className={styles["type-step__sub-section"]}>
-                    <h3 className={styles["type-step__sub-title"]}>Choose layout style</h3>
+                    <input type="hidden" {...register("shortTemplate")} />
+                    <h3 className={styles["type-step__sub-title"]}>Short layout</h3>
                     <div className={styles["type-step__templates"]}>
-                        {templates.map((tpl) => (
-                            <label key={tpl.id} className={`${styles["type-step__template"]} ${shortTemplate === tpl.id ? styles["type-step__template--active"] : ""}`}>
-                                <input
-                                    type="radio"
-                                    value={tpl.id}
-                                    {...register("shortTemplate")}
-                                    className={styles["type-step__radio"]}
-                                />
+                        {SHORT_TEMPLATES.map((template) => (
+                            <button
+                                type="button"
+                                key={template.value}
+                                className={`${styles["type-step__template"]} ${shortTemplate === template.value ? styles["type-step__template--active"] : ""}`}
+                                onClick={() => setValue("shortTemplate", template.value, { shouldDirty: true })}
+                            >
                                 <div className={styles["type-step__template-card"]}>
                                     <div className={styles["type-step__template-preview"]}>
-                                        <span className="material-symbols-outlined">{tpl.icon}</span>
+                                        <span className="material-symbols-outlined">{template.icon}</span>
                                     </div>
-                                    <div className={styles["type-step__template-check"]}>
-                                        <span className="material-symbols-outlined">check</span>
-                                    </div>
-                                    <h4>{tpl.name}</h4>
+                                    {shortTemplate === template.value && (
+                                        <div className={styles["type-step__template-check"]}>
+                                            <span className="material-symbols-outlined">check</span>
+                                        </div>
+                                    )}
+                                    <h4>{template.label}</h4>
                                 </div>
-                            </label>
+                            </button>
                         ))}
                     </div>
 

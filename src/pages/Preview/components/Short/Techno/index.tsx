@@ -10,6 +10,7 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import styles from "./styles.module.scss";
 import BrandLogo from "../../../../../components/common/BrandLogo";
+import { useNormalizedItinerary } from "../../../../../hooks/useNormalizedItinerary";
 
 
 const getSocialIcon = (platform: string) => {
@@ -39,7 +40,7 @@ interface PreviewTechnoProps {
 }
 
 const PreviewTechno: React.FC<PreviewTechnoProps> = ({ project }) => {
-    const itinerary = project.itinerary ?? [];
+    const itinerary = useNormalizedItinerary(project.itinerary);
     const inclusions = project.inclusions ?? [];
 
     const titleWords = (project.brand.title ?? "").split(" ");
@@ -120,10 +121,10 @@ const PreviewTechno: React.FC<PreviewTechnoProps> = ({ project }) => {
 
                 {/* ── ITINERARY GRID ── */}
                 <main className={styles['techno__main-grid']}>
-                    {itinerary.map((day, idx) => (
-                        <div key={idx} className={styles['techno__day-card']}>
+                    {itinerary.map((day) => (
+                        <div key={day.index} className={styles['techno__day-card']}>
                             <span className={styles['techno__brutal-label']}>
-                                DAY {String(day.day ?? idx + 1).padStart(2, "0")}
+                                DAY {day.dayLabel}
                             </span>
                             <h2 className={styles['techno__day-title']}>
                                 {/* Split title across 2 lines for the brutalist look */}
@@ -131,7 +132,7 @@ const PreviewTechno: React.FC<PreviewTechnoProps> = ({ project }) => {
                                 {day.title.split(" ").slice(1).join(" ")}
                             </h2>
 
-                            {(day.distance || day.time) && (
+                            {day.hasMetrics && (
                                 <div className={styles['techno__day-metrics']}>
                                     {day.distance && <span>{day.distance}</span>}
                                     {(day.distance && day.time) && <span className={styles['techno__metric-divider']}>/</span>}
@@ -142,7 +143,7 @@ const PreviewTechno: React.FC<PreviewTechnoProps> = ({ project }) => {
                                 className={`material-symbols-outlined ${styles['techno__day-icon']}`}
                                 aria-hidden="true"
                             >
-                                {STEP_ICONS[idx % STEP_ICONS.length]}
+                                {STEP_ICONS[day.index % STEP_ICONS.length]}
                             </span>
                         </div>
                     ))}
@@ -152,7 +153,7 @@ const PreviewTechno: React.FC<PreviewTechnoProps> = ({ project }) => {
                         <span className={styles['techno__specs-label']}>{project.shortTemplateSettings?.specsLabel || "SPECS"}</span>
                         <ul className={styles['techno__specs-list']}>
                             {inclusions.slice(0, 3).map((item, idx) => (
-                                <li key={idx}>// {item.title.toUpperCase()}</li>
+                                <li key={idx}>{'// '}{item.title.toUpperCase()}</li>
                             ))}
                         </ul>
                     </div>

@@ -1,5 +1,4 @@
 import React from 'react';
-import * as tokens from '@shiv-bhoomi/design-tokens';
 
 interface BrandLogoProps {
   className?: string;

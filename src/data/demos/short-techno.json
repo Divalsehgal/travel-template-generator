@@ -1,0 +1,134 @@
+{
+  "projectType": "short",
+  "shortTemplate": "techno",
+  "header": {
+    "phone": "+91 88990 22110",
+    "email": "ops@summitgrid.co",
+    "website": "www.summitgrid.co",
+    "subBadge": "GRID EXPEDITION // 2026",
+    "coordinates": "34.1526° N, 77.5771° E",
+    "links": [
+      { "platform": "instagram", "url": "https://instagram.com/summitgrid", "alias": "Instagram" },
+      { "platform": "linkedin", "url": "https://linkedin.com/company/summitgrid", "alias": "LinkedIn" }
+    ]
+  },
+  "brand": {
+    "title": "Summit Grid Expeditions",
+    "subtitle": "Precision Alpine Logistics",
+    "logo": "https://picsum.photos/200/200?random=40",
+    "logoColor": "#111827"
+  },
+  "shortBgImage": "https://picsum.photos/1200/1600?random=41",
+  "hero": {
+    "badge": "High-Altitude Module",
+    "title": "Stok Kangri Base Camp Expedition",
+    "location": "Leh, Ladakh",
+    "locationUrl": "https://maps.app.goo.gl/",
+    "image": "https://picsum.photos/1200/700?random=42",
+    "stats": { "duration": "6 Days / 5 Nights", "altitude": "5,000 meters", "difficulty": "Difficult" },
+    "teamStat": "6 climbers per batch",
+    "expeditionOverview": "6 Days | Technical Module | All-Inclusive",
+    "bookingText": "Visit summitgrid.co/stok-kangri for full spec sheet & booking"
+  },
+  "overview": {
+    "text": "A technical high-altitude module to Stok Kangri base camp, engineered for acclimatization efficiency across Ladakh's cold desert terrain."
+  },
+  "leader": {
+    "name": "Capt. Vikram Rathore (Retd.)",
+    "role": "Expedition Commander",
+    "image": "https://picsum.photos/400/400?random=43",
+    "visible": true
+  },
+  "itinerary": [
+    {
+      "day": "01",
+      "badge": "ACCLIMATIZE",
+      "title": "Leh Arrival & Rest Protocol",
+      "description": "Arrival at Leh, mandatory rest and acclimatization day, briefing on high-altitude protocols.",
+      "distance": "0 km",
+      "time": "REST",
+      "image": "https://picsum.photos/800/500?random=44"
+    },
+    {
+      "day": "02",
+      "badge": "TRANSIT",
+      "title": "Drive to Stok Village & Trek to Base Camp",
+      "description": "Drive to Stok village, begin trek along the Stok stream to base camp.",
+      "distance": "12 km",
+      "time": "5 Hours",
+      "image": "https://picsum.photos/800/500?random=45"
+    },
+    {
+      "day": "03",
+      "badge": "ADVANCE",
+      "title": "Base Camp to Advance Camp",
+      "description": "Move to advance camp with progressive altitude gain, gear check for summit push.",
+      "distance": "5 km",
+      "time": "4 Hours",
+      "image": "https://picsum.photos/800/500?random=46"
+    },
+    {
+      "day": "04",
+      "badge": "SUMMIT",
+      "title": "Summit Push & Return to Base",
+      "description": "Pre-dawn summit attempt, weather-dependent, followed by descent to base camp.",
+      "distance": "15 km",
+      "time": "10 Hours",
+      "image": "https://picsum.photos/800/500?random=47"
+    },
+    {
+      "day": "05",
+      "badge": "BUFFER",
+      "title": "Contingency & Descent to Stok",
+      "description": "Weather buffer day if required, otherwise descent to Stok village.",
+      "distance": "12 km",
+      "time": "5 Hours",
+      "image": "https://picsum.photos/800/500?random=48"
+    },
+    {
+      "day": "06",
+      "badge": "EXIT",
+      "title": "Drive Back to Leh & Departure",
+      "description": "Drive back to Leh for departure or onward connections.",
+      "distance": "18 km",
+      "time": "1 Hour",
+      "image": "https://picsum.photos/800/500?random=49"
+    }
+  ],
+  "inclusions": [
+    { "icon": "hotel", "title": "Camping Modules", "description": "Alpine tents rated for sub-zero conditions." },
+    { "icon": "restaurant", "title": "Ration Support", "description": "High-calorie expedition meals, all days covered." },
+    { "icon": "hiking", "title": "Technical Crew", "description": "Certified high-altitude guides and support staff." },
+    { "icon": "medical_services", "title": "Medical Ops", "description": "Oxygen support, satellite phone and evacuation plan." }
+  ],
+  "thingsToCarry": [
+    { "icon": "hiking", "label": "Insulated mountaineering boots" },
+    { "icon": "ac_unit", "label": "Down jacket (-15°C rated)" },
+    { "icon": "light_mode", "label": "Headlamp + spare batteries" },
+    { "icon": "water_drop", "label": "Insulated water bottle" },
+    { "icon": "medication", "label": "Diamox / personal medication" },
+    { "icon": "backpack", "label": "60-70L expedition rucksack" }
+  ],
+  "shortTemplateSettings": {
+    "teamLabel": "UNIT",
+    "timeLabel": "DURATION",
+    "altitudeLabel": "LVL",
+    "specsLabel": "SPECS",
+    "bookSlotText": "Deploy Now",
+    "websiteText": "Web",
+    "faqLabel": "FAQ",
+    "leaderLabel": "LEADER"
+  },
+  "faqs": [
+    { "question": "Is prior high-altitude experience required?", "answer": "Yes, prior trekking above 4,500m is strongly recommended before attempting this module." },
+    { "question": "What is the summit success rate?", "answer": "Weather-dependent; historical success rate is approximately 70% for acclimatized climbers." },
+    { "question": "Is oxygen support provided?", "answer": "Emergency oxygen is carried by the technical crew for the summit push." }
+  ],
+  "footer": {
+    "title": "Summit Grid Expeditions",
+    "description": "Engineered ascents. Zero margin for error.",
+    "copyright": "© 2026 Summit Grid Expeditions",
+    "slotsText": "6 UNITS / BATCH",
+    "spotText": "Lock Your Slot"
+  }
+}

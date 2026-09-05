@@ -1,5 +1,5 @@
 import { useFormContext, Controller } from "react-hook-form";
-import { FormInput, FormColorPicker } from "../../../../components/FormComponents";
+import { FormInput } from "../../../../components/FormComponents";
 import ImageUpload from "../../../../components/ImageUpload";
 import type { Project } from "../../../../types/project";
 import styles from "./styles.module.scss";

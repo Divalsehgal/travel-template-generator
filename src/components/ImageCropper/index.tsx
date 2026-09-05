@@ -79,7 +79,7 @@ const ImageCropper: React.FC<ImageCropperProps> = ({
         } finally {
             setIsSaving(false);
         }
-    }, [croppedAreaPixels, processedImage, onCropComplete]);
+    }, [croppedAreaPixels, processedImage, format, maxWidth, onCropComplete]);
 
 
     return (

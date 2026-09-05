@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useCallback } from "react";
-import { useForm, useFieldArray, FormProvider } from "react-hook-form";
+import React, { useEffect, useState } from "react";
+import { useForm, FormProvider } from "react-hook-form";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { useProjects } from "../../hooks/useFirestoreProjects";
 import { useProjectLoader } from "../../hooks/useProjectLoader";
@@ -43,6 +43,7 @@ const ProjectForm = () => {
   const methods = useForm<Project>({
     defaultValues: {
       projectType: "long",
+      shortTemplate: "modern",
       header: { phone: "", email: "", website: "", subBadge: "", links: [] },
       brand: { title: "", subtitle: "", logo: "" },
       hero: {
@@ -190,7 +191,8 @@ const ProjectForm = () => {
 
       <div className={styles["form__progress"]}>
         {STEPS.map((step, index) => (
-          <div
+          <button
+            type="button"
             key={step.id}
             className={`${styles["form__progress-step"]} ${index === currentStep ? styles["form__progress-step--active"] : ""
               } ${index < currentStep ? styles["form__progress-step--completed"] : ""}`}
@@ -198,7 +200,7 @@ const ProjectForm = () => {
           >
             <span className="material-symbols-outlined">{step.icon}</span>
             <span className={styles["form__progress-label"]}>{step.title}</span>
-          </div>
+          </button>
         ))}
       </div>
 

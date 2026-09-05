@@ -22,6 +22,8 @@ interface PreviewShortProps {
  *   4. Add a case below
  */
 const PreviewShort = ({ project }: PreviewShortProps) => {
+    const backgroundImage = project.shortBgImage || project.hero?.image;
+
     const renderTemplate = () => {
         switch (project.shortTemplate) {
             case "wavy":
@@ -35,17 +37,15 @@ const PreviewShort = ({ project }: PreviewShortProps) => {
     };
 
     return (
-        <div 
-            style={{ 
-                backgroundColor: 'transparent',
-                backgroundImage: project.shortBgImage ? `url(${project.shortBgImage})` : undefined,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                minHeight: '100%',
-                width: '100%',
-                position: 'relative'
-            }}
-        >
+        <div className="short-preview-page">
+            {backgroundImage && (
+                <img
+                    src={backgroundImage}
+                    alt=""
+                    className="short-preview-page__background"
+                    aria-hidden="true"
+                />
+            )}
             {renderTemplate()}
         </div>
     );

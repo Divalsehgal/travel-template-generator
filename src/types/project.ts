@@ -149,7 +149,8 @@ export interface LeaderData {
  * Single day in the itinerary
  */
 export interface ItineraryDay extends MediaItem, TitledContent {
-  day: string;
+  /** Day number/label as entered by the user; not guaranteed on legacy data. */
+  day?: string;
   images?: string[];
   distance?: string;
   time?: string;

@@ -11,7 +11,7 @@ const PreviewInclusions = ({ inclusions }: PreviewInclusionsProps): React.JSX.El
 
     return (
         <section className={styles["inclusions"]}>
-            <h3 className={styles["section__title"]}>What's Included</h3>
+            <h3 className={styles["section__title"]}>What&apos;s Included</h3>
             <div className={styles["inclusions__grid"]}>
                 {inclusions.map((item, index) => (
                     <div key={index} className={styles["inclusions__item"]}>

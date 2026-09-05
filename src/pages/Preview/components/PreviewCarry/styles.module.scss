@@ -2,7 +2,7 @@
 
 .carry {
   padding: $spacing-4 $spacing-6;
-  background: $color-white;
+  background: var(--long-page-bg, #{$color-white});
 
   &__grid {
     display: grid;
@@ -20,8 +20,8 @@
     justify-content: center;
     text-align: center;
     padding: $spacing-6;
-    background: $color-gray-50;
-    border-radius: $border-radius-xl;
+    background: var(--long-section-bg, #{$color-gray-50});
+    border-radius: var(--long-radius, #{$border-radius-xl});
     border: $border-width-thin solid transparent;
     // PDF optimization: No hover effects, just static clean look
     page-break-inside: avoid;
@@ -32,10 +32,10 @@
       align-items: center;
       justify-content: center;
       font-size: $font-size-5xl;
-      color: $color-primary;
-      background: rgba($color-primary, 0.05);
+      color: var(--long-accent, #{$color-primary});
+      background: color-mix(in srgb, var(--long-accent, #{$color-primary}) 8%, transparent);
       padding: $spacing-4;
-      border-radius: $border-radius-full;
+      border-radius: var(--long-radius, #{$border-radius-full});
       margin-bottom: $spacing-4;
     }
 
@@ -51,5 +51,5 @@
   font-weight: $font-weight-black;
   margin: 0 0 $spacing-8 0;
   text-align: center;
-  color: $color-forest-green;
+  color: var(--long-primary, #{$color-forest-green});
 }

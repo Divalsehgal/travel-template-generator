@@ -2,7 +2,7 @@
 
 .faqs {
     padding: $spacing-4 $spacing-6;
-    background: $color-gray-50;
+    background: var(--long-section-bg, #{$color-gray-50});
 
     &__list {
         display: flex;
@@ -13,8 +13,8 @@
     }
 
     &__item {
-        background: $color-white;
-        border-radius: $border-radius-lg;
+        background: var(--long-card-bg, #{$color-white});
+        border-radius: var(--long-radius, #{$border-radius-lg});
         padding: $spacing-6;
         box-shadow: $shadow-sm;
         transition: all $transition-base;
@@ -31,13 +31,13 @@
         font-weight: $font-weight-bold;
         font-family: $font-family-display;
         margin: 0 0 $spacing-2 0;
-        color: $color-forest-green-dark;
+        color: var(--long-primary-dark, #{$color-forest-green-dark});
     }
 
     &__answer {
         font-size: $font-size-base;
         line-height: $font-line-height-relaxed;
-        color: $color-gray-700;
+        color: var(--long-text, #{$color-gray-700});
         margin: 0;
     }
 }
@@ -48,5 +48,5 @@
     font-weight: $font-weight-black;
     margin: 0 0 $spacing-8 0;
     text-align: center;
-    color: $color-forest-green;
+    color: var(--long-primary, #{$color-forest-green});
 }

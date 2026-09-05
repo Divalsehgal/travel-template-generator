@@ -8,7 +8,7 @@
     width: 100%;
     height: 400px;
     overflow: hidden;
-    border-radius: $border-radius-md;
+    border-radius: var(--long-radius, #{$border-radius-md});
   }
 
   &__grid {
@@ -25,7 +25,7 @@
       img {
         width: 100%;
         height: 100%;
-        border-radius: $border-radius-md;
+        border-radius: var(--long-radius, #{$border-radius-md});
         object-fit: cover;
       }
     }
@@ -55,11 +55,11 @@
     top: $spacing-6;
     left: $spacing-6;
     padding: $spacing-2 $spacing-4;
-    background-color: rgba($color-primary, 0.9);
+    background-color: var(--long-accent, #{$color-primary});
     color: $color-white;
     font-size: $font-size-sm;
     font-weight: $font-weight-semibold;
-    border-radius: $border-radius-full;
+    border-radius: var(--long-radius, #{$border-radius-full});
   }
 
   &__content {
@@ -71,7 +71,7 @@
     font-size: $font-size-5xl;
     font-weight: $font-weight-black;
     margin: 0 0 $spacing-4 0;
-    color: $color-forest-green;
+    color: var(--long-primary, #{$color-forest-green});
   }
 
   &__location {
@@ -82,7 +82,7 @@
     font-weight: $font-weight-semibold;
     margin-bottom: $spacing-6;
     opacity: 0.9;
-    color: $color-charcoal-blue;
+    color: var(--long-text, #{$color-charcoal-blue});
 
     .material-symbols-outlined {
       font-size: 32px;
@@ -102,9 +102,11 @@
     font-size: $font-size-lg;
     font-weight: $font-weight-medium;
     opacity: 0.85;
+    color: var(--long-text, #{$color-stone-gray});
 
     .material-symbols-outlined {
       font-size: 28px;
+      color: var(--long-accent, #{$color-primary});
     }
   }
 }

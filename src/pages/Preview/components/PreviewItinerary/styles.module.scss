@@ -73,7 +73,7 @@
       font-family: $font-family-display;
       font-size: $font-size-5xl; // Slightly smaller to fit top layout better
       font-weight: $font-weight-black;
-      color: $color-forest-green;
+      color: var(--long-primary, #{$color-forest-green});
       line-height: $font-line-height-tight;
     }
 
@@ -96,7 +96,7 @@
     font-weight: $font-weight-bold;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: $color-forest-green;
+    color: var(--long-primary, #{$color-forest-green});
     width: fit-content;
   }
 
@@ -115,12 +115,36 @@
     color: $color-forest-green;
   }
 
+  &__metrics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-2;
+    margin: 0 0 $spacing-3;
+  }
+
+  &__metric {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-1;
+    padding: $spacing-1 $spacing-3;
+    border-radius: $border-radius-full;
+    background: color-mix(in srgb, var(--long-accent, #{$color-primary}) 12%, transparent);
+    color: var(--long-primary, #{$color-forest-green});
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    text-transform: uppercase;
+
+    .material-symbols-outlined {
+      font-size: $font-size-base;
+    }
+  }
+
   &__description {
     font-size: $font-size-lg;
     line-height: $font-line-height-relaxed;
     font-weight: $font-weight-medium;
     margin: 0;
-    color: $color-gray-800;
+    color: var(--long-text, #{$color-gray-800});
   }
 
   &__media {
@@ -136,7 +160,7 @@
     width: 100%;
     height: 300px;
     object-fit: cover;
-    border-radius: $border-radius-xl;
+    border-radius: var(--long-radius, #{$border-radius-xl});
     box-shadow: $shadow-md;
   }
 
@@ -168,7 +192,7 @@
         width: 100%;
         height: calc(50% - #{$spacing-2});
         object-fit: cover;
-        border-radius: $border-radius-lg;
+        border-radius: var(--long-radius, #{$border-radius-lg});
         box-shadow: $shadow-sm;
       }
     }
@@ -183,5 +207,5 @@
   padding-bottom: $spacing-3;
   border-bottom: 2px solid currentColor;
   text-align: center;
-  color: $color-forest-green;
+  color: var(--long-primary, #{$color-forest-green});
 }

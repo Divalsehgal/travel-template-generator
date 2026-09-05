@@ -1,0 +1,120 @@
+{
+  "projectType": "short",
+  "shortTemplate": "wavy",
+  "header": {
+    "phone": "+91 90000 11223",
+    "email": "info@driftandwave.travel",
+    "website": "www.driftandwave.travel",
+    "subBadge": "Coastal Adventure 2026",
+    "coordinates": "15.2993° N, 74.1240° E",
+    "links": [
+      { "platform": "instagram", "url": "https://instagram.com/driftandwave", "alias": "Instagram" },
+      { "platform": "facebook", "url": "https://facebook.com/driftandwave", "alias": "Facebook" },
+      { "platform": "youtube", "url": "https://youtube.com/driftandwave", "alias": "YouTube" }
+    ]
+  },
+  "brand": {
+    "title": "Drift & Wave Expeditions",
+    "subtitle": "Chase the Horizon",
+    "logo": "https://picsum.photos/200/200?random=30",
+    "logoColor": "#0e7490"
+  },
+  "shortBgImage": "https://picsum.photos/1200/1600?random=31",
+  "hero": {
+    "badge": "Coastal Trail",
+    "title": "Gokarna Beach Trek",
+    "location": "Gokarna, Karnataka",
+    "locationUrl": "https://maps.app.goo.gl/",
+    "image": "https://picsum.photos/1200/700?random=32",
+    "stats": { "duration": "4 Days / 3 Nights", "altitude": "Sea Level", "difficulty": "Easy" },
+    "teamStat": "10 travellers per batch",
+    "expeditionOverview": "4 Days | Beach Hopping | All-Inclusive",
+    "bookingText": "Visit driftandwave.travel/gokarna for full details & booking"
+  },
+  "overview": {
+    "text": "An easy coastal trail connecting five secluded beaches along the Gokarna coastline, with cliffside camping, sunset points and warm ocean swims."
+  },
+  "leader": {
+    "name": "Riya Kapoor",
+    "role": "Expedition Lead",
+    "image": "https://picsum.photos/400/400?random=33",
+    "visible": true
+  },
+  "itinerary": [
+    {
+      "day": "01",
+      "badge": "Arrival",
+      "title": "Arrival & Om Beach Sunset",
+      "description": "Check in, settle into camp and catch the sunset at Om Beach.",
+      "distance": "2 km",
+      "time": "1 Hour",
+      "image": "https://picsum.photos/800/500?random=34"
+    },
+    {
+      "day": "02",
+      "badge": "Trail Day",
+      "title": "Coastal Trail to Half Moon & Paradise Beach",
+      "description": "Trek along cliffside trails connecting Half Moon and Paradise beaches, with time to swim and relax.",
+      "distance": "7 km",
+      "time": "4 Hours",
+      "image": "https://picsum.photos/800/500?random=35"
+    },
+    {
+      "day": "03",
+      "badge": "Explore",
+      "title": "Kudle Beach & Local Markets",
+      "description": "Morning yoga session followed by free time to explore Kudle Beach and the Gokarna town markets.",
+      "distance": "3 km",
+      "time": "2 Hours",
+      "image": "https://picsum.photos/800/500?random=36"
+    },
+    {
+      "day": "04",
+      "badge": "Departure",
+      "title": "Sunrise Swim & Departure",
+      "description": "Early morning swim, breakfast, and departure from Gokarna.",
+      "distance": "1 km",
+      "time": "1 Hour",
+      "image": "https://picsum.photos/800/500?random=37"
+    }
+  ],
+  "inclusions": [
+    { "icon": "hotel", "title": "Beach Camping", "description": "Tented stays on the beach, twin sharing." },
+    { "icon": "restaurant", "title": "Meals", "description": "All meals included, local coastal cuisine." },
+    { "icon": "hiking", "title": "Trail Guide", "description": "Local guide for all coastal trail sections." },
+    { "icon": "medical_services", "title": "Safety", "description": "First-aid and lifeguard support at all swim stops." }
+  ],
+  "thingsToCarry": [
+    { "icon": "wb_sunny", "label": "Sunscreen & hat" },
+    { "icon": "checkroom", "label": "Swimwear & quick-dry clothes" },
+    { "icon": "hiking", "label": "Comfortable walking sandals" },
+    { "icon": "water_drop", "label": "Reusable water bottle" },
+    { "icon": "medication", "label": "Personal medication" }
+  ],
+  "shortTemplateSettings": {
+    "teamLabel": "GROUP",
+    "timeLabel": "DURATION",
+    "altitudeLabel": "TERRAIN",
+    "specsLabel": "TRIP DETAILS",
+    "bookSlotText": "Book Your Trail",
+    "websiteText": "Site",
+    "faqLabel": "Good to Know",
+    "leaderLabel": "GUIDE"
+  },
+  "shortThemeVariables": {
+    "--theme-wavy-accent": "#0e7490",
+    "--theme-wavy-secondary": "#f97316",
+    "--theme-wavy-bg": "#fef9ef"
+  },
+  "faqs": [
+    { "question": "Do I need swimming experience?", "answer": "No, but basic water comfort is recommended for the beach-hopping sections." },
+    { "question": "Is this trip family-friendly?", "answer": "Yes, the trail is easy and suitable for most fitness levels, including families with older kids." }
+  ],
+  "footer": {
+    "title": "Drift & Wave Expeditions",
+    "description": "Slow travel along India's most beautiful coastlines.",
+    "copyright": "© 2026 Drift & Wave Expeditions",
+    "slotsText": "LIMITED BATCH",
+    "spotText": "Reserve Your Place"
+  }
+}

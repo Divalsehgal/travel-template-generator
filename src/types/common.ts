@@ -92,11 +92,11 @@ export interface TimestampedContent {
 }
 
 /**
- * Style configuration for a section
+ * Style configuration for a section.
+ * Manual color overrides were removed in favor of token-driven styling;
+ * this is kept as a reserved extension point (an object with no fields).
  */
-export interface SectionStyle {
-    // Manual color overrides removed in favor of token-driven styling
-}
+export type SectionStyle = Record<string, never>;
 
 /**
  * Styles configuration for all sections

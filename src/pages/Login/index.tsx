@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../../hooks/useAuth';
 import styles from './styles.module.scss';
 
 const Login = () => {
@@ -24,11 +24,12 @@ const Login = () => {
     <div className={styles["login"]}>
       <div className={styles["login__container"]}>
         <div className={styles["login__header"]}>
-          <span className={`material-symbols-outlined ${styles["login__icon"]}`}>
+          <span
+            className={`material-symbols-outlined ${styles["login__icon"]}`}
+          >
             landscape
           </span>
-          <h1 className={styles["login__title"]}>Shiv Bhoomi</h1>
-          <p className={styles["login__subtitle"]}>Trek Template Generator</p>
+          <h1 className={styles["login__title"]}>Trip Doc</h1>
         </div>
 
         <div className={styles["login__content"]}>
@@ -44,21 +45,26 @@ const Login = () => {
             </div>
           )}
 
-          <button 
+          <button
             onClick={handleGoogleSignIn}
             disabled={loading}
             className={styles["login__google-btn"]}
           >
             {loading ? (
               <>
-                <span className={`material-symbols-outlined ${styles["login__spinner"]}`}>
+                <span
+                  className={`material-symbols-outlined ${styles["login__spinner"]}`}
+                >
                   progress_activity
                 </span>
                 Signing in...
               </>
             ) : (
               <>
-                <svg className={styles["login__google-icon"]} viewBox="0 0 24 24">
+                <svg
+                  className={styles["login__google-icon"]}
+                  viewBox="0 0 24 24"
+                >
                   <path
                     fill="#4285F4"
                     d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"

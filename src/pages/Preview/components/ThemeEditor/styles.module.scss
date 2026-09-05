@@ -22,42 +22,6 @@
         transform: scale(1.05);
         border-color: $color-white;
     }
-
-    &__palettes {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        margin-bottom: 8px;
-
-        label {
-            font-size: 11px;
-            color: rgba($color-black, 0.5);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            font-weight: $font-weight-bold;
-        }
-    }
-
-    &__palette-list {
-        display: flex;
-        gap: 8px;
-        flex-wrap: wrap;
-    }
-
-    &__palette-btn {
-        width: 28px;
-        height: 28px;
-        border-radius: 50%;
-        border: 2px solid $color-white;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        cursor: pointer;
-        transition: transform 0.2s ease;
-        padding: 0;
-
-        &:hover {
-            transform: scale(1.15);
-        }
-    }
 }
 
 .theme-editor {
@@ -96,6 +60,42 @@
             margin: 0;
             font-size: 14px;
             font-weight: $font-weight-bold;
+        }
+    }
+
+    &__palettes {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 8px;
+
+        &-label {
+            font-size: 11px;
+            color: rgba($color-black, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: $font-weight-bold;
+        }
+    }
+
+    &__palette-list {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    &__palette-btn {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        border: 2px solid $color-white;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        transition: transform 0.2s ease;
+        padding: 0;
+
+        &:hover {
+            transform: scale(1.15);
         }
     }
 

@@ -1,0 +1,135 @@
+{
+  "projectType": "long",
+  "header": {
+    "phone": "+91 86280 49917",
+    "email": "sehgaldival@gmail.com",
+    "website": "www.shivbhoomitravels.com",
+    "subBadge": "Premium Expedition 2026",
+    "rawLabel": "SBT-2026",
+    "coordinates": "32.5548° N, 76.3005° E",
+    "links": [
+      { "platform": "instagram", "url": "https://instagram.com/shivbhoomi", "alias": "Instagram" },
+      { "platform": "facebook", "url": "https://facebook.com/shivbhoomi", "alias": "Facebook" },
+      { "platform": "youtube", "url": "https://youtube.com/shivbhoomi", "alias": "YouTube" },
+      { "platform": "whatsapp", "url": "https://wa.me/918628049917", "alias": "WhatsApp" }
+    ]
+  },
+  "brand": {
+    "title": "Shiv Bhoomi Tour & Travels",
+    "subtitle": "Powered by the Spirit of the Himalayas",
+    "logo": "https://picsum.photos/200/200?random=0",
+    "logoColor": "#1a3c34"
+  },
+  "shortBgImage": "https://picsum.photos/1200/1600?random=99",
+  "hero": {
+    "badge": "Offbeat Himalayan Trek",
+    "title": "Gadasaru Mahadev Trek",
+    "location": "Churah Valley, Chamba District, Himachal Pradesh",
+    "locationUrl": "https://maps.app.goo.gl/",
+    "image": "https://picsum.photos/1200/700?random=1",
+    "images": [
+      "https://picsum.photos/1200/800?random=10",
+      "https://picsum.photos/600/800?random=11",
+      "https://picsum.photos/600/800?random=12"
+    ],
+    "stats": { "duration": "5 Days / 4 Nights", "altitude": "4,000 meters", "difficulty": "Moderate to Difficult" },
+    "teamStat": "12 trekkers per batch",
+    "expeditionOverview": "5 Days | Elite Access | All-Inclusive",
+    "bookingText": "Visit shivbhoomitravels.com/gadasaru for full details & booking"
+  },
+  "overview": {
+    "text": "The Gadasaru Mahadev Trek is a sacred and offbeat Himalayan journey hidden deep within the Churah Valley of Himachal Pradesh. This trail takes you through dense deodar forests, remote mountain villages, cascading streams, and untouched alpine landscapes before reaching the revered Gadasaru Mahadev Temple. Known for its spiritual energy and raw natural beauty, this trek is ideal for trekkers seeking solitude, cultural depth, and a strong connection with nature."
+  },
+  "leader": {
+    "name": "Dival Sehgal",
+    "role": "Trek Leader & Local Guide",
+    "image": "https://picsum.photos/400/400?random=2",
+    "visible": true
+  },
+  "itinerary": [
+    {
+      "day": "01",
+      "badge": "Arrival",
+      "title": "Arrival at Chamba & Drive to Churah Valley",
+      "description": "Arrive at Chamba and begin a scenic drive towards the remote Churah Valley. Meet the trek team, attend a briefing, and prepare for the journey.",
+      "distance": "70 km",
+      "time": "4 Hours",
+      "image": "https://picsum.photos/800/500?random=3",
+      "images": ["https://picsum.photos/800/500?random=13", "https://picsum.photos/800/500?random=14"]
+    },
+    {
+      "day": "02",
+      "badge": "Trek Start",
+      "title": "Forest Trail to Base Camp",
+      "description": "Trek through pine and deodar forests, crossing streams and small villages before reaching base camp.",
+      "distance": "8 km",
+      "time": "5 Hours",
+      "image": "https://picsum.photos/800/500?random=4"
+    },
+    {
+      "day": "03",
+      "badge": "High Camp",
+      "title": "Ascent Above the Tree Line",
+      "description": "Climb steadily into alpine terrain with panoramic valley views. Overnight stay at high camp.",
+      "distance": "6 km",
+      "time": "4 Hours",
+      "image": "https://picsum.photos/800/500?random=5"
+    },
+    {
+      "day": "04",
+      "badge": "Summit Day",
+      "title": "Gadasaru Mahadev Temple Visit",
+      "description": "Early start for the sacred temple visit. Spend time at the shrine and descend to base camp.",
+      "distance": "10 km",
+      "time": "7 Hours",
+      "image": "https://picsum.photos/800/500?random=6"
+    },
+    {
+      "day": "05",
+      "badge": "Return",
+      "title": "Descent & Departure",
+      "description": "Descend through scenic trails and return to Chamba. Trip concludes with farewell lunch.",
+      "distance": "70 km",
+      "time": "5 Hours",
+      "image": "https://picsum.photos/800/500?random=7"
+    }
+  ],
+  "inclusions": [
+    { "icon": "hotel", "title": "Accommodation", "description": "Guesthouse and campsite stays on a sharing basis." },
+    { "icon": "restaurant", "title": "Meals", "description": "Nutritious vegetarian meals during the trek." },
+    { "icon": "hiking", "title": "Trek Support", "description": "Experienced trek leader and local support staff." },
+    { "icon": "medical_services", "title": "Safety & First Aid", "description": "Basic medical kit and safety support." },
+    { "icon": "directions_bus", "title": "Transport", "description": "Chamba to base camp transfers included." }
+  ],
+  "thingsToCarry": [
+    { "icon": "hiking", "label": "High-ankle trekking shoes" },
+    { "icon": "ac_unit", "label": "Warm jacket & thermals" },
+    { "icon": "light_mode", "label": "Headlamp or torch" },
+    { "icon": "water_drop", "label": "Reusable water bottles (2L)" },
+    { "icon": "medication", "label": "Personal medication" },
+    { "icon": "wb_sunny", "label": "Sunscreen & sunglasses" }
+  ],
+  "shortTemplateSettings": {
+    "teamLabel": "TEAM",
+    "timeLabel": "TIME",
+    "altitudeLabel": "ALTITUDE",
+    "specsLabel": "SPECIFICATIONS",
+    "bookSlotText": "Book Your Slot",
+    "websiteText": "Web",
+    "faqLabel": "FAQ",
+    "leaderLabel": "LEADER"
+  },
+  "faqs": [
+    { "question": "Is this trek suitable for beginners?", "answer": "Fit beginners with prior hiking experience can attempt this trek." },
+    { "question": "What is the best time to visit?", "answer": "The best time to visit is from mid-May to June and September to October." },
+    { "question": "Are meals provided on the trek?", "answer": "Yes, all meals including breakfast, lunch, and dinner are provided during the trek." },
+    { "question": "What is the group size?", "answer": "We keep batches small, capped at 12 trekkers, for a safer and more personal experience." }
+  ],
+  "footer": {
+    "title": "Shiv Bhoomi Tour & Travels",
+    "description": "Contact us to begin your journey into the untouched Himalayas.",
+    "copyright": "© 2026 Shiv Bhoomi Tour & Travels",
+    "slotsText": "LIMITED SLOTS",
+    "spotText": "Secure Your Spot Now"
+  }
+}

@@ -103,6 +103,14 @@
     &__template {
         cursor: pointer;
         position: relative;
+        display: block;
+        width: 100%;
+        padding: 0;
+        border: none;
+        background: none;
+        font: inherit;
+        text-align: inherit;
+        color: inherit;
 
         &--active {
             .type-step__template-card {

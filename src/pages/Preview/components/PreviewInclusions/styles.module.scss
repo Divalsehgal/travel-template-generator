@@ -2,7 +2,7 @@
 
 .inclusions {
     padding: $spacing-4 $spacing-6;
-    background: $color-white;
+    background: var(--long-page-bg, #{$color-white});
 
     &__grid {
         display: grid;
@@ -18,8 +18,8 @@
         align-items: center;
         text-align: center;
         padding: $spacing-6;
-        background: $color-gray-50;
-        border-radius: $border-radius-xl;
+        background: var(--long-section-bg, #{$color-gray-50});
+        border-radius: var(--long-radius, #{$border-radius-xl});
         transition: all $transition-base;
         border: $border-width-thin solid transparent;
         break-inside: avoid;
@@ -28,7 +28,7 @@
         &:hover {
             transform: translateY(-4px);
             box-shadow: $shadow-lg;
-            border-color: $color-sunrise-orange; // Use accent color on hover
+            border-color: var(--long-accent, #{$color-sunrise-orange});
         }
 
         .material-symbols-outlined {
@@ -36,10 +36,10 @@
             align-items: center;
             justify-content: center;
             font-size: $font-size-5xl;
-            color: $color-primary;
-            background: rgba($color-primary, 0.05);
+            color: var(--long-accent, #{$color-primary});
+            background: color-mix(in srgb, var(--long-accent, #{$color-primary}) 8%, transparent);
             padding: $spacing-4;
-            border-radius: $border-radius-full;
+            border-radius: var(--long-radius, #{$border-radius-full});
             margin-bottom: $spacing-4;
         }
 
@@ -48,13 +48,13 @@
             font-size: $font-size-xl;
             font-weight: $font-weight-bold;
             margin: 0 0 $spacing-2 0;
-            color: $color-forest-green-dark;
+            color: var(--long-primary-dark, #{$color-forest-green-dark});
         }
 
         p {
             font-size: $font-size-base;
             line-height: $font-line-height-relaxed;
-            color: $color-gray-600;
+            color: var(--long-text, #{$color-gray-600});
             margin: 0;
         }
     }
@@ -66,5 +66,5 @@
     font-weight: $font-weight-black;
     margin: 0 0 $spacing-8 0;
     text-align: center;
-    color: $color-forest-green;
+    color: var(--long-primary, #{$color-forest-green});
 }

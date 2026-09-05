@@ -1,10 +1,30 @@
 // Hook return types and utilities
 
-import type { Project, ProjectCreate } from './project';
+import type { Project, ProjectCreate, ItineraryDay } from './project';
 
 // ============================================================================
 // Project Hook Types
 // ============================================================================
+
+/**
+ * An itinerary day with the per-template rendering fallbacks
+ * (day-number label, resolved image list, metrics presence) already
+ * resolved consistently, so templates don't each reimplement them.
+ */
+export interface NormalizedItineraryDay extends ItineraryDay {
+  index: number;
+  /** Zero-padded day label, e.g. "01" — falls back to position when `day` is unset. */
+  dayLabel: string;
+  images: string[];
+  hasImages: boolean;
+  hasMetrics: boolean;
+}
+
+/**
+ * Named demo datasets available for seeding a new project, one per
+ * project type / short template combination (see src/data/demos/).
+ */
+export type DemoVariant = 'long' | 'short-modern' | 'short-wavy' | 'short-techno';
 
 /**
  * Return type for useProjects hook
@@ -19,7 +39,7 @@ export interface UseProjectsReturn {
   updateProject: (id: string, data: Partial<Project>) => void | Promise<void>;
   deleteProject: (id: string) => void | Promise<void>;
   resetToDefault: () => void | Promise<void>;
-  createDefaultProject?: () => Promise<Project>;
+  createDefaultProject?: (variant?: DemoVariant) => Promise<Project>;
 }
 
 // ============================================================================

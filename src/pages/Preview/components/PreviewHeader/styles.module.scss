@@ -2,7 +2,7 @@
 
 .header {
   padding: $spacing-4 $spacing-6;
-  background: linear-gradient(135deg, $color-forest-green-dark 0%, $color-forest-green 100%);
+  background: linear-gradient(135deg, var(--long-primary-dark, #{$color-forest-green-dark}) 0%, var(--long-primary, #{$color-forest-green}) 100%);
   color: $color-white;
 
   &__content {
@@ -74,9 +74,9 @@
       font-family: $font-family-body;
       font-size: $font-size-base;
       font-weight: $font-weight-medium;
-      color: $color-forest-green-dark;
+      color: var(--long-primary-dark, #{$color-forest-green-dark});
       text-decoration: none;
-      border-radius: $border-radius-full;
+      border-radius: var(--long-radius, #{$border-radius-full});
       padding: $spacing-2 $spacing-5;
       background: $color-white;
       border: $border-width-thin solid rgba($color-white, 0.25);

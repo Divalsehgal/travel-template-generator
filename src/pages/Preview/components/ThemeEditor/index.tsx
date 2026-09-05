@@ -46,6 +46,17 @@ const MODERN_TOKENS: ThemeTokens[] = [
     { name: 'Border Radius', prop: '--theme-radius', defaultVal: '0px', type: 'text' },
 ];
 
+const LONG_TOKENS: ThemeTokens[] = [
+    { name: 'Primary Color', prop: '--long-primary', defaultVal: '#2F5D50', type: 'color' },
+    { name: 'Primary Dark', prop: '--long-primary-dark', defaultVal: '#1F463B', type: 'color' },
+    { name: 'Accent Color', prop: '--long-accent', defaultVal: '#F47B20', type: 'color' },
+    { name: 'Page Background', prop: '--long-page-bg', defaultVal: '#ffffff', type: 'color' },
+    { name: 'Section Background', prop: '--long-section-bg', defaultVal: '#F8FAF8', type: 'color' },
+    { name: 'Card Background', prop: '--long-card-bg', defaultVal: '#ffffff', type: 'color' },
+    { name: 'Body Text', prop: '--long-text', defaultVal: '#4B5563', type: 'color' },
+    { name: 'Border Radius', prop: '--long-radius', defaultVal: '12px', type: 'text' },
+];
+
 interface ThemeEditorProps {
     project: Project;
     onSave?: (updates: Partial<Project>) => Promise<void>;
@@ -56,7 +67,9 @@ export const ThemeEditor: React.FC<ThemeEditorProps> = ({ project, onSave }) => 
     const [isSaving, setIsSaving] = useState(false);
     const [values, setValues] = useState<Record<string, string>>({});
 
-    const activeTokens = project.shortTemplate === 'wavy' 
+    const activeTokens = project.projectType === 'long'
+        ? LONG_TOKENS
+        : project.shortTemplate === 'wavy' 
         ? WAVY_TOKENS 
         : project.shortTemplate === 'modern'
             ? MODERN_TOKENS
@@ -141,7 +154,7 @@ export const ThemeEditor: React.FC<ThemeEditorProps> = ({ project, onSave }) => 
             <div className={styles['theme-editor__content']}>
                 {project.shortTemplate === 'wavy' && (
                     <div className={styles['theme-editor__palettes']}>
-                        <label>Presets</label>
+                        <span className={styles['theme-editor__palettes-label']}>Presets</span>
                         <div className={styles['theme-editor__palette-list']}>
                             {WAVY_PALETTES.map(p => (
                                 <button 

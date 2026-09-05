@@ -1,6 +1,16 @@
-import { TextField, MenuItem } from '@mui/material';
+import { TextField } from '@mui/material';
+import type { UseFormRegisterReturn, FieldError } from 'react-hook-form';
 import styles from './styles.module.scss';
-import * as tokens from '@shiv-bhoomi/design-tokens';
+
+interface FormFieldBaseProps {
+  label?: string;
+  register: UseFormRegisterReturn;
+  error?: FieldError;
+  placeholder?: string;
+  // Remaining props are forwarded to the underlying MUI field.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any;
+}
 
 export function FormGroup({ label, error, required, children }: {
   label?: string;
@@ -33,7 +43,7 @@ export function FormRow({ children, columns = 3 }: { children: React.ReactNode; 
   );
 }
 
-export function FormInput({ label, register, error, placeholder, type = "text", ...rest }: { label?: string; register: any; error?: any; placeholder?: string; type?: string;[key: string]: any }) {
+export function FormInput({ label, register, error, placeholder, type = "text", ...rest }: FormFieldBaseProps & { type?: string }) {
   return (
     <div className={styles.group}>
       <TextField
@@ -52,7 +62,7 @@ export function FormInput({ label, register, error, placeholder, type = "text", 
   );
 }
 
-export function FormTextarea({ label, register, error, placeholder, rows = 4, ...rest }: { label?: string; register: any; error?: any; placeholder?: string; rows?: number;[key: string]: any }) {
+export function FormTextarea({ label, register, error, placeholder, rows = 4, ...rest }: FormFieldBaseProps & { rows?: number }) {
   return (
     <div className={styles.group}>
       <TextField
@@ -71,7 +81,7 @@ export function FormTextarea({ label, register, error, placeholder, rows = 4, ..
   );
 }
 
-export function FormSelect({ label, register, error, options, placeholder, ...rest }: { label?: string; register: any; error?: any; options: any[]; placeholder?: string;[key: string]: any }) {
+export function FormSelect({ label, register, error, options, placeholder, ...rest }: FormFieldBaseProps & { options: { value: string; label: string }[] }) {
   return (
     <div className={styles.group}>
       <TextField
@@ -110,7 +120,7 @@ export function FormSelect({ label, register, error, options, placeholder, ...re
   );
 }
 
-export function FormColorPicker({ label, register, error, ...rest }: { label?: string; register: any; error?: any;[key: string]: any }) {
+export function FormColorPicker({ label, register, error, ...rest }: FormFieldBaseProps) {
   return (
     <div className={styles.group}>
       {label && <label className={styles.group__label}>{label}</label>}

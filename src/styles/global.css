@@ -8,3 +8,64 @@ body {
     margin: 0;
     padding: 0;
 }
+
+.short-preview-page {
+    position: relative;
+    width: 210mm;
+    min-height: 297mm;
+    overflow: hidden;
+    background: #1f2a22;
+    isolation: isolate;
+}
+
+.short-preview-page__background {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 297mm;
+    object-fit: cover;
+    object-position: center;
+}
+
+.short-preview-page::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+        linear-gradient(180deg, rgba(10, 18, 12, 0.36), rgba(10, 18, 12, 0.62)),
+        radial-gradient(circle at 50% 8%, rgba(255, 255, 255, 0.16), transparent 36%);
+    pointer-events: none;
+}
+
+.short-preview-page > :not(.short-preview-page__background) {
+    position: relative;
+    z-index: 2;
+}
+
+@media screen and (max-width: 210mm) {
+    .short-preview-page {
+        width: 100%;
+        min-height: 100vh;
+    }
+}
+
+@media print {
+    html,
+    body,
+    #root {
+        width: 210mm;
+        min-height: 297mm;
+    }
+
+    .short-preview-page {
+        width: 210mm;
+        min-height: 297mm;
+        break-after: avoid;
+        page-break-after: avoid;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}

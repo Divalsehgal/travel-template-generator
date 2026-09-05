@@ -3,22 +3,6 @@ import type { Project } from "../../../../../../types/project";
 import BrandLogo from "../../../../../../components/common/BrandLogo";
 
 export const ShortHeader = ({ project, styles }: { project: Project, styles: Record<string, string> }) => {
-    const words = project.brand.title ? project.brand.title.split(' ') : [];
-    const hasMultipleWords = words.length > 2;
-
-    const renderTitle = () => {
-        if (!hasMultipleWords) return project.brand.title;
-
-        return (
-            <>
-                {words.slice(0, 2).join(' ')}<br className={styles["header__title--br"]} />
-                <span className={styles["header__title--accent"]}>
-                    {words.slice(2).join(' ')}
-                </span>
-            </>
-        );
-    };
-
     return (
         <header className={styles["header"]}>
             <div className={styles["header__content"]}>
@@ -33,14 +17,16 @@ export const ShortHeader = ({ project, styles }: { project: Project, styles: Rec
                             <span className={`material-symbols-outlined ${styles["header__logo-icon"]}`}>landscape</span>
                         )}
                     </div>
-                    <div className={styles["header__copyright"]}>
-                        {project.footer.copyright || "Summit Collective © 2024"}
-                    </div>
+                    {project.brand.title && (
+                        <div className={styles["header__company"]}>{project.brand.title}</div>
+                    )}
 
                     {project.header.subBadge && <div className={styles["header__raw-label"]}>{project.header.subBadge}</div>}
                     {!project.header.subBadge && project.header.rawLabel && <div className={styles["header__raw-label"]}>{project.header.rawLabel}</div>}
-                    <h1 className={styles["header__title"]}>{renderTitle()}</h1>
-                    <div className={styles["header__subtitle"]}>{project.brand.subtitle}</div>
+                    <h1 className={styles["header__title"]}>{project.hero.title || "Trek Itinerary"}</h1>
+                    {project.brand.subtitle && (
+                        <div className={styles["header__subtitle"]}>{project.brand.subtitle}</div>
+                    )}
                     {project.header.coordinates && <div className={styles["header__coords"]}>{project.header.coordinates}</div>}
                 </div>
                 <div className={styles["header__contact"]}>

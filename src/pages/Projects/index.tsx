@@ -1,8 +1,16 @@
 import { Link } from 'react-router-dom';
 import { useProjects } from '../../hooks/useFirestoreProjects';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../../hooks/useAuth';
 import ProjectCard from '../../components/ProjectCard/index.tsx';
 import styles from './styles.module.scss';
+import type { DemoVariant } from '../../types/hooks';
+
+const SAMPLE_OPTIONS: { variant: DemoVariant; label: string }[] = [
+  { variant: 'long', label: 'Long Brochure' },
+  { variant: 'short-modern', label: 'Short — Modern' },
+  { variant: 'short-wavy', label: 'Short — Wavy' },
+  { variant: 'short-techno', label: 'Short — Techno' },
+];
 
 export default function Projects() {
   const { projects, loading, deleteProject, createDefaultProject } = useProjects();
@@ -16,10 +24,10 @@ export default function Projects() {
     }
   };
 
-  const handleCreateSample = async (): Promise<void> => {
+  const handleCreateSample = async (variant: DemoVariant): Promise<void> => {
     if (createDefaultProject) {
       try {
-        await createDefaultProject();
+        await createDefaultProject(variant);
       } catch (error) {
         console.error('Error creating sample project:', error);
       }
@@ -122,13 +130,22 @@ export default function Projects() {
                 >
                   Create Project
                 </Link>
-                <button
-                  onClick={handleCreateSample}
-                  className={styles['projects__cta--secondary']}
-                >
-                  <span className="material-symbols-outlined">content_copy</span>
-                  Create Sample Project
-                </button>
+              </div>
+              <div className={styles['projects__sample-group']}>
+                <span className={styles['projects__sample-label']}>Or start from a sample:</span>
+                <div className={styles['projects__sample-buttons']}>
+                  {SAMPLE_OPTIONS.map(({ variant, label }) => (
+                    <button
+                      key={variant}
+                      type="button"
+                      onClick={() => handleCreateSample(variant)}
+                      className={styles['projects__sample-btn']}
+                    >
+                      <span className="material-symbols-outlined">content_copy</span>
+                      {label}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
           ) : (

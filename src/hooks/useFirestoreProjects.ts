@@ -13,10 +13,20 @@ import {
   Timestamp
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
-import { useAuth } from '../contexts/AuthContext';
-import defaultContent from '../data/content.json';
+import { useAuth } from './useAuth';
+import longDemo from '../data/demos/long.json';
+import shortModernDemo from '../data/demos/short-modern.json';
+import shortWavyDemo from '../data/demos/short-wavy.json';
+import shortTechnoDemo from '../data/demos/short-techno.json';
 import type { Project, ProjectCreate } from '../types/project';
-import type { UseProjectsReturn } from '../types/hooks';
+import type { UseProjectsReturn, DemoVariant } from '../types/hooks';
+
+const DEMO_CONTENT: Record<DemoVariant, unknown> = {
+  long: longDemo,
+  'short-modern': shortModernDemo,
+  'short-wavy': shortWavyDemo,
+  'short-techno': shortTechnoDemo,
+};
 
 // Helper to remove any undefined keys from an object recursively
 const removeUndefinedValues = (obj: any): any => {
@@ -195,10 +205,10 @@ export const useProjects = (): UseProjectsReturn => {
     setProjects(prev => prev.filter(p => p.id !== id));
   }, [user]);
 
-  // Create default project for new users
-  const createDefaultProject = useCallback(async (): Promise<Project> => {
-    // Remove id, createdAt, updatedAt from default content as Firestore will generate these
-    const { id, createdAt, updatedAt, ...projectData } = defaultContent as any;
+  // Create a sample project from a demo dataset for new users
+  const createDefaultProject = useCallback(async (variant: DemoVariant = 'long'): Promise<Project> => {
+    // Remove id, createdAt, updatedAt from demo content as Firestore will generate these
+    const { id: _id, createdAt: _createdAt, updatedAt: _updatedAt, ...projectData } = DEMO_CONTENT[variant] as any;
     return await addProject(projectData as ProjectCreate);
   }, [addProject]);
 
